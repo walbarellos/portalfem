@@ -1,0 +1,86 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { directus, safeRequest, readItem, getEditais } from '../../lib/directus';
+import type { Edital } from '../../schemas/directus';
+
+export async function getStaticPaths() {
+  const editais = await getEditais();
+  return editais.map((e: Edital) => ({
+    params: { id: String(e.id) },
+    props: { edital: e },
+  }));
+}
+
+const { id } = Astro.params;
+const edital = await safeRequest(
+  directus.request(readItem('editais', Number(id), {
+    fields: ['*', { categoria: ['id', 'nome', 'slug'] }],
+  })),
+  null
+);
+
+if (!edital) return Astro.redirect('/404');
+
+function statusConfig(label: string) {
+  switch (label) {
+    case 'aberto': return { bg: 'bg-primary-container', text: 'text-on-primary-container', label: 'Aberto' };
+    case 'encerrado': return { bg: 'bg-error-container', text: 'text-on-error-container', label: 'Encerrado' };
+    case 'breve': return { bg: 'bg-secondary-container', text: 'text-on-secondary-container', label: 'Em Breve' };
+    default: return { bg: 'bg-surface-container', text: 'text-on-surface-variant', label: label };
+  }
+}
+
+const sc = statusConfig(edital.status_label);
+const categoria = edital.categoria && typeof edital.categoria === 'object' ? edital.categoria : null;
+---
+
+<Layout title={edital.titulo} description={edital.resumo?.slice(0, 160)}>
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+    <Breadcrumbs items={[
+      { label: 'Editais', href: '/editais' },
+      { label: edital.titulo },
+    ]} />
+
+    <article class="max-w-3xl mx-auto">
+      <header class="mb-8">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          {categoria && (
+            <span class="font-sans text-label-md text-secondary bg-secondary-container/30 px-2.5 py-0.5 rounded-full">{categoria.nome}</span>
+          )}
+          <span class={`px-3 py-1 ${sc.bg} ${sc.text} rounded-full font-sans text-[12px] uppercase tracking-wider font-semibold`}>
+            {sc.label}
+          </span>
+        </div>
+
+        <h1 class="font-display text-display-lg text-on-surface leading-tight">{edital.titulo}</h1>
+        <p class="font-sans text-label-md text-on-surface-variant mt-2">Edital nº {edital.numero}</p>
+
+        <div class="flex flex-wrap gap-6 mt-6">
+          <div>
+            <span class="font-sans text-label-md text-on-surface-variant">Abertura</span>
+            <p class="font-sans text-body-md text-on-surface font-medium">{new Date(edital.data_abertura).toLocaleDateString('pt-BR')}</p>
+          </div>
+          <div>
+            <span class="font-sans text-label-md text-on-surface-variant">Encerramento</span>
+            <p class="font-sans text-body-md text-on-surface font-medium">{new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}</p>
+          </div>
+        </div>
+      </header>
+
+      {edital.resumo && (
+        <div class="prose prose-green max-w-none mb-8">
+          <p>{edital.resumo}</p>
+        </div>
+      )}
+
+      {edital.link_pdf && (
+        <a href={edital.link_pdf} target="_blank" rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg font-sans text-label-md hover:scale-[1.02] hover:bg-primary/90 transition-all shadow-sm">
+          <span class="material-symbols-outlined text-[18px]">download</span>
+          Baixar Edital (PDF)
+        </a>
+      )}
+    </article>
+  </div>
+</Layout>

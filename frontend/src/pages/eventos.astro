@@ -1,0 +1,114 @@
+---
+export const prerender = false;
+
+import Layout from '../layouts/Layout.astro';
+import CardEvento from '../components/CardEvento.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { safeRequest, directus, readItems } from '../lib/directus';
+
+const eventos = await safeRequest(
+  directus.request(readItems('eventos', {
+    filter: { status: { _eq: 'published' } },
+    sort: ['-data_inicio'],
+    fields: ['id', 'titulo', 'descricao', 'data_inicio', 'data_fim', 'local', 'imagem_capa', 'categoria', 'destaque', 'horario', 'gratuito'],
+  })),
+  []
+);
+
+const activeCategoria = Astro.url.searchParams.get('categoria') || 'todas';
+const activeView = Astro.url.searchParams.get('view') || 'lista';
+
+const filtered = activeCategoria === 'todas'
+  ? eventos
+  : eventos.filter((e) => e.categoria === activeCategoria);
+
+function groupByMonth(items: typeof eventos): Map<string, typeof eventos> {
+  const groups = new Map<string, typeof eventos>();
+  for (const e of items) {
+    const d = new Date(e.data_inicio);
+    const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+    if (!groups.has(key)) groups.set(key, []);
+    groups.get(key)!.push(e);
+  }
+  return groups;
+}
+
+function monthLabel(key: string): string {
+  const [year, month] = key.split('-');
+  const d = new Date(Number(year), Number(month) - 1);
+  return d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
+}
+
+const categorias = [
+  { value: 'todas', label: 'Todos' },
+  { value: 'musica', label: 'Música' },
+  { value: 'teatro', label: 'Teatro' },
+  { value: 'artes_visuais', label: 'Artes Visuais' },
+  { value: 'literatura', label: 'Literatura' },
+];
+---
+
+<Layout title="Eventos" description="Agenda cultural da Fundação de Cultura Elias Mansour - Eventos, exposições e apresentações no Acre">
+  <div class="pt-24">
+    <div class="max-w-container-max-width mx-auto px-gutter md:px-gutter mt-section-gap mb-section-gap">
+      <Breadcrumbs items={[{ label: 'Eventos' }]} />
+
+      <div class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+        <div>
+          <h1 class="font-display-lg text-display-lg text-primary mb-4">Agenda Cultural</h1>
+          <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Descubra e participe dos eventos que movimentam a cultura do nosso estado. Programação atualizada de teatros, museus e espaços públicos.</p>
+        </div>
+        <div class="flex bg-surface-container-high rounded-full p-1 self-start md:self-end">
+          <a href={activeCategoria === 'todas' ? '?view=lista' : `?categoria=${activeCategoria}&view=lista`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'lista' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
+            <span class="material-symbols-outlined text-[18px]">view_list</span>
+            Lista
+          </a>
+          <a href={activeCategoria === 'todas' ? '?view=mes' : `?categoria=${activeCategoria}&view=mes`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'mes' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
+            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+            Mês
+          </a>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap gap-3 mb-12">
+        {categorias.map((cat) => {
+          const isActive = cat.value === activeCategoria;
+          const href = cat.value === 'todas' ? '/eventos' : `?categoria=${cat.value}`;
+          return isActive ? (
+            <span class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md border border-primary/20 cursor-default">{cat.label}</span>
+          ) : (
+            <a href={href} class="px-4 py-2 rounded-full bg-surface-container text-on-surface-variant font-label-md text-label-md border border-outline-variant/50 hover:border-primary/50 transition-colors">{cat.label}</a>
+          );
+        })}
+      </div>
+
+      {filtered.length > 0 ? (
+        activeView === 'mes' ? (
+          <div class="flex flex-col gap-12">
+            {Array.from(groupByMonth(filtered).entries()).map(([key, events]) => (
+              <section>
+                <h2 class="font-headline-md text-headline-md text-primary mb-6 capitalize">{monthLabel(key)}</h2>
+                <div class="flex flex-col gap-6">
+                  {events.map((evento) => <CardEvento evento={evento} />)}
+                </div>
+              </section>
+            ))}
+          </div>
+        ) : (
+          <div class="flex flex-col gap-6">
+            {filtered.map((evento) => <CardEvento evento={evento} />)}
+          </div>
+        )
+      ) : (
+        <div class="text-center py-16">
+          <span class="material-symbols-outlined text-4xl text-outline">event_busy</span>
+          <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum evento encontrado.</p>
+        </div>
+      )}
+
+      <div class="mt-12 flex justify-center">
+        <a href="/eventos" class="px-8 py-3 rounded-full border-2 border-primary text-primary font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all">Carregar Mais Eventos</a>
+      </div>
+    </div>
+  </div>
+</Layout>

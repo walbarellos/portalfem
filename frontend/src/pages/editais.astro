@@ -1,0 +1,169 @@
+---
+export const prerender = false;
+
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { safeRequest, directus, readItems } from '../lib/directus';
+
+const editais = await safeRequest(
+  directus.request(readItems('editais', {
+    filter: { status: { _eq: 'published' } },
+    sort: ['-data_abertura'],
+    fields: ['*', { categoria: ['id', 'nome', 'slug'] }],
+  })),
+  []
+);
+
+const categorias = await safeRequest(
+  directus.request(readItems('categorias_editais', {
+    fields: ['id', 'nome', 'slug'],
+  })),
+  []
+);
+
+const activeFiltro = Astro.url.searchParams.get('status') || 'todos';
+const filtered = activeFiltro === 'todos'
+  ? editais
+  : editais.filter((e) => e.status_label === activeFiltro);
+
+const statusLabels: Record<string, string> = { todos: 'Todos', aberto: 'Abertos', breve: 'Em Análise', encerrado: 'Encerrados' };
+const statusColors: Record<string, string> = { aberto: 'bg-primary', breve: 'bg-secondary', encerrado: 'bg-outline' };
+
+const abertos = filtered.filter((e) => e.status_label === 'aberto');
+const analise = filtered.filter((e) => e.status_label === 'breve');
+const encerrados = filtered.filter((e) => e.status_label === 'encerrado');
+
+function statusConfig(label: string) {
+  switch (label) {
+    case 'aberto': return { bg: 'bg-primary-container', text: 'text-on-primary-container', label: 'Aberto', bar: 'bg-primary' };
+    case 'breve': return { bg: 'bg-secondary-container', text: 'text-on-secondary-container', label: 'Em Análise', bar: 'bg-secondary' };
+    case 'encerrado': return { bg: 'bg-surface-container-highest', text: 'text-on-surface-variant', label: 'Encerrado', bar: 'bg-outline' };
+    default: return { bg: 'bg-surface-container', text: 'text-on-surface-variant', label: label, bar: 'bg-outline' };
+  }
+}
+---
+
+<Layout title="Editais" description="Editais, chamamentos e oportunidades de financiamento cultural da Fundação de Cultura Elias Mansour">
+  <div class="pt-24">
+    <section class="max-w-container-max-width mx-auto px-gutter pt-8 pb-16">
+      <Breadcrumbs items={[{ label: 'Editais' }]} />
+      <div class="max-w-3xl mt-4">
+        <h1 class="font-display-lg text-display-lg text-on-surface mb-6">Oportunidades para a Cultura</h1>
+        <p class="font-body-lg text-body-lg text-on-surface-variant">
+          Portal do Artista. Encontre chamamentos públicos, editais de fomento e oportunidades de financiamento para seus projetos culturais no Estado.
+        </p>
+      </div>
+    </section>
+
+    <section class="max-w-container-max-width mx-auto px-gutter pb-section-gap grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <aside class="lg:col-span-3 flex flex-col gap-8">
+        <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/50">
+          <h3 class="font-headline-md text-headline-md text-on-surface mb-6">Programas</h3>
+          <ul class="flex flex-col gap-2">
+            {categorias.length > 0 ? categorias.map((cat) => (
+              <li>
+                <button class="w-full text-left px-4 py-3 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-colors flex items-center justify-between group">
+                  {cat.nome}
+                  <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+                </button>
+              </li>
+            )) : (
+              <li class="px-4 py-3 text-on-surface-variant font-body-md text-body-md">Nenhum programa cadastrado.</li>
+            )}
+          </ul>
+        </div>
+      </aside>
+
+      <div class="lg:col-span-9 flex flex-col gap-6">
+        <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/50">
+          <div class="relative w-full md:w-96">
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <input
+              class="w-full pl-10 pr-4 py-3 rounded-lg border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary bg-surface font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 transition-all"
+              placeholder="Buscar edital, número ou palavra-chave..."
+              type="text"
+            />
+          </div>
+          <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
+            {['todos', 'aberto', 'breve', 'encerrado'].map((f) => {
+              const isActive = activeFiltro === f;
+              const href = f === 'todos' ? '/editais' : `?status=${f}`;
+              return isActive ? (
+                <span class={`shrink-0 px-4 py-2 rounded-full border border-primary text-primary font-label-md text-label-md bg-surface flex items-center gap-2 cursor-default`}>
+                  {f !== 'todos' && <span class={`w-2 h-2 rounded-full ${statusColors[f] || 'bg-outline'}`}></span>}
+                  {statusLabels[f] || f}
+                </span>
+              ) : (
+                <a href={href} class={`shrink-0 px-4 py-2 rounded-full border border-outline-variant text-on-surface-variant font-label-md text-label-md hover:bg-surface-container transition-colors flex items-center gap-2`}>
+                  {f !== 'todos' && <span class={`w-2 h-2 rounded-full ${statusColors[f] || 'bg-outline'}`}></span>}
+                  {statusLabels[f] || f}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+
+        {editais.length > 0 ? (
+          <div class="flex flex-col gap-4">
+            {filtered.map((edital) => {
+              const sc = statusConfig(edital.status_label);
+              const catObj = typeof edital.categoria === 'object' && edital.categoria ? edital.categoria : null;
+              const catNome = catObj ? (catObj as { nome: string }).nome : null;
+              const isEncerrado = edital.status_label === 'encerrado';
+              return (
+                <article class={`bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start relative group ${isEncerrado ? 'opacity-80' : ''}`}>
+                  <div class={`absolute left-0 top-6 bottom-6 w-1 ${sc.bar} rounded-r-full ${isEncerrado ? 'opacity-40' : ''}`}></div>
+                  <div class="flex-1 flex flex-col gap-3">
+                    <div class="flex flex-wrap items-center gap-3">
+                      <span class={`px-3 py-1 ${sc.bg} ${sc.text} rounded-full font-label-md text-[12px] uppercase tracking-wider`}>{sc.label}</span>
+                      <span class="font-label-md text-label-md text-on-surface-variant">{edital.status_label === 'aberto' ? 'Edital' : 'Chamamento'} Nº {edital.numero}</span>
+                      {catNome && <span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded-md font-label-md text-[12px]">{catNome}</span>}
+                    </div>
+                    <a href={`/editais/${edital.id}`}>
+                      <h2 class="font-headline-lg-mobile md:font-headline-md text-headline-lg-mobile md:text-headline-md text-on-surface group-hover:text-primary transition-colors">{edital.titulo}</h2>
+                    </a>
+                    {edital.resumo && (
+                      <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 max-w-3xl">{edital.resumo}</p>
+                    )}
+                    <div class="flex flex-wrap items-center gap-6 mt-2 text-on-surface-variant font-label-md text-label-md">
+                      <div class="flex items-center gap-2">
+                        <span class="material-symbols-outlined text-xl">calendar_today</span>
+                        <span>Inscrições: {new Date(edital.data_abertura).toLocaleDateString('pt-BR')} a {new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="w-full md:w-auto flex md:flex-col gap-3 justify-end shrink-0 md:pl-6 md:border-l md:border-outline-variant/30">
+                    {edital.status_label === 'aberto' ? (
+                      <>
+                        <a href={`/editais/${edital.id}`} class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg font-label-md text-label-md hover:scale-[1.02] hover:bg-primary/90 transition-all shadow-sm">
+                          <span class="material-symbols-outlined">edit_document</span>
+                          Inscrever-se
+                        </a>
+                        {edital.link_pdf && (
+                          <a href={edital.link_pdf} target="_blank" rel="noopener noreferrer" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-surface text-secondary border border-secondary/30 px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
+                            <span class="material-symbols-outlined">download</span>
+                            Edital PDF
+                          </a>
+                        )}
+                      </>
+                    ) : (
+                      <a href={`/editais/${edital.id}`} class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-surface text-secondary border border-secondary/30 px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
+                        <span class="material-symbols-outlined">visibility</span>
+                        Ver Resultados
+                      </a>
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        ) : (
+          <div class="text-center py-16">
+            <span class="material-symbols-outlined text-4xl text-outline">description</span>
+            <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum edital encontrado.</p>
+          </div>
+        )}
+      </div>
+    </section>
+  </div>
+</Layout>

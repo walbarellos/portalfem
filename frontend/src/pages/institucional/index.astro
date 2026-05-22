@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { getAllPaginasInstitucionais } from '../../lib/directus';
+
+const paginas = await getAllPaginasInstitucionais();
+const primeira = paginas.length > 0 ? paginas[0] : null;
+---
+
+<Layout title="Institucional" description="A Fundação de Cultura Elias Mansour - FEM, Governo do Estado do Acre">
+  <div class="max-w-container-max-width mx-auto w-full px-gutter md:px-0 py-12">
+    <div class="md:px-gutter mb-12">
+      <Breadcrumbs items={[{ label: 'Institucional' }]} />
+      <h1 class="font-display-lg text-display-lg text-primary mb-4 mt-4">A Instituição</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A Fundação Elias Mansour (FEM) é a instituição responsável por formular, executar e fomentar políticas públicas culturais no Estado do Acre, promovendo a diversidade e o patrimônio histórico.</p>
+    </div>
+
+    <div class="flex flex-col md:flex-row gap-gutter">
+      <aside class="w-full md:w-64 shrink-0 md:pl-gutter">
+        <div class="sticky top-[120px] bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-6 shadow-sm">
+          <h3 class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Menu Institucional</h3>
+          <ul class="flex flex-col gap-2">
+            {paginas.map((p) => (
+              <li>
+                <a
+                  href={`/institucional/${p.slug}`}
+                  class="block px-4 py-3 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors font-label-md text-label-md"
+                >
+                  {p.titulo}
+                </a>
+              </li>
+            ))}
+          </ul>
+          {primeira && (
+            <div class="mt-6 pt-6 border-t border-outline-variant/30">
+              <a href={`/institucional/${primeira.slug}`} class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary px-4 py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-all">
+                {primeira.titulo}
+                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              </a>
+            </div>
+          )}
+        </div>
+      </aside>
+
+      <div class="flex-grow md:pr-gutter space-y-16">
+        <section>
+          <div class="w-full h-[400px] md:h-[500px] rounded-[24px] overflow-hidden relative shadow-sm border border-outline-variant/20 bg-gradient-to-br from-primary/5 to-primary-container/20 flex items-center justify-center">
+            <div class="text-center p-12">
+              <span class="material-symbols-outlined text-7xl text-primary/20">account_balance</span>
+              <h2 class="font-headline-lg text-headline-lg text-primary mt-6">Fundação de Cultura Elias Mansour</h2>
+              <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl mt-4">Promovendo a diversidade e o patrimônio cultural do Acre desde 1988.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-headline-md text-headline-md text-primary mb-6 border-b border-outline-variant/30 pb-4">Nossa Essência</h2>
+          <div class="font-body-lg text-body-lg text-on-surface space-y-6">
+            <p>Criada com o propósito de salvaguardar e impulsionar a produção cultural acreana, a Fundação Elias Mansour atua como um pilar essencial na construção da identidade regional. Nossa atuação se estende desde a capital, Rio Branco, até os municípios mais distantes, garantindo o acesso democrático à arte e à cultura.</p>
+          </div>
+        </section>
+
+        <section>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
+              <span class="material-symbols-outlined text-primary mb-4 text-4xl">visibility</span>
+              <h4 class="font-headline-md text-headline-md text-primary mb-3 text-xl">Visão</h4>
+              <p class="font-body-md text-body-md text-on-surface-variant">Ser referência nacional na gestão de políticas culturais, reconhecida pela excelência na valorização da diversidade, na preservação da memória e no estímulo à economia criativa da Amazônia.</p>
+            </div>
+            <div class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
+              <span class="material-symbols-outlined text-primary mb-4 text-4xl">flag</span>
+              <h4 class="font-headline-md text-headline-md text-primary mb-3 text-xl">Missão</h4>
+              <p class="font-body-md text-body-md text-on-surface-variant">Fomentar, proteger e difundir as manifestações culturais, promovendo a cidadania, a inclusão social e o desenvolvimento sustentável por meio da arte e do patrimônio cultural acreano.</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="font-headline-md text-headline-md text-primary mb-8">Áreas de Atuação</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px]">
+            <div class="md:col-span-2 md:row-span-1 bg-surface-container rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
+              <div class="relative z-10 flex flex-col h-full justify-between">
+                <span class="material-symbols-outlined text-primary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">museum</span>
+                <div>
+                  <h3 class="font-headline-md text-headline-md text-primary text-xl mb-2">Patrimônio Histórico</h3>
+                  <p class="font-body-md text-body-md text-on-surface-variant max-w-[80%] line-clamp-2">Preservação, tombamento e gestão de museus e sítios arqueológicos.</p>
+                </div>
+              </div>
+            </div>
+            <div class="md:col-span-1 md:row-span-1 bg-secondary-fixed rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
+              <div class="relative z-10 flex flex-col h-full justify-between">
+                <span class="material-symbols-outlined text-secondary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">payments</span>
+                <div>
+                  <h3 class="font-headline-md text-headline-md text-on-secondary-fixed-variant text-xl mb-2">Fomento à Arte</h3>
+                  <p class="font-body-md text-body-md text-on-secondary-fixed-variant opacity-80 line-clamp-2">Editais, leis de incentivo e financiamento direto a projetos culturais.</p>
+                </div>
+              </div>
+            </div>
+            <div class="md:col-span-1 md:row-span-1 bg-tertiary-fixed rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
+              <div class="relative z-10 flex flex-col h-full justify-between">
+                <span class="material-symbols-outlined text-tertiary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">library_books</span>
+                <div>
+                  <h3 class="font-headline-md text-headline-md text-on-tertiary-fixed-variant text-xl mb-2">Sistema de Bibliotecas</h3>
+                  <p class="font-body-md text-body-md text-on-tertiary-fixed-variant opacity-80 line-clamp-2">Gestão da leitura, literatura e bibliotecas públicas.</p>
+                </div>
+              </div>
+            </div>
+            <div class="md:col-span-2 md:row-span-1 bg-surface-container rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
+              <div class="relative z-10 flex flex-col h-full justify-between">
+                <span class="material-symbols-outlined text-primary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">stadium</span>
+                <div>
+                  <h3 class="font-headline-md text-headline-md text-primary text-xl mb-2">Gestão de Equipamentos</h3>
+                  <p class="font-body-md text-body-md text-on-surface-variant max-w-[80%] line-clamp-2">Manutenção e programação de teatros, galerias, tendas e centros culturais.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</Layout>

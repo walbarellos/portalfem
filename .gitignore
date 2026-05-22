@@ -1,0 +1,25 @@
+# Dependências
+node_modules/
+.env
+*.log
+
+# Build
+dist/
+.astro/
+
+# Banco de dados local
+*.sql
+*.sqlite
+
+# Uploads e backups
+backend/uploads/
+backups/*.sql
+backups/*.tar.gz
+
+# SSL
+ssl/*.pem
+ssl/*.key
+
+# IDE
+.vscode/
+.idea/

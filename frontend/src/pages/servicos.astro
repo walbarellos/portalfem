@@ -1,0 +1,173 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { FileText, Map, HelpCircle, Library, Users, Calendar, Newspaper, FileBadge, FormInput, ClipboardList } from 'lucide';
+
+type IconNode = [string, Record<string, string>][];
+
+function renderIcon(icon: IconNode, className: string): string {
+  const children = icon.map(([tag, attrs]) => {
+    const attrStr = Object.entries(attrs).map(([k, v]) => `${k}="${v}"`).join(' ');
+    return `<${tag} ${attrStr}/>`;
+  }).join('');
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="${className}">${children}</svg>`;
+}
+
+const sistemasCorporativos = [
+  { nome: 'SEI', descricao: 'Sistema Eletrônico de Informações', url: 'https://sei.ac.gov.br/', icone: FileText, externo: true },
+  { nome: 'Mapa Cultural', descricao: 'Plataforma de mapeamento cultural do Acre', url: 'https://mapadacultura.ac.gov.br/', icone: Map, externo: true },
+  { nome: 'Diário Oficial Acre', descricao: 'Publicações oficiais do Estado', url: 'https://diario.ac.gov.br/', icone: Newspaper, externo: true },
+];
+
+const sistemasFem = [
+  { nome: 'Chamados FEM', descricao: 'Abertura e acompanhamento de chamados técnicos', url: 'http://10.24.18.20/', icone: HelpCircle, externo: false },
+  { nome: 'GRP', descricao: 'Solicitação de materiais e gestão de recursos patrimoniais', url: 'http://grp.ac.gov.br/asi/', icone: ClipboardList, externo: false },
+  { nome: 'Biblivre', descricao: 'Sistema de biblioteca digital', url: 'http://10.24.18.25:3000/Biblivre6/', icone: Library, externo: false },
+  { nome: 'Gerenciamento de Visitantes (GVC)', descricao: 'Controle de acesso e visitantes', url: 'http://10.24.18.50:3000/gerenciamento', icone: Users, externo: false },
+  { nome: 'Agendamento de Espaços', descricao: 'Reserve teatros, museus e salas', url: 'http://10.24.18.50:3000/agendamento', icone: Calendar, externo: false },
+];
+
+const documentacoes = [
+  {
+    titulo: 'Portaria nº 169/2023',
+    descricao: 'Dispõe sobre o uso e a gestão dos espaços públicos de cultura geridos pela Fundação de Cultura Elias Mansour – FEM.',
+    url: 'https://drive.google.com/file/d/1SwwgZcb4UmDh0cYNtIdw-K404mFwuzP2/view',
+    data: '2023',
+  },
+];
+
+const formularios = [
+  {
+    nome: 'Solicitação de Utilização de Espaço',
+    descricao: 'Formulário para reserva de teatros, museus e espaços culturais',
+    url: 'https://docs.google.com/forms/d/e/1FAIpQLSczzp6ih2L5sAoH3t3b_BELWMHRc_GOXy0bCdbXZlAAgs4TtQ/viewform',
+  },
+];
+---
+
+<Layout title="Serviços e Sistemas" description="Sistemas, documentações e formulários da Fundação de Cultura Elias Mansour">
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+    <Breadcrumbs items={[{ label: 'Serviços' }]} />
+
+    <section class="mb-12 max-w-2xl">
+      <h1 class="font-display text-display-lg text-primary mb-4">Serviços e Sistemas</h1>
+      <p class="font-sans text-body-lg text-on-surface-variant">
+        Acesse os sistemas corporativos, documentações e formulários da Fundação de Cultura Elias Mansour.
+      </p>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl text-primary">apps</span>
+        Sistemas Corporativos
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {sistemasCorporativos.map((s) => (
+          <a
+            href={s.url}
+            target={s.externo ? '_blank' : '_self'}
+            rel={s.externo ? 'noopener noreferrer' : undefined}
+            class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-8 text-center hover:shadow-lg hover:shadow-primary/5 hover:border-transparent hover:-translate-y-1 transition-all duration-300 ring-1 ring-transparent hover:ring-primary/30"
+            onclick={s.externo ? undefined : `if(!confirm('Você está acessando um sistema interno da FEM. Certifique-se de estar na rede do governo.'))event.preventDefault()`}
+          >
+            <div class="h-14 w-14 mx-auto mb-5 rounded-2xl bg-primary-container/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" set:html={renderIcon(s.icone, 'w-7 h-7 text-primary')} />
+            <h3 class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors">{s.nome}</h3>
+            <p class="font-sans text-body-md text-on-surface-variant mt-2 leading-relaxed">{s.descricao}</p>
+            <div class="mt-4 flex items-center justify-center gap-2">
+              <span class={`px-2.5 py-1 rounded-full font-label-md text-xs ${s.externo ? 'bg-primary-container/20 text-on-primary-container' : 'bg-secondary-container/30 text-on-secondary-container'}`}>
+                {s.externo ? 'Externo' : 'Interno'}
+              </span>
+            </div>
+            <div class="mt-5 inline-flex items-center gap-1.5 text-label-md font-label-md text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span>Acessar</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl text-primary">dns</span>
+        Sistemas da FEM
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {sistemasFem.map((s) => (
+          <a
+            href={s.url}
+            target={s.externo ? '_blank' : '_self'}
+            rel={s.externo ? 'noopener noreferrer' : undefined}
+            class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-8 text-center hover:shadow-lg hover:shadow-primary/5 hover:border-transparent hover:-translate-y-1 transition-all duration-300 ring-1 ring-transparent hover:ring-primary/30"
+            onclick={s.externo ? undefined : `if(!confirm('Você está acessando um sistema interno da FEM. Certifique-se de estar na rede do governo.'))event.preventDefault()`}
+          >
+            <div class="h-14 w-14 mx-auto mb-5 rounded-2xl bg-primary-container/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" set:html={renderIcon(s.icone, 'w-7 h-7 text-primary')} />
+            <h3 class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors">{s.nome}</h3>
+            <p class="font-sans text-body-md text-on-surface-variant mt-2 leading-relaxed">{s.descricao}</p>
+            <div class="mt-4 flex items-center justify-center gap-2">
+              <span class={`px-2.5 py-1 rounded-full font-label-md text-xs ${s.externo ? 'bg-primary-container/20 text-on-primary-container' : 'bg-secondary-container/30 text-on-secondary-container'}`}>
+                {s.externo ? 'Externo' : 'Interno'}
+              </span>
+            </div>
+            <div class="mt-5 inline-flex items-center gap-1.5 text-label-md font-label-md text-primary opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span>Acessar</span>
+              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl" style="color:#1565C0">description</span>
+        Documentações e Portarias
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {documentacoes.map((d) => (
+          <a
+            href={d.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-8 flex items-start gap-5 hover:shadow-lg hover:shadow-primary/5 hover:border-transparent hover:-translate-y-1 transition-all duration-300 ring-1 ring-transparent hover:ring-secondary/30"
+          >
+            <div class="h-14 w-14 shrink-0 rounded-2xl bg-secondary-container/30 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3" set:html={renderIcon(FileBadge, 'w-7 h-7 text-on-secondary-container')} />
+            <div class="flex-1 min-w-0">
+              <h3 class="font-display text-headline-md text-on-surface group-hover:text-secondary transition-colors mb-1">{d.titulo}</h3>
+              <p class="font-sans text-body-md text-on-surface-variant mt-1 leading-relaxed">{d.descricao}</p>
+              <span class="inline-block mt-3 text-label-md font-label-md text-outline">{d.data}</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <section class="mb-16">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl" style="color:#6B1D3D">edit_note</span>
+        Formulários
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {formularios.map((f) => (
+          <a
+            href={f.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-8 flex items-center gap-5 hover:shadow-lg hover:shadow-primary/5 hover:border-transparent hover:-translate-y-1 transition-all duration-300 ring-1 ring-transparent hover:ring-tertiary/30"
+          >
+            <div class="h-14 w-14 shrink-0 rounded-2xl bg-tertiary-container/20 flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" set:html={renderIcon(FormInput, 'w-7 h-7 text-tertiary')} />
+            <div class="flex-1 min-w-0">
+              <h3 class="font-display text-headline-md text-on-surface group-hover:text-tertiary transition-colors mb-0.5">{f.nome}</h3>
+              <p class="font-sans text-body-md text-on-surface-variant mt-1 leading-relaxed">{f.descricao}</p>
+            </div>
+            <span class="shrink-0 px-5 py-2.5 rounded-full bg-primary/10 text-primary font-label-md text-label-md group-hover:bg-primary group-hover:text-on-primary transition-all whitespace-nowrap">
+              Preencher
+            </span>
+          </a>
+        ))}
+      </div>
+    </section>
+  </div>
+</Layout>

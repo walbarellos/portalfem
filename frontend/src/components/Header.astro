@@ -1,0 +1,92 @@
+---
+const currentPath = Astro.url.pathname;
+const navItems = [
+  { href: '/institucional', label: 'A FEM' },
+  { href: '/editais', label: 'Editais' },
+  { href: '/espacos', label: 'Espaços' },
+  { href: '/noticias', label: 'Notícias' },
+  { href: '/eventos', label: 'Eventos' },
+  { href: '/servicos', label: 'Serviços' },
+];
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<header id="main-header" class="bg-surface/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 transition-transform duration-300">
+  <div class="flex items-center justify-between px-gutter py-4 max-w-container-max-width mx-auto">
+    <a href="/" class="hover:opacity-80 transition-opacity">
+      <img src="/assets/logos/fem-horizontal.png" alt="FEM - Fundação de Cultura Elias Mansour" class="h-10 w-auto object-contain" />
+    </a>
+
+    <nav aria-label="Main navigation" class="hidden md:flex gap-8 items-center">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`font-label-md text-label-md transition-all ${
+            isActive(item.href)
+              ? 'text-primary border-b-2 border-primary pb-1'
+              : 'text-on-surface-variant hover:text-primary'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+    </nav>
+
+    <div class="flex items-center gap-4">
+      <a href="/busca" aria-label="search" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
+        <span class="material-symbols-outlined">search</span>
+      </a>
+      <button id="menu-toggle" aria-label="menu" class="md:hidden text-on-surface-variant">
+        <span class="material-symbols-outlined">menu</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="mobile-menu" class="md:hidden hidden border-t border-outline-variant/30 px-gutter py-4 bg-surface">
+    <nav class="flex flex-col gap-3">
+      <a href="/" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Início</a>
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`font-label-md text-label-md transition-colors ${
+            isActive(item.href) ? 'text-primary font-semibold' : 'text-on-surface-variant hover:text-primary'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <a href="/busca" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Buscar</a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const header = document.getElementById('main-header');
+    const toggle = document.getElementById('menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    let lastScrollY = window.scrollY;
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        header.classList.add('shadow-sm');
+        header.style.backgroundColor = 'rgba(247, 251, 241, 0.95)';
+      } else {
+        header.classList.remove('shadow-sm');
+        header.style.backgroundColor = '';
+      }
+      lastScrollY = window.scrollY;
+    });
+
+    if (toggle && menu) {
+      toggle.addEventListener('click', () => {
+        const expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        menu.classList.toggle('hidden');
+      });
+    }
+  });
+</script>

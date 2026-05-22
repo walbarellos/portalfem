@@ -1,0 +1,34 @@
+<div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-inverse-surface text-inverse-on-surface p-4 z-50 hidden">
+  <div class="max-w-container-max-width mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+    <p class="font-sans text-body-md text-inverse-on-surface/80">
+      Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa
+      <a href="/institucional/politica-de-privacidade" class="text-primary-fixed-dim hover:underline">Política de Privacidade</a>.
+    </p>
+    <div class="flex gap-2 shrink-0">
+      <button id="cookie-accept"
+        class="bg-primary-fixed-dim text-on-primary-fixed px-4 py-2 rounded-lg font-sans text-label-md hover:scale-[1.02] transition-all">
+        Aceitar
+      </button>
+      <button id="cookie-reject"
+        class="border border-outline text-inverse-on-surface/70 px-4 py-2 rounded-lg font-sans text-label-md hover:bg-surface-container-highest/20 transition-all">
+        Recusar
+      </button>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const consent = document.getElementById('cookie-consent');
+    if (!consent) return;
+    if (localStorage.getItem('cookie-consent')) return;
+    consent.classList.remove('hidden');
+    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'accepted');
+      consent.classList.add('hidden');
+    });
+    document.getElementById('cookie-reject')?.addEventListener('click', () => {
+      localStorage.setItem('cookie-consent', 'rejected');
+      consent.classList.add('hidden');
+    });
+  });
+</script>

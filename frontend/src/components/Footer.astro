@@ -1,0 +1,25 @@
+---
+import { SITE_NAME, GOVERNMENT } from '../lib/constants';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-surface-container-highest w-full">
+  <div class="flex flex-col md:flex-row justify-between items-center gap-8 px-gutter py-12 max-w-container-max-width mx-auto">
+    <div class="flex flex-col items-center md:items-start gap-4">
+      <a href="/" class="opacity-80 hover:opacity-100 transition-opacity">
+        <img src="/assets/logos/fem-horizontal.png" alt="FEM - Fundação de Cultura Elias Mansour" class="h-10 w-auto object-contain" />
+      </a>
+      <p class="font-sans text-label-md text-on-surface-variant max-w-sm text-center md:text-left">
+        &copy; {year} {SITE_NAME}. {GOVERNMENT}.
+      </p>
+    </div>
+    <nav aria-label="Footer navigation" class="flex flex-wrap justify-center gap-x-6 gap-y-2">
+      <a href="/editais" class="text-on-surface-variant hover:text-primary transition-colors font-sans text-label-md">Editais</a>
+      <a href="/noticias" class="text-on-surface-variant hover:text-primary transition-colors font-sans text-label-md">Notícias</a>
+      <a href="/eventos" class="text-on-surface-variant hover:text-primary transition-colors font-sans text-label-md">Eventos</a>
+      <a href="/espacos" class="text-on-surface-variant hover:text-primary transition-colors font-sans text-label-md">Espaços</a>
+      <a href="/servicos" class="text-on-surface-variant hover:text-primary transition-colors font-sans text-label-md">Serviços</a>
+      <a href="/" class="text-on-surface-variant hover:text-primary transition-colors font-sans text-label-md">Contatos</a>
+    </nav>
+  </div>
+</footer>

@@ -1,0 +1,111 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BuscaForm from '../components/BuscaForm.astro';
+import CardNoticia from '../components/CardNoticia.astro';
+import CardEvento from '../components/CardEvento.astro';
+import TabelaEditais from '../components/TabelaEditais.astro';
+import { directus, safeRequest, readItems } from '../lib/directus';
+
+export const prerender = false;
+
+const query = Astro.url.searchParams.get('q') || '';
+
+let noticias: any[] = [];
+let editais: any[] = [];
+let eventos: any[] = [];
+let total = 0;
+
+if (query.trim()) {
+  const [noticiasRes, editaisRes, eventosRes] = await Promise.all([
+    safeRequest(
+      directus.request(readItems('noticias', {
+        search: query,
+        filter: { status: { _eq: 'published' } },
+        limit: 10,
+        fields: ['*'],
+      })),
+      []
+    ),
+    safeRequest(
+      directus.request(readItems('editais', {
+        search: query,
+        filter: { status: { _eq: 'published' } },
+        limit: 10,
+        fields: ['*', { categoria: ['id', 'nome', 'slug'] }],
+      })),
+      []
+    ),
+    safeRequest(
+      directus.request(readItems('eventos', {
+        search: query,
+        filter: { status: { _eq: 'published' } },
+        limit: 10,
+        fields: ['*'],
+      })),
+      []
+    ),
+  ]);
+  noticias = noticiasRes;
+  editais = editaisRes;
+  eventos = eventosRes;
+  total = noticias.length + editais.length + eventos.length;
+}
+---
+
+<Layout title={query ? `Busca: ${query}` : 'Buscar'} description="Buscar conteúdo no portal da Fundação de Cultura Elias Mansour">
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+    <div class="max-w-2xl mx-auto mb-12">
+      <h1 class="font-display text-display-lg text-primary mb-2">Buscar</h1>
+      <p class="font-sans text-body-lg text-on-surface-variant mb-6">Encontre notícias, editais e eventos no portal da FEM</p>
+      <BuscaForm query={query} />
+    </div>
+
+    {query.trim() ? (
+      <div class="max-w-4xl mx-auto">
+        <p class="font-sans text-body-md text-on-surface-variant mb-6">
+          {total} resultado{total !== 1 ? 's' : ''} para &ldquo;<strong class="text-on-surface">{query}</strong>&rdquo;
+        </p>
+
+        {total === 0 ? (
+          <div class="text-center py-16">
+            <span class="material-symbols-outlined text-4xl text-outline">search_off</span>
+            <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum resultado encontrado.</p>
+            <p class="font-sans text-body-md text-on-surface-variant mt-1">Tente termos diferentes ou mais genéricos.</p>
+          </div>
+        ) : (
+          <>
+            {noticias.length > 0 && (
+              <section class="mb-10">
+                <h2 class="font-display text-headline-lg text-on-surface mb-6">Notícias ({noticias.length})</h2>
+                <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {noticias.map((n) => <CardNoticia noticia={n} />)}
+                </div>
+              </section>
+            )}
+
+            {eventos.length > 0 && (
+              <section class="mb-10">
+                <h2 class="font-display text-headline-lg text-on-surface mb-6">Eventos ({eventos.length})</h2>
+                <div class="flex flex-col gap-4">
+                  {eventos.map((e) => <CardEvento evento={e} />)}
+                </div>
+              </section>
+            )}
+
+            {editais.length > 0 && (
+              <section class="mb-10">
+                <h2 class="font-display text-headline-lg text-on-surface mb-6">Editais ({editais.length})</h2>
+                <TabelaEditais editais={editais} />
+              </section>
+            )}
+          </>
+        )}
+      </div>
+    ) : (
+      <div class="text-center py-16 text-on-surface-variant">
+        <span class="material-symbols-outlined text-5xl mb-4">search</span>
+        <p class="font-sans text-body-lg">Digite um termo para buscar no portal</p>
+      </div>
+    )}
+  </div>
+</Layout>

@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CardNoticia from '../../components/CardNoticia.astro';
+import { directus, safeRequest, readItem, readItems, getUltimasNoticias } from '../../lib/directus';
+import type { Noticia } from '../../schemas/directus';
+
+export async function getStaticPaths() {
+  const noticias = await getUltimasNoticias(100);
+  return noticias.map((n: Noticia) => ({
+    params: { id: String(n.id) },
+    props: { noticia: n },
+  }));
+}
+
+const { id } = Astro.params;
+const noticia = await safeRequest(
+  directus.request(readItem('noticias', Number(id), {
+    fields: ['*', { autor: ['id', 'first_name', 'last_name'] }],
+  })),
+  null
+);
+
+if (!noticia) {
+  return Astro.redirect('/404');
+}
+
+const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
+const imgSrc = noticia.imagem_destaque
+  ? `${directusUrl}/assets/${noticia.imagem_destaque}`
+  : null;
+
+const data = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', {
+  day: 'numeric', month: 'long', year: 'numeric',
+});
+
+const autor = noticia.autor && typeof noticia.autor === 'object'
+  ? `${noticia.autor.first_name} ${noticia.autor.last_name}`
+  : null;
+
+const recentes = await getUltimasNoticias(4);
+---
+
+<Layout title={noticia.titulo} description={noticia.resumo} image={imgSrc || undefined}>
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+    <Breadcrumbs items={[
+      { label: 'Notícias', href: '/noticias' },
+      { label: noticia.titulo },
+    ]} />
+
+    <article class="max-w-3xl mx-auto">
+      {imgSrc && (
+        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high">
+          <img src={imgSrc} alt="" class="w-full h-full object-cover" />
+        </div>
+      )}
+
+      <header class="mb-8">
+        <time class="font-sans text-label-md text-on-surface-variant" datetime={noticia.data_publicacao}>{data}</time>
+        <h1 class="font-display text-display-lg text-on-surface mt-2 leading-tight">{noticia.titulo}</h1>
+        {autor && (
+          <p class="font-sans text-body-md text-on-surface-variant mt-2">Por {autor}</p>
+        )}
+      </header>
+
+      <div class="prose prose-green max-w-none prose-headings:font-display prose-a:text-secondary prose-img:rounded-lg">
+        {noticia.conteudo ? (
+          <Fragment set:html={noticia.conteudo} />
+        ) : (
+          <p>{noticia.resumo}</p>
+        )}
+      </div>
+    </article>
+
+    <aside class="max-w-3xl mx-auto mt-16 pt-8 border-t border-outline-variant/30">
+      <h2 class="font-display text-headline-lg text-on-surface mb-6">Notícias Recentes</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        {recentes.filter((n) => n.id !== noticia.id).slice(0, 2).map((n) => (
+          <CardNoticia noticia={n} />
+        ))}
+      </div>
+    </aside>
+  </div>
+</Layout>

@@ -1,0 +1,164 @@
+---
+export const prerender = false;
+
+import Layout from '../layouts/Layout.astro';
+import CardNoticia from '../components/CardNoticia.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Pagination from '../components/Pagination.astro';
+import { safeRequest, directus, readItems } from '../lib/directus';
+
+const pageSize = 9;
+const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
+const offset = (currentPage - 1) * pageSize;
+const activeCategoria = Astro.url.searchParams.get('categoria') || 'todas';
+
+const filterBase: Record<string, unknown> = { status: { _eq: 'published' } };
+if (activeCategoria !== 'todas') {
+  filterBase.categoria = { _eq: activeCategoria };
+}
+
+const noticias = await safeRequest(
+  directus.request(readItems('noticias', {
+    filter: filterBase,
+    sort: ['-data_publicacao'],
+    limit: pageSize,
+    offset,
+    fields: ['id', 'titulo', 'resumo', 'data_publicacao', 'imagem_destaque', 'autor', 'categoria'],
+  })),
+  []
+);
+
+const allNoticias = await safeRequest(
+  directus.request(readItems('noticias', {
+    filter: filterBase,
+    fields: ['id'],
+  })),
+  []
+);
+
+const total = allNoticias.length;
+const totalPages = Math.ceil(total / pageSize);
+
+const allForFeatured = await safeRequest(
+  directus.request(readItems('noticias', {
+    filter: { status: { _eq: 'published' } },
+    sort: ['-data_publicacao'],
+    limit: 1,
+    fields: ['id', 'titulo', 'resumo', 'data_publicacao', 'imagem_destaque', 'autor', 'categoria'],
+  })),
+  []
+);
+const featured = allForFeatured[0] || null;
+const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
+const featuredImg = featured?.imagem_destaque ? `${directusUrl}/assets/${featured.imagem_destaque}` : null;
+
+const categorias: { value: string; label: string }[] = [
+  { value: 'todas', label: 'Todas' },
+  { value: 'editais', label: 'Editais' },
+  { value: 'musica', label: 'Música' },
+  { value: 'patrimonio', label: 'Patrimônio' },
+  { value: 'artes_visuais', label: 'Artes Visuais' },
+  { value: 'institucional', label: 'Institucional' },
+  { value: 'educacao', label: 'Educação' },
+  { value: 'eventos', label: 'Eventos' },
+];
+
+const featuredDate = featured
+  ? new Date(featured.data_publicacao).toLocaleDateString('pt-BR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    })
+  : null;
+
+const categoriaLabels: Record<string, string> = {
+  destaque: 'Destaque',
+  editais: 'Editais',
+  musica: 'Música',
+  patrimonio: 'Patrimônio',
+  artes_visuais: 'Artes Visuais',
+  institucional: 'Institucional',
+  educacao: 'Educação',
+  eventos: 'Eventos',
+};
+---
+
+<Layout title="Notícias" description="Acompanhe as novidades, editais e coberturas dos principais eventos culturais do Estado do Acre">
+  <div class="pt-[120px] pb-section-gap">
+    <section class="max-w-container-max-width mx-auto px-gutter mb-12">
+      <h1 class="font-display-lg text-display-lg text-on-surface mb-6">Últimas Notícias</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+        Acompanhe as novidades, editais e coberturas dos principais eventos culturais do Estado.
+      </p>
+    </section>
+
+    {featured && activeCategoria === 'todas' && currentPage === 1 && (
+      <section class="max-w-container-max-width mx-auto px-gutter mb-section-gap">
+        <a href={`/noticias/${featured.id}`} class="group block relative w-full aspect-[4/3] md:aspect-[21/9] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 bg-surface-container-high">
+          {featuredImg ? (
+            <img src={featuredImg} alt={featured.titulo} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+          ) : (
+            <div class="w-full h-full flex items-center justify-center">
+              <span class="material-symbols-outlined text-5xl text-outline">image</span>
+            </div>
+          )}
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-8 md:p-12">
+            <div class="flex gap-3 mb-4">
+              <span class="px-4 py-1.5 rounded-full bg-primary text-on-primary font-label-md text-label-md uppercase tracking-wide">Destaque</span>
+              {featured.categoria && (
+                <span class="px-4 py-1.5 rounded-full bg-surface-container-lowest/20 backdrop-blur-sm text-on-primary font-label-md text-label-md uppercase tracking-wide">
+                  {categoriaLabels[featured.categoria] || featured.categoria}
+                </span>
+              )}
+            </div>
+            <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-primary mb-4 max-w-4xl group-hover:text-primary-fixed transition-colors">
+              {featured.titulo}
+            </h2>
+            {featured.resumo && (
+              <p class="hidden md:block font-body-lg text-body-lg text-surface-container-high max-w-3xl mb-6">{featured.resumo}</p>
+            )}
+            <div class="flex items-center text-primary-fixed font-label-md text-label-md group-hover:translate-x-2 transition-transform">
+              Leia a matéria completa <span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+            </div>
+          </div>
+        </a>
+      </section>
+    )}
+
+    <section class="max-w-container-max-width mx-auto px-gutter mb-12">
+      <div class="flex flex-wrap items-center gap-3">
+        {categorias.map((cat) => {
+          const isActive = cat.value === activeCategoria;
+          const params = new URLSearchParams();
+          if (cat.value !== 'todas') params.set('categoria', cat.value);
+          params.delete('page');
+          const href = cat.value === 'todas' ? '/noticias' : `/noticias?${params.toString()}`;
+          return isActive ? (
+            <span class="px-5 py-2.5 rounded-full bg-primary text-on-primary font-label-md text-label-md transition-all whitespace-nowrap">{cat.label}</span>
+          ) : (
+            <a href={href} class="px-5 py-2.5 rounded-full bg-primary/5 text-primary border border-primary/10 hover:bg-primary/10 hover:border-primary/20 font-label-md text-label-md transition-all whitespace-nowrap">{cat.label}</a>
+          );
+        })}
+      </div>
+    </section>
+
+    {noticias.length > 0 ? (
+      <section class="max-w-container-max-width mx-auto px-gutter mb-16">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-12">
+          {noticias.map((noticia) => <CardNoticia noticia={noticia} />)}
+        </div>
+      </section>
+    ) : (
+      <section class="max-w-container-max-width mx-auto px-gutter mb-16">
+        <div class="text-center py-16">
+          <span class="material-symbols-outlined text-4xl text-outline">newspaper</span>
+          <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhuma notícia encontrada nesta categoria.</p>
+        </div>
+      </section>
+    )}
+
+    <section class="max-w-container-max-width mx-auto px-gutter">
+      <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={activeCategoria !== 'todas' ? `/noticias?categoria=${activeCategoria}` : '/noticias'} />
+    </section>
+  </div>
+</Layout>

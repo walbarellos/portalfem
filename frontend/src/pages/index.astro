@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+import CardNoticia from '../components/CardNoticia.astro';
+import { getUltimasNoticias, getServicos, getEditaisAbertos } from '../lib/directus';
+
+const noticias = await getUltimasNoticias(3);
+const servicos = await getServicos();
+const editaisAbertos = await getEditaisAbertos();
+
+const edital = editaisAbertos.length > 0 ? editaisAbertos[0] : null;
+const featuredNews = noticias.length > 0 ? noticias[0] : null;
+const sideNews = noticias.filter((_, i) => i > 0).slice(0, 2);
+const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
+const featuredImg = featuredNews?.imagem_destaque
+  ? `${directusUrl}/assets/${featuredNews.imagem_destaque}`
+  : null;
+---
+
+<Layout title="Início" description="Portal oficial da Fundação de Cultura Elias Mansour - FEM, Governo do Estado do Acre">
+  <!-- Hero Section -->
+  <section class="relative h-[600px] md:h-[819px] min-h-[600px] w-full flex items-end pb-section-gap px-margin-mobile md:px-gutter"
+    style="background-image: linear-gradient(135deg, #00450d 0%, #1b5e20 40%, #2d6b30 100%); background-size: cover; background-position: center;">
+    <div class="absolute inset-0 hero-overlay"></div>
+    <div class="relative z-10 max-w-container-max-width mx-auto w-full flex flex-col items-start gap-unit">
+      <span class="inline-block px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 text-on-primary font-sans text-label-md mb-2">
+        {edital ? 'Edital Aberto' : 'Destaque Cultural'}
+      </span>
+      {edital ? (
+        <h1 class="font-display text-display-lg text-on-primary max-w-3xl leading-tight">{edital.titulo}</h1>
+      ) : (
+        <h1 class="font-display text-display-lg text-on-primary max-w-3xl leading-tight">Oportunidades<br/>Culturais</h1>
+      )}
+      <p class="font-sans text-body-lg text-surface-container max-w-2xl mt-4 mb-6">
+        {edital
+          ? `Inscrições até ${new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}`
+          : 'Fomento para projetos artísticos, preservação do patrimônio e desenvolvimento da economia criativa no Acre.'}
+      </p>
+      {edital ? (
+        <a href={`/editais/${edital.id}`}
+          class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+          Ver Edital
+          <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+        </a>
+      ) : (
+        <a href="/editais"
+          class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+          Participar Agora
+          <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+        </a>
+      )}
+    </div>
+  </section>
+
+  <!-- Serviços ao Artista (Bento Grid) -->
+  <section class="py-section-gap px-margin-mobile md:px-gutter max-w-container-max-width mx-auto">
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <h2 class="font-display text-headline-lg text-on-background">Serviços ao Artista</h2>
+        <p class="font-sans text-body-md text-on-surface-variant mt-2">Acesse os serviços essenciais para fazedores de cultura.</p>
+      </div>
+      <a href="/servicos" class="hidden md:flex text-primary font-sans text-label-md hover:underline items-center gap-1 group">
+        Ver todos
+        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]">
+      {servicos.length > 0 ? (
+        servicos.slice(0, 5).map((servico, i) => {
+          const isLarge = i === 0;
+          const colors = [
+            { bg: 'bg-surface-container-low', icon: 'how_to_reg', iconBg: 'bg-primary-container/20', iconColor: 'text-primary' },
+            { bg: 'bg-surface-container-low', icon: 'map', iconBg: 'bg-secondary/10', iconColor: 'text-secondary' },
+            { bg: 'bg-surface-container-low', icon: 'museum', iconBg: 'bg-primary/10', iconColor: 'text-primary' },
+            { bg: 'bg-primary', icon: 'event', iconBg: 'bg-on-primary/10', iconColor: 'text-on-primary' },
+            { bg: 'bg-surface-container-low', icon: 'calendar_month', iconBg: 'bg-tertiary-container/10', iconColor: 'text-tertiary-container' },
+          ];
+          const c = colors[i % colors.length];
+          const isPrimary = c.bg === 'bg-primary';
+          return (
+            <a
+              href={servico.url || '/servicos'}
+              target={servico.url ? '_blank' : undefined}
+              rel={servico.url ? 'noopener noreferrer' : undefined}
+              class={`group relative rounded-2xl overflow-hidden soft-elevation ${isLarge ? 'md:col-span-2 md:row-span-2' : ''} ${c.bg} ${isPrimary ? '' : 'border border-outline-variant/30 hover:bg-surface-container transition-colors'} block`}
+            >
+              {isLarge && (
+                <div class={`absolute inset-0 ${servico.url ? '' : 'bg-gradient-to-br from-primary/5 to-primary/10'}`}></div>
+              )}
+              <div class={`relative ${isLarge ? 'h-full flex flex-col justify-end p-8' : 'flex flex-col p-6 h-full'}`}>
+                {isLarge ? (
+                  <>
+                    <div class={`${c.iconBg} backdrop-blur-md w-12 h-12 rounded-full flex items-center justify-center mb-4`}>
+                      <span class={`material-symbols-outlined ${c.iconColor}`}>{c.icon}</span>
+                    </div>
+                    <h3 class="font-display text-headline-md text-on-surface mb-2">{servico.titulo}</h3>
+                    {servico.descricao && <p class="font-sans text-body-md text-on-surface-variant max-w-md">{servico.descricao}</p>}
+                  </>
+                ) : (
+                  <>
+                    <div class={`w-10 h-10 rounded-full ${c.iconBg} flex items-center justify-center mb-auto ${c.iconColor}`}>
+                      <span class="material-symbols-outlined">{c.icon}</span>
+                    </div>
+                    <div>
+                      <h3 class={`font-display text-[22px] ${isPrimary ? 'text-on-primary' : 'text-on-background'} mb-1`}>{servico.titulo}</h3>
+                      {servico.descricao && <p class={`font-sans text-body-md ${isPrimary ? 'text-primary-fixed' : 'text-on-surface-variant'} text-sm`}>{servico.descricao}</p>}
+                    </div>
+                    <div class={`absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity ${isPrimary ? 'text-on-primary' : 'text-primary'}`}>
+                      <span class="material-symbols-outlined">arrow_outward</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </a>
+          );
+        })
+      ) : (
+        <div class="md:col-span-3 text-center py-16 text-on-surface-variant">
+          <p class="font-sans text-body-lg">Nenhum serviço disponível no momento.</p>
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Narrativas da Cultura (Notícias - Asymmetric Grid) -->
+  {noticias.length > 0 && (
+    <section class="py-section-gap px-margin-mobile md:px-gutter bg-surface-container-lowest border-y border-outline-variant/20">
+      <div class="max-w-container-max-width mx-auto">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
+          <div>
+            <h2 class="font-display text-headline-lg text-on-background">Notícias Culturais</h2>
+            <p class="font-sans text-body-md text-on-surface-variant mt-2">As últimas movimentações do cenário acreano.</p>
+          </div>
+          <a href="/noticias" class="text-primary font-sans text-label-md hover:underline flex items-center gap-1 group">
+            Ver todas as notícias
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+          </a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8">
+          {featuredNews && (
+            <article class="md:col-span-7 group cursor-pointer">
+              <a href={`/noticias/${featuredNews.id}`}>
+                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 soft-elevation bg-surface-container-high">
+                  {featuredImg ? (
+                    <img src={featuredImg} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                  ) : (
+                    <div class="w-full h-full flex items-center justify-center">
+                      <span class="material-symbols-outlined text-5xl text-outline">image</span>
+                    </div>
+                  )}
+                </div>
+                <time class="font-sans text-[14px] text-on-surface-variant mb-2 block">
+                  {new Date(featuredNews.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
+                </time>
+                <h3 class="font-display text-headline-md text-on-background group-hover:text-primary transition-colors mb-3">{featuredNews.titulo}</h3>
+                {featuredNews.resumo && (
+                  <p class="font-sans text-body-md text-on-surface-variant line-clamp-2">{featuredNews.resumo}</p>
+                )}
+              </a>
+            </article>
+          )}
+
+          {sideNews.length > 0 && (
+            <div class="md:col-span-5 flex flex-col gap-8">
+              {sideNews.map((noticia) => {
+                const imgSrc = noticia.imagem_destaque ? `${directusUrl}/assets/${noticia.imagem_destaque}` : null;
+                return (
+                  <article class="group cursor-pointer flex gap-4 items-center md:items-start">
+                    <a href={`/noticias/${noticia.id}`} class="flex gap-4 w-full">
+                      <div class="relative w-32 md:w-40 aspect-square flex-shrink-0 rounded-xl overflow-hidden soft-elevation bg-surface-container-high">
+                        {imgSrc ? (
+                          <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+                        ) : (
+                          <div class="w-full h-full flex items-center justify-center">
+                            <span class="material-symbols-outlined text-2xl text-outline">image</span>
+                          </div>
+                        )}
+                      </div>
+                      <div class="flex flex-col justify-center h-full">
+                        <h3 class="font-display text-[20px] font-semibold text-on-background leading-tight group-hover:text-primary transition-colors mb-2 line-clamp-3">{noticia.titulo}</h3>
+                        <time class="font-sans text-[13px] text-on-surface-variant mt-auto block">
+                          {new Date(noticia.data_publicacao).toLocaleDateString('pt-BR')}
+                        </time>
+                      </div>
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  )}
+</Layout>

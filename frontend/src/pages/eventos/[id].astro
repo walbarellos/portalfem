@@ -1,0 +1,105 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CardEvento from '../../components/CardEvento.astro';
+import { directus, safeRequest, readItem, readItems, getAllEventos } from '../../lib/directus';
+import type { Evento } from '../../schemas/directus';
+
+export async function getStaticPaths() {
+  const eventos = await getAllEventos();
+  return eventos.map((e: Evento) => ({
+    params: { id: String(e.id) },
+    props: { evento: e },
+  }));
+}
+
+const { id } = Astro.params;
+const evento = await safeRequest(
+  directus.request(readItem('eventos', Number(id))),
+  null
+);
+
+if (!evento) return Astro.redirect('/404');
+
+const dataInicio = new Date(evento.data_inicio).toLocaleDateString('pt-BR', {
+  day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
+});
+const dataFim = evento.data_fim
+  ? new Date(evento.data_fim).toLocaleDateString('pt-BR', {
+    day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
+  })
+  : null;
+
+const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
+const imgCapa = evento.imagem_capa ? `${directusUrl}/assets/${evento.imagem_capa}` : null;
+
+const outrosEventos = await safeRequest(
+  directus.request(readItems('eventos', {
+    filter: { status: { _eq: 'published' }, id: { _neq: evento.id } },
+    sort: ['-data_inicio'],
+    limit: 3,
+    fields: ['id', 'titulo', 'data_inicio', 'data_fim', 'local'],
+  })),
+  []
+);
+---
+
+<Layout title={evento.titulo} description={evento.descricao?.slice(0, 160)} image={imgCapa || undefined}>
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+    <Breadcrumbs items={[
+      { label: 'Eventos', href: '/eventos' },
+      { label: evento.titulo },
+    ]} />
+
+    <article class="max-w-3xl mx-auto">
+      {imgCapa && (
+        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high">
+          <img src={imgCapa} alt="" class="w-full h-full object-cover" />
+        </div>
+      )}
+
+      <header class="mb-8">
+        <h1 class="font-display text-display-lg text-on-surface leading-tight">{evento.titulo}</h1>
+        <div class="flex flex-wrap gap-4 mt-4">
+          <div class="flex items-center gap-2 text-on-surface-variant">
+            <span class="material-symbols-outlined text-[18px]">schedule</span>
+            <span class="font-sans text-body-md">{dataInicio}{dataFim ? ` — ${dataFim}` : ''}</span>
+          </div>
+          {evento.local && (
+            <div class="flex items-center gap-2 text-on-surface-variant">
+              <span class="material-symbols-outlined text-[18px]">location_on</span>
+              <span class="font-sans text-body-md">{evento.local}</span>
+            </div>
+          )}
+        </div>
+      </header>
+
+      <div class="prose prose-green max-w-none">
+        {evento.descricao ? (
+          <Fragment set:html={evento.descricao} />
+        ) : (
+          <p class="text-on-surface-variant italic">Sem descrição disponível.</p>
+        )}
+      </div>
+
+      {evento.link_inscricao && (
+        <div class="mt-8">
+          <a href={evento.link_inscricao} target="_blank" rel="noopener noreferrer"
+            class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg font-sans text-label-md hover:scale-[1.02] hover:bg-primary/90 transition-all shadow-sm">
+            <span class="material-symbols-outlined text-[18px]">edit_document</span>
+            Inscreva-se
+          </a>
+        </div>
+      )}
+    </article>
+
+    {outrosEventos.length > 0 && (
+      <aside class="max-w-3xl mx-auto mt-16 pt-8 border-t border-outline-variant/30">
+        <h2 class="font-display text-headline-lg text-on-surface mb-6">Outros Eventos</h2>
+        <div class="grid gap-4">
+          {outrosEventos.slice(0, 2).map((e) => <CardEvento evento={e} />)}
+        </div>
+      </aside>
+    )}
+  </div>
+</Layout>

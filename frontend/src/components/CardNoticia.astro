@@ -1,0 +1,57 @@
+---
+import type { Noticia } from '../schemas/directus';
+
+export interface Props {
+  noticia: Noticia;
+}
+
+const { noticia } = Astro.props;
+const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
+const imgSrc = noticia.imagem_destaque
+  ? `${directusUrl}/assets/${noticia.imagem_destaque}`
+  : null;
+
+const dateFormatted = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric',
+});
+
+const categoriaLabels: Record<string, string> = {
+  destaque: 'Destaque',
+  editais: 'Editais',
+  musica: 'Música',
+  patrimonio: 'Patrimônio',
+  artes_visuais: 'Artes Visuais',
+  institucional: 'Institucional',
+  educacao: 'Educação',
+  eventos: 'Eventos',
+};
+const categoriaLabel = noticia.categoria ? (categoriaLabels[noticia.categoria] || noticia.categoria) : null;
+---
+
+<article class="group flex flex-col gap-5 cursor-pointer">
+  <a href={`/noticias/${noticia.id}`} class="flex flex-col gap-5">
+    <div class="w-full aspect-[4/3] rounded-xl overflow-hidden relative shadow-sm transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 bg-surface-container-high">
+      {imgSrc ? (
+        <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center">
+          <span class="material-symbols-outlined text-4xl text-outline">image</span>
+        </div>
+      )}
+      {categoriaLabel && (
+        <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-label-md text-primary">
+          {categoriaLabel}
+        </div>
+      )}
+    </div>
+    <div class="flex flex-col gap-2">
+      <time class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" datetime={noticia.data_publicacao}>{dateFormatted}</time>
+      <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors line-clamp-2">{noticia.titulo}</h3>
+      {noticia.resumo && (
+        <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">{noticia.resumo}</p>
+      )}
+    </div>
+  </a>
+</article>

@@ -1,0 +1,91 @@
+---
+import type { Evento } from '../schemas/directus';
+
+export interface Props {
+  evento: Evento;
+}
+
+const { evento } = Astro.props;
+const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
+const dataInicio = new Date(evento.data_inicio);
+const dia = dataInicio.getDate();
+const mes = dataInicio.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '');
+const isPast = dataInicio < new Date();
+
+const catLabels: Record<string, string> = {
+  musica: 'Música',
+  teatro: 'Teatro',
+  artes_visuais: 'Artes Visuais',
+  literatura: 'Literatura',
+};
+const catColors: Record<string, string> = {
+  musica: 'bg-secondary-container/30 text-on-secondary-container',
+  teatro: 'bg-tertiary-container/20 text-tertiary',
+  artes_visuais: 'bg-tertiary-container/20 text-tertiary',
+  literatura: 'bg-secondary-container/30 text-on-secondary-container',
+};
+const imgSrc = evento.imagem_capa ? `${directusUrl}/assets/${evento.imagem_capa}` : null;
+---
+
+<article class={`group flex flex-col md:flex-row bg-surface-container-lowest rounded-xl border border-outline-variant/30 hover:shadow-lg hover:shadow-primary/5 transition-all overflow-hidden ${isPast ? 'opacity-75' : ''}`}>
+  <a href={`/eventos/${evento.id}`} class="flex flex-col md:flex-row w-full">
+    <div class={`${isPast ? 'bg-surface-container-highest' : 'bg-surface-container-low'} md:w-32 flex flex-row md:flex-col items-center justify-center p-4 border-b md:border-b-0 md:border-r border-outline-variant/30 shrink-0`}>
+      <span class={`font-headline-md text-headline-md ${isPast ? 'text-on-surface-variant' : 'text-primary'}`}>{dia}</span>
+      <span class={`font-label-md text-label-md text-on-surface-variant uppercase tracking-wider ml-2 md:ml-0`}>{mes}</span>
+    </div>
+    <div class="flex-1 p-6 flex flex-col justify-between">
+      <div>
+        <div class="flex items-center gap-2 mb-3">
+          {evento.categoria && (
+            <span class={`px-2 py-1 rounded-md ${catColors[evento.categoria] || 'bg-surface-container text-on-surface-variant'} font-label-md text-xs`}>
+              {catLabels[evento.categoria] || evento.categoria}
+            </span>
+          )}
+          {evento.destaque && (
+            <span class="font-label-md text-label-md text-error flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">stars</span> Destaque
+            </span>
+          )}
+          {isPast && (
+            <span class="font-label-md text-label-md text-outline flex items-center gap-1">
+              <span class="material-symbols-outlined text-[16px]">info</span> Inscrições Encerradas
+            </span>
+          )}
+        </div>
+        <h3 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">{evento.titulo}</h3>
+        {evento.descricao && (
+          <p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">{evento.descricao}</p>
+        )}
+      </div>
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-4 pt-4 border-t border-outline-variant/20">
+        <div class="flex flex-wrap gap-4 text-on-surface-variant font-body-md text-sm">
+          {evento.horario && (
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">schedule</span>
+              {evento.horario}
+            </div>
+          )}
+          <div class="flex items-center gap-1">
+            <span class="material-symbols-outlined text-[18px]">location_on</span>
+            {evento.local}
+          </div>
+          {evento.gratuito && (
+            <div class="flex items-center gap-1">
+              <span class="material-symbols-outlined text-[18px]">confirmation_number</span>
+              Gratuito
+            </div>
+          )}
+        </div>
+        <span class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container text-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors cursor-pointer">
+          <span class="material-symbols-outlined text-[18px]">event_available</span>
+          Adicionar ao Calendário
+        </span>
+      </div>
+    </div>
+    {imgSrc && (
+      <div class="hidden lg:block w-64 bg-surface-container-high shrink-0">
+        <img src={imgSrc} alt={evento.titulo} class="w-full h-full object-cover" loading="lazy" />
+      </div>
+    )}
+  </a>
+</article>

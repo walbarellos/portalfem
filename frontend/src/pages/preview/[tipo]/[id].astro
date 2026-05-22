@@ -1,0 +1,62 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { directus, safeRequest, readItem } from '../../../lib/directus';
+
+export const prerender = false;
+
+const { tipo, id } = Astro.params;
+
+const token = Astro.url.searchParams.get('token');
+const secretToken = import.meta.env.PREVIEW_SECRET || 'fem-preview-secret';
+
+if (!token || token !== secretToken) {
+  return Astro.redirect('/404');
+}
+
+if (!tipo || !id) {
+  return Astro.redirect('/404');
+}
+
+const collectionMap: Record<string, string> = {
+  noticias: 'noticias',
+  eventos: 'eventos',
+  editais: 'editais',
+};
+
+const collection = collectionMap[tipo];
+if (!collection) {
+  return Astro.redirect('/404');
+}
+
+const item = await safeRequest(
+  directus.request(readItem(collection, Number(id))),
+  null
+);
+
+if (!item) {
+  return Astro.redirect('/404');
+}
+
+const titulo = item.titulo || 'Preview';
+const conteudo = item.conteudo || item.descricao || item.resumo || '';
+---
+
+<Layout title={`Preview: ${titulo}`}>
+  <div class="container mx-auto px-4 py-8">
+    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-8 flex items-center gap-3">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-600 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z" />
+      </svg>
+      <span class="text-sm text-yellow-800">
+        <strong>Preview</strong> — Este conteúdo ainda não foi publicado. Compartilhe este link com cautela.
+      </span>
+    </div>
+
+    <article class="max-w-3xl mx-auto">
+      <h1 class="font-display text-3xl md:text-4xl font-bold text-gray-900 mb-8">{titulo}</h1>
+      <div class="prose prose-gray max-w-none">
+        <Fragment set:html={conteudo} />
+      </div>
+    </article>
+  </div>
+</Layout>

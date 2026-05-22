@@ -1,0 +1,107 @@
+---
+export const prerender = false;
+
+import Layout from '../layouts/Layout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getEspacosCulturais } from '../lib/directus';
+import type { EspacoCultural } from '../schemas/directus';
+
+const espacos = await getEspacosCulturais();
+const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
+
+const activeCategoria = Astro.url.searchParams.get('categoria') || 'todas';
+const filtered = activeCategoria === 'todas'
+  ? espacos
+  : espacos.filter((e) => e.categoria === activeCategoria);
+
+const categorias: { value: string; label: string }[] = [
+  { value: 'todas', label: 'Todos' },
+  { value: 'museu', label: 'Museus' },
+  { value: 'teatro', label: 'Teatros' },
+  { value: 'biblioteca', label: 'Bibliotecas' },
+  { value: 'espaco_memoria', label: 'Espaços de Memória' },
+  { value: 'centro_cultural', label: 'Centros Culturais' },
+];
+
+const categoriaColors: Record<string, string> = {
+  museu: 'bg-primary/90',
+  teatro: 'bg-secondary/90',
+  biblioteca: 'bg-tertiary/90',
+  espaco_memoria: 'bg-primary-container/90',
+  centro_cultural: 'bg-secondary-container/90',
+};
+
+function categoriaLabel(value: string): string {
+  const found = categorias.find((c) => c.value === value);
+  return found ? found.label : value;
+}
+---
+
+<Layout title="Espaços Culturais" description="Conheça a rede de museus, teatros, bibliotecas e centros culturais mantidos pelo Estado do Acre">
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+    <Breadcrumbs items={[{ label: 'Espaços Culturais' }]} />
+
+    <section class="mt-8 mb-12 max-w-3xl">
+      <h1 class="font-display-lg text-display-lg text-primary mb-4">Espaços Culturais</h1>
+      <p class="font-body-lg text-body-lg text-on-surface-variant">
+        Conheça a rede de museus, teatros, bibliotecas e centros culturais mantidos pelo Estado. Ambientes dedicados à preservação da memória, fomento da arte e acesso democrático à cultura para toda a população acreana.
+      </p>
+    </section>
+
+    <section class="mb-12 overflow-x-auto pb-4 hide-scrollbar">
+      <div class="flex gap-3 min-w-max">
+        {categorias.map((cat) => {
+          const isActive = cat.value === activeCategoria;
+          const href = cat.value === 'todas' ? '/espacos' : `?categoria=${cat.value}`;
+          return isActive ? (
+            <span class="px-5 py-2 rounded-full bg-primary text-on-primary font-label-md text-label-md transition-all whitespace-nowrap">{cat.label}</span>
+          ) : (
+            <a href={href} class="px-5 py-2 rounded-full bg-surface-container border border-outline-variant/30 text-on-surface-variant hover:bg-surface-container-high hover:text-primary font-label-md text-label-md transition-all whitespace-nowrap">{cat.label}</a>
+          );
+        })}
+      </div>
+    </section>
+
+    {filtered.length > 0 ? (
+      <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        {filtered.map((espaco) => {
+          const imgSrc = espaco.imagem ? `${directusUrl}/assets/${espaco.imagem}` : null;
+          return (
+            <a href={`/espacos/${espaco.id}`} class="group relative rounded-xl overflow-hidden aspect-[4/3] md:aspect-[3/4] lg:aspect-square bg-surface-container-lowest border border-outline-variant/20 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+              {imgSrc ? (
+                <img src={imgSrc} alt={espaco.nome} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              ) : (
+                <div class="absolute inset-0 bg-surface-container-high flex items-center justify-center">
+                  <span class="material-symbols-outlined text-5xl text-outline">location_city</span>
+                </div>
+              )}
+              <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
+              <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
+                <span class={`${categoriaColors[espaco.categoria] || 'bg-primary/90'} text-on-primary px-3 py-1 rounded-full text-label-md font-label-md w-max mb-3 backdrop-blur-sm`}>
+                  {categoriaLabel(espaco.categoria)}
+                </span>
+                <h2 class="font-headline-md text-headline-md text-on-primary mb-2 leading-tight">{espaco.nome}</h2>
+                {espaco.endereco && (
+                  <div class="flex items-center gap-2 text-surface-container-lowest/80 font-body-md text-body-md">
+                    <span class="material-symbols-outlined text-[18px]">location_on</span>
+                    <span>{espaco.endereco}</span>
+                  </div>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </section>
+    ) : (
+      <div class="text-center py-16">
+        <span class="material-symbols-outlined text-4xl text-outline">location_city</span>
+        <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum espaço cultural encontrado.</p>
+      </div>
+    )}
+  </div>
+</Layout>
+
+<style>
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
