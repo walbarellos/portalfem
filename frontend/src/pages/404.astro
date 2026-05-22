@@ -1,0 +1,37 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Página não encontrada">
+  <div class="relative min-h-[70vh] flex items-center justify-center overflow-hidden px-margin-mobile md:px-gutter">
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <svg class="absolute -top-20 -right-20 w-96 h-96 text-primary/[0.04]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="1" />
+        <circle cx="100" cy="100" r="55" stroke="currentColor" stroke-width="1" />
+        <circle cx="100" cy="100" r="30" stroke="currentColor" stroke-width="1" />
+      </svg>
+      <svg class="absolute -bottom-16 -left-16 w-72 h-72 text-primary/[0.03]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="10" width="180" height="180" rx="20" stroke="currentColor" stroke-width="1" />
+        <rect x="35" y="35" width="130" height="130" rx="10" stroke="currentColor" stroke-width="1" />
+      </svg>
+      <div class="absolute inset-0 flex items-center justify-center select-none">
+        <span class="font-display text-[160px] md:text-[280px] font-bold text-primary/[0.04] leading-none">404</span>
+      </div>
+    </div>
+    <div class="relative z-10 text-center max-w-md">
+      <h1 class="font-display text-display-sm md:text-display-lg text-on-surface mb-3 text-balance">Página não encontrada</h1>
+      <p class="font-sans text-body-lg text-on-surface-variant mb-8 max-w-sm mx-auto">O conteúdo que você procura pode ter sido movido ou removido. Que tal voltar ao início?</p>
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="/" class="inline-flex items-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+          <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+          Voltar para o Início
+        </a>
+        <a href="/busca" class="inline-flex items-center gap-2 bg-surface-container-high text-on-surface font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:bg-surface-container-higher hover:shadow-md">
+          <span class="material-symbols-outlined text-[20px]">search</span>
+          Buscar no Portal
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout>

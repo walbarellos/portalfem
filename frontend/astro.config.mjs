@@ -4,7 +4,7 @@ import sitemap from '@astrojs/sitemap';
 import node from '@astrojs/node';
 
 export default defineConfig({
-  site: 'http://localhost:4321',
+  site: 'https://femcultura.ac.gov.br',
   output: 'static',
   adapter: node({ mode: 'standalone' }),
   integrations: [tailwind(), sitemap()],

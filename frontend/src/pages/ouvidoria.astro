@@ -1,0 +1,143 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { CONTACT_ADDRESS } from '../lib/constants';
+
+const canais = [
+  {
+    icone: 'call',
+    titulo: 'Telefone',
+    descricao: 'Ligue para a Ouvidoria',
+    info: '(68) 3223-1234',
+    horario: 'Seg a Sex, 8h às 14h',
+    href: 'tel:+556832231234',
+    cor: 'bg-secondary-container/20 text-secondary',
+  },
+  {
+    icone: 'mail',
+    titulo: 'E-mail',
+    descricao: 'Envie sua manifestação',
+    info: 'fem.ouvidoria@ac.gov.br',
+    horario: 'Resposta em até 20 dias úteis',
+    href: 'mailto:fem.ouvidoria@ac.gov.br',
+    cor: 'bg-primary/10 text-primary',
+  },
+  {
+    icone: 'location_on',
+    titulo: 'Presencial',
+    descricao: 'Atendimento presencial',
+    info: CONTACT_ADDRESS,
+    horario: 'Seg a Sex, 8h às 14h',
+    href: '#',
+    cor: 'bg-tertiary/10 text-tertiary',
+  },
+  {
+    icone: 'open_in_new',
+    titulo: 'Fala.BR',
+    descricao: 'Plataforma oficial de ouvidoria do governo federal',
+    info: 'Registre sua manifestação online',
+    horario: '24 horas, 7 dias por semana',
+    href: 'https://falabr.cgu.gov.br',
+    cor: 'bg-secondary/10 text-secondary',
+  },
+];
+
+const faq = [
+  {
+    pergunta: 'Como faço uma reclamação ou denúncia?',
+    resposta: 'Você pode registrar sua manifestação por qualquer um dos canais acima. Para reclamações e denúncias, recomendamos o uso do Fala.BR (plataforma oficial do governo federal), que garante o anonimato e o sigilo da identidade. Sua manifestação será analisada e respondida dentro do prazo legal.',
+  },
+  {
+    pergunta: 'Qual o prazo de resposta da Ouvidoria?',
+    resposta: 'Conforme a Lei nº 13.460/2017, o prazo para resposta é de até 20 dias úteis, prorrogável por mais 10 dias úteis mediante justificativa. Você receberá a resposta pelo mesmo canal utilizado para registrar a manifestação.',
+  },
+  {
+    pergunta: 'Posso acompanhar minha manifestação?',
+    resposta: 'Sim. Ao registrar sua manifestação no Fala.BR, você receberá um protocolo para acompanhar o andamento online. Nos demais canais, basta informar seu número de protocolo no contato seguinte.',
+  },
+  {
+    pergunta: 'O que a Ouvidoria NÃO resolve?',
+    resposta: 'A Ouvidoria não resolve questões judiciais em andamento, processos administrativos disciplinares denúncias anônimas sem elementos mínimos de informação, e demandas que já foram exauridas na via administrativa. Nestes casos, orientaremos o cidadão sobre o caminho adequado.',
+  },
+];
+---
+
+<Layout title="Ouvidoria" description="Canais oficiais de atendimento ao cidadão da Fundação de Cultura Elias Mansour">
+
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+
+    <PageHero title="Ouvidoria" description="Canais oficiais de atendimento ao cidadão. Registre sugestões, reclamações, denúncias e elogios sobre os serviços prestados pela Fundação de Cultura Elias Mansour." breadcrumbLabel="Ouvidoria" />
+
+    <!-- Canais de Atendimento -->
+    <section class="mb-section-gap">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="w-1 h-8 bg-primary rounded-full"></span>
+        <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface">Canais de Atendimento</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {canais.map((canal) => (
+          <a
+            href={canal.href}
+            target={canal.href.startsWith('http') ? '_blank' : undefined}
+            rel={canal.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            class="group bg-surface-container-lowest rounded-xl border border-outline-variant/20 p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          >
+            <div class="flex items-start gap-4">
+              <div class={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${canal.cor}`}>
+                <span class="material-symbols-outlined">{canal.icone}</span>
+              </div>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors mb-1">{canal.titulo}</h3>
+                <p class="font-sans text-body-md text-on-surface-variant mb-2">{canal.descricao}</p>
+                <p class="font-sans text-label-md text-primary">{canal.info}</p>
+                <p class="font-sans text-body-md text-on-surface-variant text-sm mt-1">{canal.horario}</p>
+              </div>
+              <span class="shrink-0 material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">
+                {canal.href.startsWith('http') ? 'open_in_new' : 'arrow_forward'}
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Perguntas Frequentes -->
+    <section class="mb-section-gap">
+      <div class="flex items-center gap-3 mb-8">
+        <span class="w-1 h-8 bg-primary rounded-full"></span>
+        <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface">Perguntas Frequentes</h2>
+      </div>
+      <div class="max-w-3xl space-y-3">
+        {faq.map((item) => (
+          <details class="group bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden">
+            <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer font-display text-headline-md text-on-surface hover:bg-surface-container transition-colors list-none">
+              {item.pergunta}
+              <span class="shrink-0 material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform">expand_more</span>
+            </summary>
+            <div class="px-6 pb-5 border-t border-outline-variant/20 pt-4">
+              <p class="font-sans text-body-md text-on-surface-variant">{item.resposta}</p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- Base Legal -->
+    <section class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/20">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="material-symbols-outlined text-primary">gavel</span>
+        <h3 class="font-display text-headline-md text-on-surface">Base Legal</h3>
+      </div>
+      <div class="font-sans text-body-md text-on-surface-variant space-y-2">
+        <p>A Ouvidoria da Fundação de Cultura Elias Mansour atende às disposições da <strong class="text-on-surface">Lei nº 13.460/2017</strong>, que dispõe sobre participação, proteção e defesa dos direitos do usuário dos serviços públicos da administração pública.</p>
+        <p>Complementarmente, segue as orientações da <strong class="text-on-surface">Lei de Acesso à Informação (Lei nº 12.527/2011)</strong> e do <strong class="text-on-surface">Decreto nº 9.094/2017</strong>, que regulamentam o atendimento ao cidadão e a simplificação de serviços públicos.</p>
+      </div>
+    </section>
+  </div>
+</Layout>
+
+<style>
+  details summary::-webkit-details-marker { display: none; }
+</style>

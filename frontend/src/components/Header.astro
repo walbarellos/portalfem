@@ -3,10 +3,11 @@ const currentPath = Astro.url.pathname;
 const navItems = [
   { href: '/institucional', label: 'A FEM' },
   { href: '/editais', label: 'Editais' },
-  { href: '/espacos', label: 'Espaços' },
   { href: '/noticias', label: 'Notícias' },
   { href: '/eventos', label: 'Eventos' },
+  { href: '/espacos', label: 'Espaços' },
   { href: '/servicos', label: 'Serviços' },
+  { href: '/ouvidoria', label: 'Ouvidoria' },
 ];
 function isActive(href: string): boolean {
   if (href === '/') return currentPath === '/';

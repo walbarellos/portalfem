@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://femcultura.ac.gov.br/sitemap-index.xml

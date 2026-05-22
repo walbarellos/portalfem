@@ -35,6 +35,35 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="canonical" href={Astro.url.href} />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "GovernmentOrganization",
+      "name": "Funda\u00e7\u00e3o de Cultura Elias Mansour",
+      "alternateName": "FEM",
+      "description": "Portal oficial da Funda\u00e7\u00e3o de Cultura Elias Mansour - FEM, Governo do Estado do Acre",
+      "url": "https://femcultura.ac.gov.br",
+      "logo": "https://femcultura.ac.gov.br/assets/logos/fem-horizontal.png",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Rua Benjamin Constant, 1234",
+        "addressLocality": "Rio Branco",
+        "addressRegion": "AC",
+        "addressCountry": "BR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "(68) 3223-1234",
+        "contactType": "customer service",
+        "email": "comunicacao@fem.ac.gov.br"
+      },
+      "sameAs": [
+        "https://instagram.com/fem.ac",
+        "https://facebook.com/fem.ac",
+        "https://youtube.com/@femacre"
+      ]
+    }
+    </script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
 
     <title>{title ? `${title} | ${siteName}` : siteName}</title>
