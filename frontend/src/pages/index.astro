@@ -26,9 +26,9 @@ const featuredImg = featuredNews?.imagem_destaque
         {edital ? 'Edital Aberto' : 'Destaque Cultural'}
       </span>
       {edital ? (
-        <h1 class="font-display text-display-lg text-on-primary max-w-3xl leading-tight">{edital.titulo}</h1>
+        <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">{edital.titulo}</h1>
       ) : (
-        <h1 class="font-display text-display-lg text-on-primary max-w-3xl leading-tight">Oportunidades<br/>Culturais</h1>
+        <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">Oportunidades<br/>Culturais</h1>
       )}
       <p class="font-sans text-body-lg text-surface-container max-w-2xl mt-4 mb-6">
         {edital
@@ -59,7 +59,7 @@ const featuredImg = featuredNews?.imagem_destaque
           <div>
             <div class="flex items-center gap-3 mb-2">
               <span class="w-1 h-8 bg-primary rounded-full"></span>
-              <h2 class="font-display text-headline-lg text-on-background">Notícias Culturais</h2>
+              <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-background">Notícias Culturais</h2>
             </div>
             <p class="font-sans text-body-md text-on-surface-variant mt-2 ml-4">As últimas movimentações do cenário acreano.</p>
           </div>
@@ -134,7 +134,7 @@ const featuredImg = featuredNews?.imagem_destaque
       <div>
         <div class="flex items-center gap-3 mb-2">
           <span class="w-1 h-8 bg-primary rounded-full"></span>
-          <h2 class="font-display text-headline-lg text-on-background">Serviços ao Artista</h2>
+          <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-background">Serviços ao Artista</h2>
         </div>
         <p class="font-sans text-body-md text-on-surface-variant mt-2 ml-4">Acesse os serviços essenciais para fazedores de cultura.</p>
       </div>

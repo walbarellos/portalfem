@@ -55,7 +55,7 @@ if (query.trim()) {
 <Layout title={query ? `Busca: ${query}` : 'Buscar'} description="Buscar conteúdo no portal da Fundação de Cultura Elias Mansour">
   <div class="max-w-container-max-width mx-auto px-gutter py-8">
     <div class="max-w-2xl mx-auto mb-12">
-      <h1 class="font-display text-display-lg text-primary mb-2">Buscar</h1>
+      <h1 class="font-display text-display-sm md:text-display-lg text-primary mb-2">Buscar</h1>
       <p class="font-sans text-body-lg text-on-surface-variant mb-6">Encontre notícias, editais e eventos no portal da FEM</p>
       <BuscaForm query={query} />
     </div>
@@ -76,7 +76,7 @@ if (query.trim()) {
           <>
             {noticias.length > 0 && (
               <section class="mb-10">
-                <h2 class="font-display text-headline-lg text-on-surface mb-6">Notícias ({noticias.length})</h2>
+                <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Notícias ({noticias.length})</h2>
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
                   {noticias.map((n) => <CardNoticia noticia={n} />)}
                 </div>
@@ -85,7 +85,7 @@ if (query.trim()) {
 
             {eventos.length > 0 && (
               <section class="mb-10">
-                <h2 class="font-display text-headline-lg text-on-surface mb-6">Eventos ({eventos.length})</h2>
+                <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Eventos ({eventos.length})</h2>
                 <div class="flex flex-col gap-4">
                   {eventos.map((e) => <CardEvento evento={e} />)}
                 </div>
@@ -94,7 +94,7 @@ if (query.trim()) {
 
             {editais.length > 0 && (
               <section class="mb-10">
-                <h2 class="font-display text-headline-lg text-on-surface mb-6">Editais ({editais.length})</h2>
+                <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Editais ({editais.length})</h2>
                 <TabelaEditais editais={editais} />
               </section>
             )}

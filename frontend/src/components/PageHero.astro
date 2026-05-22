@@ -29,7 +29,7 @@ const { title, description, breadcrumbLabel } = Astro.props
       <span class="material-symbols-outlined text-[16px]">chevron_right</span>
       <span class="text-on-primary/90">{breadcrumbLabel}</span>
     </nav>
-    <h1 class="font-display text-display-lg text-on-primary mb-3">{title}</h1>
+    <h1 class="font-display text-display-sm md:text-display-lg text-on-primary mb-3">{title}</h1>
     {description && <p class="font-sans text-body-lg text-on-primary opacity-90">{description}</p>}
   </div>
 </section>

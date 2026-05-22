@@ -59,7 +59,7 @@ const outrosEventos = await safeRequest(
       )}
 
       <header class="mb-8">
-        <h1 class="font-display text-display-lg text-on-surface leading-tight">{evento.titulo}</h1>
+        <h1 class="font-display text-display-sm md:text-display-lg text-on-surface leading-tight">{evento.titulo}</h1>
         <div class="flex flex-wrap gap-4 mt-4">
           <div class="flex items-center gap-2 text-on-surface-variant">
             <span class="material-symbols-outlined text-[18px]">schedule</span>
@@ -95,7 +95,7 @@ const outrosEventos = await safeRequest(
 
     {outrosEventos.length > 0 && (
       <aside class="max-w-3xl mx-auto mt-16 pt-8 border-t border-outline-variant/30">
-        <h2 class="font-display text-headline-lg text-on-surface mb-6">Outros Eventos</h2>
+        <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Outros Eventos</h2>
         <div class="grid gap-4">
           {outrosEventos.slice(0, 2).map((e) => <CardEvento evento={e} />)}
         </div>

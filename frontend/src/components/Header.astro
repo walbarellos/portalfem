@@ -39,8 +39,8 @@ function isActive(href: string): boolean {
       <a href="/busca" aria-label="search" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
         <span class="material-symbols-outlined">search</span>
       </a>
-      <button id="menu-toggle" aria-label="menu" class="md:hidden text-on-surface-variant">
-        <span class="material-symbols-outlined">menu</span>
+      <button id="menu-toggle" aria-label="Abrir menu" class="md:hidden text-on-surface-variant">
+        <span id="menu-icon" class="material-symbols-outlined">menu</span>
       </button>
     </div>
   </div>
@@ -68,7 +68,17 @@ function isActive(href: string): boolean {
     const header = document.getElementById('main-header');
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
-    let lastScrollY = window.scrollY;
+    const icon = document.getElementById('menu-icon');
+
+    function closeMenu() {
+      if (menu && toggle && !menu.classList.contains('hidden')) {
+        menu.classList.add('hidden');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Abrir menu');
+        if (icon) icon.textContent = 'menu';
+        document.body.style.overflow = '';
+      }
+    }
 
     window.addEventListener('scroll', () => {
       if (window.scrollY > 50) {
@@ -78,15 +88,27 @@ function isActive(href: string): boolean {
         header.classList.remove('shadow-sm');
         header.style.backgroundColor = '';
       }
-      lastScrollY = window.scrollY;
     });
 
-    if (toggle && menu) {
+    if (toggle && menu && icon) {
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true';
         toggle.setAttribute('aria-expanded', String(!expanded));
+        toggle.setAttribute('aria-label', expanded ? 'Abrir menu' : 'Fechar menu');
+        icon.textContent = expanded ? 'menu' : 'close';
         menu.classList.toggle('hidden');
+        document.body.style.overflow = expanded ? '' : 'hidden';
+      });
+
+      menu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMenu);
       });
     }
+
+    document.addEventListener('click', (e) => {
+      if (menu && !menu.classList.contains('hidden') && !header.contains(e.target)) {
+        closeMenu();
+      }
+    });
   });
 </script>

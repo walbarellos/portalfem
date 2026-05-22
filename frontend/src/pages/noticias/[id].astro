@@ -57,7 +57,7 @@ const recentes = await getUltimasNoticias(4);
 
       <header class="mb-8">
         <time class="font-sans text-label-md text-on-surface-variant" datetime={noticia.data_publicacao}>{data}</time>
-        <h1 class="font-display text-display-lg text-on-surface mt-2 leading-tight">{noticia.titulo}</h1>
+        <h1 class="font-display text-display-sm md:text-display-lg text-on-surface mt-2 leading-tight">{noticia.titulo}</h1>
         {autor && (
           <p class="font-sans text-body-md text-on-surface-variant mt-2">Por {autor}</p>
         )}
@@ -73,7 +73,7 @@ const recentes = await getUltimasNoticias(4);
     </article>
 
     <aside class="max-w-3xl mx-auto mt-16 pt-8 border-t border-outline-variant/30">
-      <h2 class="font-display text-headline-lg text-on-surface mb-6">Notícias Recentes</h2>
+      <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Notícias Recentes</h2>
       <div class="grid sm:grid-cols-2 gap-6">
         {recentes.filter((n) => n.id !== noticia.id).slice(0, 2).map((n) => (
           <CardNoticia noticia={n} />
