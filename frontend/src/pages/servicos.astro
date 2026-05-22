@@ -96,6 +96,7 @@ const sistemasInternos = [
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
         <span class="material-symbols-outlined text-3xl text-primary">public</span>
         Sistemas Externos
+        <span class="font-label-md text-label-md text-outline font-normal">({sistemasExternos.length})</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {sistemasExternos.map((s) => (
@@ -103,10 +104,10 @@ const sistemasInternos = [
             href={s.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+            class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
             style={`--card-cor: ${s.cor}`}
           >
-            <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
+            <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
               <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px">{s.icone}</span>
             </div>
             <div class="flex-1 min-w-0">
@@ -129,17 +130,18 @@ const sistemasInternos = [
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
         <span class="material-symbols-outlined text-3xl">dns</span>
         Sistemas Internos
+        <span class="font-label-md text-label-md text-outline font-normal">({sistemasInternos.length})</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {sistemasInternos.map((s) => (
           <a
             href={s.url}
             target="_self"
-            class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+            class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
             style={`--card-cor: ${s.cor}`}
             onclick="if(!confirm('Você está acessando um sistema interno da FEM. Certifique-se de estar na rede do governo.'))event.preventDefault()"
           >
-            <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
+            <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
               <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px">{s.icone}</span>
             </div>
             <div class="flex-1 min-w-0">
@@ -162,15 +164,16 @@ const sistemasInternos = [
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
         <span class="material-symbols-outlined text-3xl" style="color:#1565C0">description</span>
         Documentações e Portarias
+        <span class="font-label-md text-label-md text-outline font-normal">(1)</span>
       </h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a
           href="https://drive.google.com/file/d/1SwwgZcb4UmDh0cYNtIdw-K404mFwuzP2/view"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center bg-[#1565C0]/10">
+          <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 bg-[#1565C0]/10">
             <span class="material-symbols-outlined" style="color:#1565C0; font-size: 24px">description</span>
           </div>
           <div class="flex-1 min-w-0">
@@ -194,18 +197,19 @@ const sistemasInternos = [
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
         <span class="material-symbols-outlined text-3xl" style="color:#2E7D32">verified</span>
         Certidões
+        <span class="font-label-md text-label-md text-outline font-normal">(6)</span>
       </h2>
       <p class="font-sans text-body-md text-on-surface-variant mb-8 -mt-4">
         Emita certidões negativas e de regularidade dos principais órgãos federais, estaduais e municipais.
       </p>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a
-          href="https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/Emitir"
+          href="https://servicos.receitafederal.gov.br/servico/certidoes/#/home"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1A237E]/10 flex items-center justify-center">
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1A237E]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <span class="material-symbols-outlined text-[#1A237E]" style="font-size: 24px">receipt_long</span>
           </div>
           <div class="flex-1 min-w-0">
@@ -223,9 +227,9 @@ const sistemasInternos = [
           href="http://sefaznet.ac.gov.br/sefazonline/servlet/wemcnd"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#E65100]/10 flex items-center justify-center">
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#E65100]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <span class="material-symbols-outlined text-[#E65100]" style="font-size: 24px">account_balance</span>
           </div>
           <div class="flex-1 min-w-0">
@@ -243,9 +247,9 @@ const sistemasInternos = [
           href="https://www.tst.jus.br/certidao"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#C62828]/10 flex items-center justify-center">
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#C62828]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <span class="material-symbols-outlined text-[#C62828]" style="font-size: 24px">gavel</span>
           </div>
           <div class="flex-1 min-w-0">
@@ -263,9 +267,9 @@ const sistemasInternos = [
           href="https://receita.riobranco.ac.gov.br/"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#00695C]/10 flex items-center justify-center">
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#00695C]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <span class="material-symbols-outlined text-[#00695C]" style="font-size: 24px">location_city</span>
           </div>
           <div class="flex-1 min-w-0">
@@ -283,9 +287,9 @@ const sistemasInternos = [
           href="https://consulta-crf.caixa.gov.br/"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1565C0]/10 flex items-center justify-center">
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1565C0]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <span class="material-symbols-outlined text-[#1565C0]" style="font-size: 24px">real_estate_agent</span>
           </div>
           <div class="flex-1 min-w-0">
@@ -303,9 +307,9 @@ const sistemasInternos = [
           href="http://www.sitad.ac.gov.br/certidao.aspx"
           target="_blank"
           rel="noopener noreferrer"
-          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+          class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#4A148C]/10 flex items-center justify-center">
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#4A148C]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
             <span class="material-symbols-outlined text-[#4A148C]" style="font-size: 24px">balance</span>
           </div>
           <div class="flex-1 min-w-0">
@@ -322,3 +326,27 @@ const sistemasInternos = [
     </section>
   </div>
 </Layout>
+
+<style>
+  .card-enter {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .card-enter.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.1 });
+document.querySelectorAll('.card-enter').forEach(el => observer.observe(el));
+</script>
