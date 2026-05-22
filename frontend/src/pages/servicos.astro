@@ -4,123 +4,145 @@ export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
-const sistemas = [
+const sistemasExternos = [
   {
     nome: 'SEI',
     descricao: 'Sistema Eletrônico de Informações',
     url: 'https://sei.ac.gov.br/',
-    externo: true,
     cor: '#1565C0',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
       <rect width="120" height="72" rx="10" fill="#E3F2FD"/>
-      <rect x="35" y="18" width="50" height="36" rx="6" fill="#1565C0" opacity="0.12"/>
-      <path d="M42 30h36M42 38h28M42 46h22" stroke="#1565C0" stroke-width="3" stroke-linecap="round"/>
+      <rect x="30" y="16" width="60" height="40" rx="8" fill="#1565C0" opacity="0.1"/>
+      <rect x="36" y="22" width="12" height="4" rx="2" fill="#1565C0"/>
+      <rect x="36" y="30" width="28" height="4" rx="2" fill="#1565C0" opacity="0.6"/>
+      <rect x="36" y="38" width="20" height="4" rx="2" fill="#1565C0" opacity="0.4"/>
+      <rect x="54" y="22" width="30" height="4" rx="2" fill="#1565C0"/>
+      <circle cx="90" cy="24" r="8" fill="#1565C0" opacity="0.15"/>
+      <path d="M87 24l2 2 4-4" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>`,
   },
   {
     nome: 'Mapa Cultural',
     descricao: 'Plataforma de mapeamento cultural do Acre',
     url: 'https://mapadacultura.ac.gov.br/',
-    externo: true,
     cor: '#00897B',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
       <rect width="120" height="72" rx="10" fill="#E0F2F1"/>
-      <circle cx="60" cy="34" r="18" fill="#00897B" opacity="0.15"/>
-      <path d="M60 20v28M46 34h28" stroke="#00897B" stroke-width="2.5" stroke-linecap="round"/>
-      <circle cx="60" cy="34" r="6" fill="none" stroke="#00897B" stroke-width="2.5"/>
+      <circle cx="60" cy="36" r="20" fill="#00897B" opacity="0.12"/>
+      <path d="M60 20c-6 0-12 5-12 10 0 8 12 18 12 18s12-10 12-18c0-5-6-10-12-10z" fill="#00897B" opacity="0.2"/>
+      <circle cx="60" cy="30" r="4" fill="none" stroke="#00897B" stroke-width="2"/>
+      <path d="M47 16l5 4M73 16l-5 4" stroke="#00897B" stroke-width="1.5" stroke-linecap="round"/>
+      <circle cx="60" cy="52" r="3" fill="#00897B" opacity="0.3"/>
+      <path d="M56 52v-4l4-2m4 6v-4l-4-2" stroke="#00897B" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
   },
   {
     nome: 'Diário Oficial',
     descricao: 'Publicações oficiais do Estado',
     url: 'https://diario.ac.gov.br/',
-    externo: true,
-    cor: '#F57F17',
+    cor: '#E65100',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#FFF8E1"/>
-      <rect x="30" y="18" width="60" height="40" rx="4" fill="#F57F17" opacity="0.1"/>
-      <rect x="36" y="24" width="48" height="3" rx="1.5" fill="#F57F17"/>
-      <rect x="36" y="32" width="40" height="3" rx="1.5" fill="#F57F17" opacity="0.6"/>
-      <rect x="36" y="40" width="44" height="3" rx="1.5" fill="#F57F17" opacity="0.4"/>
-    </svg>`,
-  },
-  {
-    nome: 'GRP',
-    descricao: 'Gestão de Recursos Patrimoniais',
-    url: 'http://grp.ac.gov.br/asi/',
-    externo: false,
-    cor: '#2E7D32',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#E8F5E9"/>
-      <circle cx="60" cy="34" r="18" fill="#2E7D32" opacity="0.12"/>
-      <path d="M52 28l-4 12h24l-4-12H52z" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linejoin="round"/>
-      <rect x="56" y="32" width="8" height="8" rx="2" fill="#2E7D32"/>
+      <rect width="120" height="72" rx="10" fill="#FFF3E0"/>
+      <rect x="28" y="16" width="64" height="42" rx="4" fill="#E65100" opacity="0.08"/>
+      <rect x="34" y="22" width="52" height="3" rx="1.5" fill="#E65100"/>
+      <rect x="34" y="29" width="40" height="3" rx="1.5" fill="#E65100" opacity="0.5"/>
+      <rect x="34" y="36" width="44" height="3" rx="1.5" fill="#E65100" opacity="0.35"/>
+      <rect x="34" y="43" width="30" height="3" rx="1.5" fill="#E65100" opacity="0.2"/>
+      <path d="M78 36l-8-8M78 36l-8 8" stroke="#E65100" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
     </svg>`,
   },
   {
     nome: 'Ponto Web',
     descricao: 'Sistema de ponto eletrônico',
     url: 'https://pontoweb.ac.gov.br/',
-    externo: true,
-    cor: '#7B1FA2',
+    cor: '#6A1B9A',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
       <rect width="120" height="72" rx="10" fill="#F3E5F5"/>
-      <circle cx="60" cy="34" r="18" fill="#7B1FA2" opacity="0.12"/>
-      <circle cx="60" cy="34" r="8" fill="none" stroke="#7B1FA2" stroke-width="2.5"/>
-      <path d="M60 30v6h4" stroke="#7B1FA2" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="60" cy="36" r="20" fill="#6A1B9A" opacity="0.1"/>
+      <circle cx="60" cy="36" r="14" fill="none" stroke="#6A1B9A" stroke-width="2.5"/>
+      <circle cx="60" cy="36" r="6" fill="#6A1B9A" opacity="0.2"/>
+      <path d="M60 28v10l6 4" stroke="#6A1B9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="60" cy="36" r="2" fill="#6A1B9A"/>
+      <path d="M44 28l-3 3M76 28l-3 3" stroke="#6A1B9A" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
+    </svg>`,
+  },
+];
+
+const sistemasInternos = [
+  {
+    nome: 'GRP',
+    descricao: 'Gestão de Recursos Patrimoniais',
+    url: 'http://grp.ac.gov.br/asi/',
+    cor: '#2E7D32',
+    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="72" rx="10" fill="#E8F5E9"/>
+      <rect x="30" y="18" width="60" height="38" rx="6" fill="#2E7D32" opacity="0.08"/>
+      <path d="M60 22l-16 10v12l16 10 16-10V32L60 22z" fill="#2E7D32" opacity="0.12"/>
+      <path d="M60 22l-16 10v12l16 10 16-10V32L60 22z" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M52 38l4 4 8-8" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="90" cy="26" r="8" fill="#2E7D32" opacity="0.1"/>
+      <path d="M90 24v4M88 26h4" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round"/>
     </svg>`,
   },
   {
     nome: 'Chamados FEM',
     descricao: 'Abertura e acompanhamento de chamados',
     url: 'http://10.24.18.20/',
-    externo: false,
     cor: '#C62828',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
       <rect width="120" height="72" rx="10" fill="#FFEBEE"/>
-      <rect x="44" y="22" width="32" height="32" rx="8" fill="#C62828" opacity="0.12"/>
-      <path d="M52 32h16M52 40h12" stroke="#C62828" stroke-width="2.5" stroke-linecap="round"/>
-      <path d="M60 28v4" stroke="#C62828" stroke-width="2.5"/>
+      <rect x="34" y="18" width="52" height="38" rx="6" fill="#C62828" opacity="0.08"/>
+      <circle cx="60" cy="36" r="16" fill="#C62828" opacity="0.1"/>
+      <rect x="52" y="30" width="16" height="12" rx="3" fill="#C62828" opacity="0.2"/>
+      <circle cx="60" cy="40" r="2" fill="#C62828"/>
+      <path d="M60 30v-4M60 44v4" stroke="#C62828" stroke-width="2" stroke-linecap="round"/>
+      <path d="M50 36h-4M74 36h4" stroke="#C62828" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
     </svg>`,
   },
   {
     nome: 'Biblivre',
     descricao: 'Sistema de biblioteca digital',
     url: 'http://10.24.18.25:3000/Biblivre6/',
-    externo: false,
     cor: '#283593',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
       <rect width="120" height="72" rx="10" fill="#E8EAF6"/>
-      <path d="M40 22v32l20-8 20 8V22l-20 8-20-8z" fill="#283593" opacity="0.12"/>
-      <path d="M40 22v32l20-8 20 8V22l-20 8-20-8z" fill="none" stroke="#283593" stroke-width="2.5" stroke-linejoin="round"/>
+      <rect x="30" y="18" width="60" height="38" rx="6" fill="#283593" opacity="0.06"/>
+      <path d="M42 24v28l18-6 18 6V24l-18 6-18-6z" fill="#283593" opacity="0.1"/>
+      <path d="M42 24v28l18-6 18 6V24l-18 6-18-6z" fill="none" stroke="#283593" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M60 30v20" stroke="#283593" stroke-width="2" stroke-linecap="round"/>
+      <path d="M48 28l-2 2M72 28l-2 2" stroke="#283593" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
     </svg>`,
   },
   {
     nome: 'GVC',
     descricao: 'Controle de acesso e visitantes',
     url: 'http://10.24.18.50:3000/gerenciamento',
-    externo: false,
     cor: '#00838F',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
       <rect width="120" height="72" rx="10" fill="#E0F7FA"/>
-      <circle cx="48" cy="30" r="6" fill="#00838F" opacity="0.3"/>
-      <circle cx="72" cy="30" r="6" fill="#00838F" opacity="0.3"/>
-      <path d="M42 42c0-5 6-8 18-8s18 3 18 8" fill="none" stroke="#00838F" stroke-width="2.5" stroke-linecap="round"/>
+      <rect x="30" y="18" width="60" height="38" rx="6" fill="#00838F" opacity="0.06"/>
+      <circle cx="60" cy="28" r="8" fill="#00838F" opacity="0.12"/>
+      <circle cx="60" cy="28" r="6" fill="none" stroke="#00838F" stroke-width="2"/>
+      <circle cx="60" cy="28" r="2" fill="#00838F"/>
+      <path d="M48 46c0-6 6-10 12-10s12 4 12 10" fill="none" stroke="#00838F" stroke-width="2" stroke-linecap="round"/>
+      <path d="M44 40l-2 2M76 40l-2 2" stroke="#00838F" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
     </svg>`,
   },
   {
     nome: 'Agendamento de Espaços',
     descricao: 'Reserve teatros, museus e salas',
     url: 'http://10.24.18.50:3000/agendamento',
-    externo: false,
     cor: '#AD1457',
     logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
       <rect width="120" height="72" rx="10" fill="#FCE4EC"/>
-      <rect x="40" y="22" width="40" height="30" rx="4" fill="#AD1457" opacity="0.1"/>
-      <path d="M40 30h40" stroke="#AD1457" stroke-width="2.5"/>
-      <rect x="46" y="20" width="4" height="6" rx="1" fill="#AD1457"/>
-      <rect x="70" y="20" width="4" height="6" rx="1" fill="#AD1457"/>
-      <text x="60" y="44" text-anchor="middle" font-family="system-ui" font-weight="600" font-size="11" fill="#AD1457">17</text>
+      <rect x="30" y="18" width="60" height="38" rx="6" fill="#AD1457" opacity="0.06"/>
+      <rect x="42" y="22" width="36" height="28" rx="4" fill="#AD1457" opacity="0.1"/>
+      <rect x="42" y="30" width="36" height="2" fill="#AD1457" opacity="0.3"/>
+      <rect x="48" y="20" width="4" height="6" rx="1" fill="#AD1457"/>
+      <rect x="68" y="20" width="4" height="6" rx="1" fill="#AD1457"/>
+      <circle cx="60" cy="38" r="6" fill="#AD1457" opacity="0.15"/>
+      <text x="60" y="41" text-anchor="middle" font-family="system-ui" font-weight="700" font-size="8" fill="#AD1457">17</text>
+      <path d="M46 50l-2 2M76 50l-2 2" stroke="#AD1457" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
     </svg>`,
   },
 ];
@@ -143,26 +165,22 @@ const sistemas = [
       </div>
     </section>
 
-    <!-- Grid de Sistemas -->
+    <!-- Sistemas Externos -->
     <section class="mb-16">
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
-        <span class="material-symbols-outlined text-3xl text-primary">apps</span>
-        Sistemas e Ferramentas
+        <span class="material-symbols-outlined text-3xl text-primary">public</span>
+        Sistemas Externos
       </h2>
       <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {sistemas.map((s) => (
+        {sistemasExternos.map((s) => (
           <a
             href={s.url}
-            target={s.externo ? '_blank' : '_self'}
-            rel={s.externo ? 'noopener noreferrer' : undefined}
+            target="_blank"
+            rel="noopener noreferrer"
             class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             style={`--card-cor: ${s.cor}`}
-            onclick={s.externo ? undefined : `if(!confirm('Você está acessando um sistema interno da FEM. Certifique-se de estar na rede do governo.'))event.preventDefault()`}
           >
-            <!-- Topo: Logo SVG -->
             <div class="flex items-center justify-center p-4 bg-surface-container-low" set:html={s.logoSvg} />
-
-            <!-- Corpo: Nome + Descrição + CTA -->
             <div class="p-5 pt-4">
               <h3 class="font-display text-headline-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
                 {s.nome}
@@ -170,19 +188,53 @@ const sistemas = [
               <p class="font-sans text-body-md text-on-surface-variant mt-1 line-clamp-2 leading-relaxed">
                 {s.descricao}
               </p>
-
               <div class="mt-5 flex items-center justify-between">
-                <span
-                  class={`px-3 py-1 rounded-full font-label-md text-xs ${
-                    s.externo
-                      ? 'bg-primary-container/20 text-on-primary-container'
-                      : 'bg-secondary-container/30 text-on-secondary-container'
-                  }`}
-                >
-                  {s.externo ? 'Externo' : 'Interno'}
+                <span class="px-3 py-1 rounded-full font-label-md text-xs bg-primary-container/20 text-on-primary-container">
+                  Externo
                 </span>
                 <span
-                  class="inline-flex items-center gap-1 text-label-md font-label-md transition-all duration-300"
+                  class="inline-flex items-center gap-1 font-label-md text-label-md transition-all duration-300"
+                  style="color: var(--card-cor)"
+                >
+                  Acessar
+                  <span class="material-symbols-outlined text-[18px]">open_in_new</span>
+                </span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <!-- Sistemas Internos -->
+    <section class="mb-16">
+      <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
+        <span class="material-symbols-outlined text-3xl">dns</span>
+        Sistemas Internos
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {sistemasInternos.map((s) => (
+          <a
+            href={s.url}
+            target="_self"
+            class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            style={`--card-cor: ${s.cor}`}
+            onclick="if(!confirm('Você está acessando um sistema interno da FEM. Certifique-se de estar na rede do governo.'))event.preventDefault()"
+          >
+            <div class="flex items-center justify-center p-4 bg-surface-container-low" set:html={s.logoSvg} />
+            <div class="p-5 pt-4">
+              <h3 class="font-display text-headline-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
+                {s.nome}
+              </h3>
+              <p class="font-sans text-body-md text-on-surface-variant mt-1 line-clamp-2 leading-relaxed">
+                {s.descricao}
+              </p>
+              <div class="mt-5 flex items-center justify-between">
+                <span class="px-3 py-1 rounded-full font-label-md text-xs bg-secondary-container/30 text-on-secondary-container">
+                  Interno
+                </span>
+                <span
+                  class="inline-flex items-center gap-1 font-label-md text-label-md transition-all duration-300"
                   style="color: var(--card-cor)"
                 >
                   Acessar
@@ -224,7 +276,7 @@ const sistemas = [
             <p class="font-sans text-body-md text-on-surface-variant mt-1 leading-relaxed">
               Dispõe sobre o uso e a gestão dos espaços públicos de cultura geridos pela Fundação de Cultura Elias Mansour – FEM.
             </p>
-            <div class="mt-4 flex items-center gap-1.5 text-label-md font-label-md" style="color:#1565C0">
+            <div class="mt-4 flex items-center gap-1.5 font-label-md text-label-md" style="color:#1565C0">
               <span>Abrir documento</span>
               <span class="material-symbols-outlined text-[18px]">open_in_new</span>
             </div>
@@ -233,40 +285,134 @@ const sistemas = [
       </div>
     </section>
 
-    <!-- Formulários -->
+    <!-- Certidões -->
     <section class="mb-16">
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
-        <span class="material-symbols-outlined text-3xl" style="color:#6B1D3D">edit_note</span>
-        Formulários
+        <span class="material-symbols-outlined text-3xl" style="color:#2E7D32">verified</span>
+        Certidões
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <p class="font-sans text-body-md text-on-surface-variant mb-8 -mt-4">
+        Emita certidões negativas e de regularidade dos principais órgãos federais, estaduais e municipais.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSczzp6ih2L5sAoH3t3b_BELWMHRc_GOXy0bCdbXZlAAgs4TtQ/viewform"
+          href="https://solucoes.receita.fazenda.gov.br/Servicos/certidaointernet/PF/Emitir"
           target="_blank"
           rel="noopener noreferrer"
-          class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="flex items-center gap-4 p-5" style="background: #FCE4EC">
-            <div class="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-white/60">
-              <span class="material-symbols-outlined" style="color:#6B1D3D">edit_note</span>
-            </div>
-            <div>
-              <span class="text-sm font-medium" style="color:#6B1D3D">Formulário</span>
-            </div>
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1A237E]/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#1A237E]">receipt_long</span>
           </div>
-          <div class="p-5 pt-4 flex items-center justify-between">
-            <div>
-              <h3 class="font-display text-headline-md text-on-surface group-hover:text-tertiary transition-colors">
-                Solicitação de Utilização de Espaço
-              </h3>
-              <p class="font-sans text-body-md text-on-surface-variant mt-1">
-                Formulário para reserva de teatros, museus e espaços culturais
-              </p>
-            </div>
-            <span class="shrink-0 px-5 py-2.5 rounded-full bg-tertiary/10 text-tertiary font-label-md text-label-md group-hover:bg-tertiary group-hover:text-on-primary transition-all whitespace-nowrap ml-4">
-              Preencher
+          <div class="flex-1 min-w-0">
+            <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1A237E] transition-colors">
+              Certidão da Receita Federal
             </span>
+            <p class="font-sans text-body-md text-on-surface-variant text-sm">Débitos federais (PF e PJ)</p>
           </div>
+          <span class="shrink-0 px-4 py-2 rounded-lg bg-[#1A237E]/10 text-[#1A237E] font-label-md text-label-md text-sm group-hover:bg-[#1A237E] group-hover:text-white transition-all">
+            Emitir
+          </span>
+        </a>
+
+        <a
+          href="http://sefaznet.ac.gov.br/sefazonline/servlet/wemcnd"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#E65100]/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#E65100]">account_balance</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <span class="font-label-md text-label-md text-on-surface group-hover:text-[#E65100] transition-colors">
+              Certidão SEFAZ
+            </span>
+            <p class="font-sans text-body-md text-on-surface-variant text-sm">Débitos estaduais do Acre</p>
+          </div>
+          <span class="shrink-0 px-4 py-2 rounded-lg bg-[#E65100]/10 text-[#E65100] font-label-md text-label-md text-sm group-hover:bg-[#E65100] group-hover:text-white transition-all">
+            Emitir
+          </span>
+        </a>
+
+        <a
+          href="https://www.tst.jus.br/certidao"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#C62828]/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#C62828]">gavel</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <span class="font-label-md text-label-md text-on-surface group-hover:text-[#C62828] transition-colors">
+              Certidão do Ministério do Trabalho
+            </span>
+            <p class="font-sans text-body-md text-on-surface-variant text-sm">Débitos trabalhistas (TST)</p>
+          </div>
+          <span class="shrink-0 px-4 py-2 rounded-lg bg-[#C62828]/10 text-[#C62828] font-label-md text-label-md text-sm group-hover:bg-[#C62828] group-hover:text-white transition-all">
+            Emitir
+          </span>
+        </a>
+
+        <a
+          href="https://receita.riobranco.ac.gov.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#00695C]/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#00695C]">location_city</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <span class="font-label-md text-label-md text-on-surface group-hover:text-[#00695C] transition-colors">
+              Certidão da Prefeitura de Rio Branco
+            </span>
+            <p class="font-sans text-body-md text-on-surface-variant text-sm">Débitos municipais</p>
+          </div>
+          <span class="shrink-0 px-4 py-2 rounded-lg bg-[#00695C]/10 text-[#00695C] font-label-md text-label-md text-sm group-hover:bg-[#00695C] group-hover:text-white transition-all">
+            Emitir
+          </span>
+        </a>
+
+        <a
+          href="https://consulta-crf.caixa.gov.br/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1565C0]/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#1565C0]">real_estate_agent</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1565C0] transition-colors">
+              Certidão da Caixa Econômica
+            </span>
+            <p class="font-sans text-body-md text-on-surface-variant text-sm">Regularidade do FGTS (CRF)</p>
+          </div>
+          <span class="shrink-0 px-4 py-2 rounded-lg bg-[#1565C0]/10 text-[#1565C0] font-label-md text-label-md text-sm group-hover:bg-[#1565C0] group-hover:text-white transition-all">
+            Emitir
+          </span>
+        </a>
+
+        <a
+          href="http://www.sitad.ac.gov.br/certidao.aspx"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+        >
+          <div class="shrink-0 w-12 h-12 rounded-xl bg-[#4A148C]/10 flex items-center justify-center">
+            <span class="material-symbols-outlined text-[#4A148C]">balance</span>
+          </div>
+          <div class="flex-1 min-w-0">
+            <span class="font-label-md text-label-md text-on-surface group-hover:text-[#4A148C] transition-colors">
+              Certidão PGE
+            </span>
+            <p class="font-sans text-body-md text-on-surface-variant text-sm">Dívida ativa do Estado</p>
+          </div>
+          <span class="shrink-0 px-4 py-2 rounded-lg bg-[#4A148C]/10 text-[#4A148C] font-label-md text-label-md text-sm group-hover:bg-[#4A148C] group-hover:text-white transition-all">
+            Emitir
+          </span>
         </a>
       </div>
     </section>
