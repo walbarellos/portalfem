@@ -51,77 +51,6 @@ const featuredImg = featuredNews?.imagem_destaque
     </div>
   </section>
 
-  <!-- Serviços ao Artista (Bento Grid) -->
-  <section class="py-section-gap px-margin-mobile md:px-gutter max-w-container-max-width mx-auto">
-    <div class="flex justify-between items-end mb-12">
-      <div>
-        <h2 class="font-display text-headline-lg text-on-background">Serviços ao Artista</h2>
-        <p class="font-sans text-body-md text-on-surface-variant mt-2">Acesse os serviços essenciais para fazedores de cultura.</p>
-      </div>
-      <a href="/servicos" class="hidden md:flex text-primary font-sans text-label-md hover:underline items-center gap-1 group">
-        Ver todos
-        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
-      </a>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]">
-      {servicos.length > 0 ? (
-        servicos.slice(0, 5).map((servico, i) => {
-          const isLarge = i === 0;
-          const colors = [
-            { bg: 'bg-surface-container-low', icon: 'how_to_reg', iconBg: 'bg-primary-container/20', iconColor: 'text-primary' },
-            { bg: 'bg-surface-container-low', icon: 'map', iconBg: 'bg-secondary/10', iconColor: 'text-secondary' },
-            { bg: 'bg-surface-container-low', icon: 'museum', iconBg: 'bg-primary/10', iconColor: 'text-primary' },
-            { bg: 'bg-primary', icon: 'event', iconBg: 'bg-on-primary/10', iconColor: 'text-on-primary' },
-            { bg: 'bg-surface-container-low', icon: 'calendar_month', iconBg: 'bg-tertiary-container/10', iconColor: 'text-tertiary-container' },
-          ];
-          const c = colors[i % colors.length];
-          const isPrimary = c.bg === 'bg-primary';
-          return (
-            <a
-              href={servico.url || '/servicos'}
-              target={servico.url ? '_blank' : undefined}
-              rel={servico.url ? 'noopener noreferrer' : undefined}
-              class={`group relative rounded-2xl overflow-hidden soft-elevation ${isLarge ? 'md:col-span-2 md:row-span-2' : ''} ${c.bg} ${isPrimary ? '' : 'border border-outline-variant/30 hover:bg-surface-container transition-colors'} block`}
-            >
-              {isLarge && (
-                <div class={`absolute inset-0 ${servico.url ? '' : 'bg-gradient-to-br from-primary/5 to-primary/10'}`}></div>
-              )}
-              <div class={`relative ${isLarge ? 'h-full flex flex-col justify-end p-8' : 'flex flex-col p-6 h-full'}`}>
-                {isLarge ? (
-                  <>
-                    <div class={`${c.iconBg} backdrop-blur-md w-12 h-12 rounded-full flex items-center justify-center mb-4`}>
-                      <span class={`material-symbols-outlined ${c.iconColor}`}>{c.icon}</span>
-                    </div>
-                    <h3 class="font-display text-headline-md text-on-surface mb-2">{servico.titulo}</h3>
-                    {servico.descricao && <p class="font-sans text-body-md text-on-surface-variant max-w-md">{servico.descricao}</p>}
-                  </>
-                ) : (
-                  <>
-                    <div class={`w-10 h-10 rounded-full ${c.iconBg} flex items-center justify-center mb-auto ${c.iconColor}`}>
-                      <span class="material-symbols-outlined">{c.icon}</span>
-                    </div>
-                    <div>
-                      <h3 class={`font-display text-[22px] ${isPrimary ? 'text-on-primary' : 'text-on-background'} mb-1`}>{servico.titulo}</h3>
-                      {servico.descricao && <p class={`font-sans text-body-md ${isPrimary ? 'text-primary-fixed' : 'text-on-surface-variant'} text-sm`}>{servico.descricao}</p>}
-                    </div>
-                    <div class={`absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity ${isPrimary ? 'text-on-primary' : 'text-primary'}`}>
-                      <span class="material-symbols-outlined">arrow_outward</span>
-                    </div>
-                  </>
-                )}
-              </div>
-            </a>
-          );
-        })
-      ) : (
-        <div class="md:col-span-3 text-center py-16 text-on-surface-variant">
-          <p class="font-sans text-body-lg">Nenhum serviço disponível no momento.</p>
-        </div>
-      )}
-    </div>
-  </section>
-
   <!-- Narrativas da Cultura (Notícias - Asymmetric Grid) -->
   {noticias.length > 0 && (
     <section class="py-section-gap px-margin-mobile md:px-gutter bg-surface-container-lowest border-y border-outline-variant/20">
@@ -193,4 +122,75 @@ const featuredImg = featuredNews?.imagem_destaque
       </div>
     </section>
   )}
+
+  <!-- Serviços ao Artista (Bento Grid) -->
+  <section class="py-section-gap px-margin-mobile md:px-gutter max-w-container-max-width mx-auto">
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <h2 class="font-display text-headline-lg text-on-background">Serviços ao Artista</h2>
+        <p class="font-sans text-body-md text-on-surface-variant mt-2">Acesse os serviços essenciais para fazedores de cultura.</p>
+      </div>
+      <a href="/servicos" class="hidden md:flex text-primary font-sans text-label-md hover:underline items-center gap-1 group">
+        Ver todos
+        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]">
+      {servicos.length > 0 ? (
+        servicos.slice(0, 5).map((servico, i) => {
+          const isLarge = i === 0;
+          const colors = [
+            { bg: 'bg-surface-container-low', icon: 'how_to_reg', iconBg: 'bg-primary-container/20', iconColor: 'text-primary' },
+            { bg: 'bg-surface-container-low', icon: 'map', iconBg: 'bg-secondary/10', iconColor: 'text-secondary' },
+            { bg: 'bg-surface-container-low', icon: 'museum', iconBg: 'bg-primary/10', iconColor: 'text-primary' },
+            { bg: 'bg-primary', icon: 'event', iconBg: 'bg-on-primary/10', iconColor: 'text-on-primary' },
+            { bg: 'bg-surface-container-low', icon: 'calendar_month', iconBg: 'bg-tertiary-container/10', iconColor: 'text-tertiary-container' },
+          ];
+          const c = colors[i % colors.length];
+          const isPrimary = c.bg === 'bg-primary';
+          return (
+            <a
+              href={servico.url || '/servicos'}
+              target={servico.url ? '_blank' : undefined}
+              rel={servico.url ? 'noopener noreferrer' : undefined}
+              class={`group relative rounded-2xl overflow-hidden soft-elevation ${isLarge ? 'md:col-span-2 md:row-span-2' : ''} ${c.bg} ${isPrimary ? '' : 'border border-outline-variant/30 hover:bg-surface-container transition-colors'} block`}
+            >
+              {isLarge && (
+                <div class={`absolute inset-0 ${servico.url ? '' : 'bg-gradient-to-br from-primary/5 to-primary/10'}`}></div>
+              )}
+              <div class={`relative ${isLarge ? 'h-full flex flex-col justify-end p-8' : 'flex flex-col p-6 h-full'}`}>
+                {isLarge ? (
+                  <>
+                    <div class={`${c.iconBg} backdrop-blur-md w-12 h-12 rounded-full flex items-center justify-center mb-4`}>
+                      <span class={`material-symbols-outlined ${c.iconColor}`}>{c.icon}</span>
+                    </div>
+                    <h3 class="font-display text-headline-md text-on-surface mb-2">{servico.titulo}</h3>
+                    {servico.descricao && <p class="font-sans text-body-md text-on-surface-variant max-w-md">{servico.descricao}</p>}
+                  </>
+                ) : (
+                  <>
+                    <div class={`w-10 h-10 rounded-full ${c.iconBg} flex items-center justify-center mb-auto ${c.iconColor}`}>
+                      <span class="material-symbols-outlined">{c.icon}</span>
+                    </div>
+                    <div>
+                      <h3 class={`font-display text-[22px] ${isPrimary ? 'text-on-primary' : 'text-on-background'} mb-1`}>{servico.titulo}</h3>
+                      {servico.descricao && <p class={`font-sans text-body-md ${isPrimary ? 'text-primary-fixed' : 'text-on-surface-variant'} text-sm`}>{servico.descricao}</p>}
+                    </div>
+                    <div class={`absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity ${isPrimary ? 'text-on-primary' : 'text-primary'}`}>
+                      <span class="material-symbols-outlined">arrow_outward</span>
+                    </div>
+                  </>
+                )}
+              </div>
+            </a>
+          );
+        })
+      ) : (
+        <div class="md:col-span-3 text-center py-16 text-on-surface-variant">
+          <p class="font-sans text-body-lg">Nenhum serviço disponível no momento.</p>
+        </div>
+      )}
+    </div>
+  </section>
 </Layout>

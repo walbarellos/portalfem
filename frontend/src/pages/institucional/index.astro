@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+
 import { getAllPaginasInstitucionais } from '../../lib/directus';
 
 const paginas = await getAllPaginasInstitucionais();
@@ -8,12 +8,36 @@ const primeira = paginas.length > 0 ? paginas[0] : null;
 ---
 
 <Layout title="Institucional" description="A Fundação de Cultura Elias Mansour - FEM, Governo do Estado do Acre">
-  <div class="max-w-container-max-width mx-auto w-full px-gutter md:px-0 py-12">
-    <div class="md:px-gutter mb-12">
-      <Breadcrumbs items={[{ label: 'Institucional' }]} />
-      <h1 class="font-display-lg text-display-lg text-primary mb-4 mt-4">A Instituição</h1>
-      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A Fundação Elias Mansour (FEM) é a instituição responsável por formular, executar e fomentar políticas públicas culturais no Estado do Acre, promovendo a diversidade e o patrimônio histórico.</p>
-    </div>
+  <div class="max-w-container-max-width mx-auto w-full px-gutter md:px-0 py-8">
+
+    <!-- Hero -->
+    <section class="relative mb-14 md:mx-gutter overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-primary-container to-primary/80 min-h-[200px] md:min-h-[240px] flex items-center">
+      <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+        <svg class="absolute -top-10 -right-10 w-64 h-64 text-on-primary/5" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="1" />
+          <circle cx="100" cy="100" r="55" stroke="currentColor" stroke-width="1" />
+          <circle cx="100" cy="100" r="30" stroke="currentColor" stroke-width="1" />
+        </svg>
+        <svg class="absolute -bottom-8 -left-8 w-48 h-48 text-on-primary/[0.04]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="10" y="10" width="180" height="180" rx="20" stroke="currentColor" stroke-width="1" />
+          <rect x="35" y="35" width="130" height="130" rx="10" stroke="currentColor" stroke-width="1" />
+        </svg>
+        <svg class="absolute top-1/2 right-1/4 -translate-y-1/2 w-32 h-32 text-on-primary/[0.03]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 10L90 50L50 90L10 50L50 10Z" stroke="currentColor" stroke-width="1" />
+        </svg>
+      </div>
+      <div class="relative z-10 w-full px-8 md:px-12 py-8 md:py-10">
+        <nav class="flex items-center gap-2 text-on-primary/70 font-sans text-label-md mb-4">
+          <a href="/" class="hover:text-on-primary transition-colors">Início</a>
+          <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+          <span class="text-on-primary/90">Institucional</span>
+        </nav>
+        <h1 class="font-display text-display-lg text-on-primary mb-3">A Instituição</h1>
+        <p class="font-sans text-body-lg text-on-primary opacity-90">
+          A Fundação Elias Mansour (FEM) é a instituição responsável por formular, executar e fomentar políticas públicas culturais no Estado do Acre, promovendo a diversidade e o patrimônio histórico.
+        </p>
+      </div>
+    </section>
 
     <div class="flex flex-col md:flex-row gap-gutter">
       <aside class="w-full md:w-64 shrink-0 md:pl-gutter">

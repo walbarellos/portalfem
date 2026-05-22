@@ -2,7 +2,7 @@
 export const prerender = false;
 
 import Layout from '../layouts/Layout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
+
 import { safeRequest, directus, readItems } from '../lib/directus';
 
 const editais = await safeRequest(
@@ -44,16 +44,36 @@ function statusConfig(label: string) {
 ---
 
 <Layout title="Editais" description="Editais, chamamentos e oportunidades de financiamento cultural da Fundação de Cultura Elias Mansour">
-  <div class="pt-24">
-    <section class="max-w-container-max-width mx-auto px-gutter pt-8 pb-16">
-      <Breadcrumbs items={[{ label: 'Editais' }]} />
-      <div class="max-w-3xl mt-4">
-        <h1 class="font-display-lg text-display-lg text-on-surface mb-6">Oportunidades para a Cultura</h1>
-        <p class="font-body-lg text-body-lg text-on-surface-variant">
-          Portal do Artista. Encontre chamamentos públicos, editais de fomento e oportunidades de financiamento para seus projetos culturais no Estado.
-        </p>
-      </div>
-    </section>
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+
+      <!-- Hero -->
+      <section class="relative mb-14 overflow-hidden rounded-2xl bg-gradient-to-br from-primary via-primary-container to-primary/80 min-h-[200px] md:min-h-[240px] flex items-center">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+          <svg class="absolute -top-10 -right-10 w-64 h-64 text-on-primary/5" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="100" cy="100" r="80" stroke="currentColor" stroke-width="1" />
+            <circle cx="100" cy="100" r="55" stroke="currentColor" stroke-width="1" />
+            <circle cx="100" cy="100" r="30" stroke="currentColor" stroke-width="1" />
+          </svg>
+          <svg class="absolute -bottom-8 -left-8 w-48 h-48 text-on-primary/[0.04]" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="10" y="10" width="180" height="180" rx="20" stroke="currentColor" stroke-width="1" />
+            <rect x="35" y="35" width="130" height="130" rx="10" stroke="currentColor" stroke-width="1" />
+          </svg>
+          <svg class="absolute top-1/2 right-1/4 -translate-y-1/2 w-32 h-32 text-on-primary/[0.03]" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M50 10L90 50L50 90L10 50L50 10Z" stroke="currentColor" stroke-width="1" />
+          </svg>
+        </div>
+        <div class="relative z-10 w-full px-8 md:px-12 py-8 md:py-10">
+          <nav class="flex items-center gap-2 text-on-primary/70 font-sans text-label-md mb-4">
+            <a href="/" class="hover:text-on-primary transition-colors">Início</a>
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            <span class="text-on-primary/90">Editais</span>
+          </nav>
+          <h1 class="font-display text-display-lg text-on-primary mb-3">Oportunidades para a Cultura</h1>
+          <p class="font-sans text-body-lg text-on-primary opacity-90">
+            Portal do Artista. Encontre chamamentos públicos, editais de fomento e oportunidades de financiamento para seus projetos culturais no Estado.
+          </p>
+        </div>
+      </section>
 
     <section class="max-w-container-max-width mx-auto px-gutter pb-section-gap grid grid-cols-1 lg:grid-cols-12 gap-8">
       <aside class="lg:col-span-3 flex flex-col gap-8">
