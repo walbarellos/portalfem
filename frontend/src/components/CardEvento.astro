@@ -27,9 +27,9 @@ const catColors: Record<string, string> = {
 const imgSrc = evento.imagem_capa ? `${directusUrl}/assets/${evento.imagem_capa}` : null;
 ---
 
-<article class={`group flex flex-col md:flex-row bg-surface-container-lowest rounded-xl border border-outline-variant/30 hover:shadow-lg hover:shadow-primary/5 transition-all overflow-hidden ${isPast ? 'opacity-75' : ''}`}>
+<article class={`group flex flex-col md:flex-row bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden ${isPast ? 'opacity-75' : ''}`}>
   <a href={`/eventos/${evento.id}`} class="flex flex-col md:flex-row w-full">
-    <div class={`${isPast ? 'bg-surface-container-highest' : 'bg-surface-container-low'} md:w-32 flex flex-row md:flex-col items-center justify-center p-4 border-b md:border-b-0 md:border-r border-outline-variant/30 shrink-0`}>
+    <div class={`${isPast ? 'bg-surface-container-highest' : 'bg-primary/5'} md:w-32 flex flex-row md:flex-col items-center justify-center p-4 border-b md:border-b-0 md:border-r border-outline-variant/20 shrink-0`}>
       <span class={`font-headline-md text-headline-md ${isPast ? 'text-on-surface-variant' : 'text-primary'}`}>{dia}</span>
       <span class={`font-label-md text-label-md text-on-surface-variant uppercase tracking-wider ml-2 md:ml-0`}>{mes}</span>
     </div>
@@ -76,7 +76,7 @@ const imgSrc = evento.imagem_capa ? `${directusUrl}/assets/${evento.imagem_capa}
             </div>
           )}
         </div>
-        <span class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-surface-container text-primary font-label-md text-label-md hover:bg-primary-container hover:text-on-primary-container transition-colors cursor-pointer">
+        <span class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary font-label-md text-label-md group-hover:bg-primary group-hover:text-on-primary transition-all cursor-pointer">
           <span class="material-symbols-outlined text-[18px]">event_available</span>
           Adicionar ao Calendário
         </span>

@@ -1,4 +1,5 @@
 ---
+import '@fontsource-variable/space-grotesk';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import VLibras from '../components/VLibras.astro';
@@ -34,14 +35,41 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
     <meta name="twitter:card" content="summary_large_image" />
 
     <link rel="canonical" href={Astro.url.href} />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Geist:wght@400;500;600&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" />
 
     <title>{title ? `${title} | ${siteName}` : siteName}</title>
 
     <style>
+      @font-face {
+        font-family: 'Geist';
+        src: url('/fonts/Geist-Variable.woff2') format('woff2-variations');
+        font-weight: 100 900;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Geist';
+        src: url('/fonts/Geist-Regular.woff2') format('woff2');
+        font-weight: 400;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Geist';
+        src: url('/fonts/Geist-Medium.woff2') format('woff2');
+        font-weight: 500;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Geist';
+        src: url('/fonts/Geist-SemiBold.woff2') format('woff2');
+        font-weight: 600;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: 'Geist';
+        src: url('/fonts/Geist-Bold.woff2') format('woff2');
+        font-weight: 700;
+        font-display: swap;
+      }
       .hero-overlay {
         background: linear-gradient(to top, rgba(25, 29, 23, 0.9) 0%, rgba(25, 29, 23, 0.3) 50%, rgba(25, 29, 23, 0.1) 100%);
       }
@@ -50,6 +78,15 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
       }
       .soft-elevation {
         box-shadow: 0 10px 40px -10px rgba(0, 69, 13, 0.08);
+      }
+      [data-reveal] {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      }
+      [data-reveal].revealed {
+        opacity: 1;
+        transform: translateY(0);
       }
     </style>
   </head>
@@ -61,5 +98,15 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
     <Footer />
     <VLibras />
     <CookieConsent />
+    <script>
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add('revealed');
+        });
+      }, { threshold: 0.1 });
+      document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
+      });
+    </script>
   </body>
 </html>

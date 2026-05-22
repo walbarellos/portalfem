@@ -13,9 +13,9 @@ const imgSrc = noticia.imagem_destaque
 
 const dateFormatted = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', {
   day: 'numeric',
-  month: 'long',
+  month: 'short',
   year: 'numeric',
-});
+}).replace('.', '');
 
 const categoriaLabels: Record<string, string> = {
   destaque: 'Destaque',
@@ -30,28 +30,36 @@ const categoriaLabels: Record<string, string> = {
 const categoriaLabel = noticia.categoria ? (categoriaLabels[noticia.categoria] || noticia.categoria) : null;
 ---
 
-<article class="group flex flex-col gap-5 cursor-pointer">
-  <a href={`/noticias/${noticia.id}`} class="flex flex-col gap-5">
-    <div class="w-full aspect-[4/3] rounded-xl overflow-hidden relative shadow-sm transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 bg-surface-container-high">
+<article class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+  <a href={`/noticias/${noticia.id}`} class="block">
+    <div class="relative overflow-hidden aspect-[4/3]">
       {imgSrc ? (
         <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
       ) : (
-        <div class="w-full h-full flex items-center justify-center">
+        <div class="w-full h-full flex items-center justify-center bg-surface-container-high">
           <span class="material-symbols-outlined text-4xl text-outline">image</span>
         </div>
       )}
       {categoriaLabel && (
-        <div class="absolute top-4 left-4 bg-surface/90 backdrop-blur-sm px-3 py-1 rounded-full font-label-md text-label-md text-primary">
+        <span class="absolute top-3 left-3 bg-surface/80 backdrop-blur-sm px-2.5 py-1 rounded-full font-label-md text-label-md text-primary flex items-center gap-1">
+          <span class="material-symbols-outlined text-[14px]">local_offer</span>
           {categoriaLabel}
-        </div>
+        </span>
       )}
     </div>
-    <div class="flex flex-col gap-2">
-      <time class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider" datetime={noticia.data_publicacao}>{dateFormatted}</time>
-      <h3 class="font-headline-md text-headline-md text-on-surface group-hover:text-primary transition-colors line-clamp-2">{noticia.titulo}</h3>
+    <div class="p-5">
+      <time class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1.5 mb-2" datetime={noticia.data_publicacao}>
+        <span class="material-symbols-outlined text-[16px]">calendar_today</span>
+        {dateFormatted}
+      </time>
+      <h3 class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors line-clamp-2 mb-2">{noticia.titulo}</h3>
       {noticia.resumo && (
-        <p class="font-body-md text-body-md text-on-surface-variant line-clamp-3">{noticia.resumo}</p>
+        <p class="font-sans text-body-md text-on-surface-variant line-clamp-3 mb-4">{noticia.resumo}</p>
       )}
+      <span class="inline-flex items-center gap-1 text-primary font-label-md text-label-md group-hover:gap-2 transition-all">
+        Leia mais
+        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+      </span>
     </div>
   </a>
 </article>

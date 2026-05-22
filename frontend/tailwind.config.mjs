@@ -72,8 +72,17 @@ export default {
         'container-max-width': '1280px',
       },
       boxShadow: {
-        'card': '0 1px 3px 0 rgba(0,0,0,0.06), 0 1px 2px -1px rgba(0,0,0,0.06)',
-        'card-hover': '0 10px 15px -3px rgba(0,69,13,0.08), 0 4px 6px -4px rgba(0,69,13,0.04)',
+        'card': '0 4px 12px -4px rgba(0,69,13,0.10), 0 1px 3px -1px rgba(0,0,0,0.06)',
+        'card-hover': '0 12px 24px -8px rgba(0,69,13,0.15), 0 4px 8px -4px rgba(0,69,13,0.08)',
+      },
+      keyframes: {
+        'fade-in-up': {
+          '0%': { opacity: '0', transform: 'translateY(20px)' },
+          '100%': { opacity: '1', transform: 'translateY(0)' },
+        },
+      },
+      animation: {
+        'fade-in-up': 'fade-in-up 0.6s ease-out forwards',
       },
     },
   },
