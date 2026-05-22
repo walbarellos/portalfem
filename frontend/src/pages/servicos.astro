@@ -10,61 +10,28 @@ const sistemasExternos = [
     descricao: 'Sistema Eletrônico de Informações',
     url: 'https://sei.ac.gov.br/',
     cor: '#1565C0',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#E3F2FD"/>
-      <rect x="30" y="16" width="60" height="40" rx="8" fill="#1565C0" opacity="0.1"/>
-      <rect x="36" y="22" width="12" height="4" rx="2" fill="#1565C0"/>
-      <rect x="36" y="30" width="28" height="4" rx="2" fill="#1565C0" opacity="0.6"/>
-      <rect x="36" y="38" width="20" height="4" rx="2" fill="#1565C0" opacity="0.4"/>
-      <rect x="54" y="22" width="30" height="4" rx="2" fill="#1565C0"/>
-      <circle cx="90" cy="24" r="8" fill="#1565C0" opacity="0.15"/>
-      <path d="M87 24l2 2 4-4" stroke="#1565C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>`,
+    icone: 'folder',
   },
   {
     nome: 'Mapa Cultural',
     descricao: 'Plataforma de mapeamento cultural do Acre',
     url: 'https://mapadacultura.ac.gov.br/',
     cor: '#00897B',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#E0F2F1"/>
-      <circle cx="60" cy="36" r="20" fill="#00897B" opacity="0.12"/>
-      <path d="M60 20c-6 0-12 5-12 10 0 8 12 18 12 18s12-10 12-18c0-5-6-10-12-10z" fill="#00897B" opacity="0.2"/>
-      <circle cx="60" cy="30" r="4" fill="none" stroke="#00897B" stroke-width="2"/>
-      <path d="M47 16l5 4M73 16l-5 4" stroke="#00897B" stroke-width="1.5" stroke-linecap="round"/>
-      <circle cx="60" cy="52" r="3" fill="#00897B" opacity="0.3"/>
-      <path d="M56 52v-4l4-2m4 6v-4l-4-2" stroke="#00897B" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>`,
+    icone: 'map',
   },
   {
     nome: 'Diário Oficial',
     descricao: 'Publicações oficiais do Estado',
     url: 'https://diario.ac.gov.br/',
     cor: '#E65100',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#FFF3E0"/>
-      <rect x="28" y="16" width="64" height="42" rx="4" fill="#E65100" opacity="0.08"/>
-      <rect x="34" y="22" width="52" height="3" rx="1.5" fill="#E65100"/>
-      <rect x="34" y="29" width="40" height="3" rx="1.5" fill="#E65100" opacity="0.5"/>
-      <rect x="34" y="36" width="44" height="3" rx="1.5" fill="#E65100" opacity="0.35"/>
-      <rect x="34" y="43" width="30" height="3" rx="1.5" fill="#E65100" opacity="0.2"/>
-      <path d="M78 36l-8-8M78 36l-8 8" stroke="#E65100" stroke-width="1.5" stroke-linecap="round" opacity="0.5"/>
-    </svg>`,
+    icone: 'newspaper',
   },
   {
     nome: 'Ponto Web',
     descricao: 'Sistema de ponto eletrônico',
     url: 'https://pontoweb.ac.gov.br/',
     cor: '#6A1B9A',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#F3E5F5"/>
-      <circle cx="60" cy="36" r="20" fill="#6A1B9A" opacity="0.1"/>
-      <circle cx="60" cy="36" r="14" fill="none" stroke="#6A1B9A" stroke-width="2.5"/>
-      <circle cx="60" cy="36" r="6" fill="#6A1B9A" opacity="0.2"/>
-      <path d="M60 28v10l6 4" stroke="#6A1B9A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="60" cy="36" r="2" fill="#6A1B9A"/>
-      <path d="M44 28l-3 3M76 28l-3 3" stroke="#6A1B9A" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-    </svg>`,
+    icone: 'timer',
   },
 ];
 
@@ -74,76 +41,35 @@ const sistemasInternos = [
     descricao: 'Gestão de Recursos Patrimoniais',
     url: 'http://grp.ac.gov.br/asi/',
     cor: '#2E7D32',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#E8F5E9"/>
-      <rect x="30" y="18" width="60" height="38" rx="6" fill="#2E7D32" opacity="0.08"/>
-      <path d="M60 22l-16 10v12l16 10 16-10V32L60 22z" fill="#2E7D32" opacity="0.12"/>
-      <path d="M60 22l-16 10v12l16 10 16-10V32L60 22z" fill="none" stroke="#2E7D32" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M52 38l4 4 8-8" fill="none" stroke="#2E7D32" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="90" cy="26" r="8" fill="#2E7D32" opacity="0.1"/>
-      <path d="M90 24v4M88 26h4" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round"/>
-    </svg>`,
+    icone: 'account_balance',
   },
   {
     nome: 'Chamados FEM',
     descricao: 'Abertura e acompanhamento de chamados',
     url: 'http://10.24.18.20/',
     cor: '#C62828',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#FFEBEE"/>
-      <rect x="34" y="18" width="52" height="38" rx="6" fill="#C62828" opacity="0.08"/>
-      <circle cx="60" cy="36" r="16" fill="#C62828" opacity="0.1"/>
-      <rect x="52" y="30" width="16" height="12" rx="3" fill="#C62828" opacity="0.2"/>
-      <circle cx="60" cy="40" r="2" fill="#C62828"/>
-      <path d="M60 30v-4M60 44v4" stroke="#C62828" stroke-width="2" stroke-linecap="round"/>
-      <path d="M50 36h-4M74 36h4" stroke="#C62828" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
-    </svg>`,
+    icone: 'support_agent',
   },
   {
     nome: 'Biblivre',
     descricao: 'Sistema de biblioteca digital',
     url: 'http://10.24.18.25:3000/Biblivre6/',
     cor: '#283593',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#E8EAF6"/>
-      <rect x="30" y="18" width="60" height="38" rx="6" fill="#283593" opacity="0.06"/>
-      <path d="M42 24v28l18-6 18 6V24l-18 6-18-6z" fill="#283593" opacity="0.1"/>
-      <path d="M42 24v28l18-6 18 6V24l-18 6-18-6z" fill="none" stroke="#283593" stroke-width="2" stroke-linejoin="round"/>
-      <path d="M60 30v20" stroke="#283593" stroke-width="2" stroke-linecap="round"/>
-      <path d="M48 28l-2 2M72 28l-2 2" stroke="#283593" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-    </svg>`,
+    icone: 'library_books',
   },
   {
     nome: 'GVC',
     descricao: 'Controle de acesso e visitantes',
     url: 'http://10.24.18.50:3000/gerenciamento',
     cor: '#00838F',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#E0F7FA"/>
-      <rect x="30" y="18" width="60" height="38" rx="6" fill="#00838F" opacity="0.06"/>
-      <circle cx="60" cy="28" r="8" fill="#00838F" opacity="0.12"/>
-      <circle cx="60" cy="28" r="6" fill="none" stroke="#00838F" stroke-width="2"/>
-      <circle cx="60" cy="28" r="2" fill="#00838F"/>
-      <path d="M48 46c0-6 6-10 12-10s12 4 12 10" fill="none" stroke="#00838F" stroke-width="2" stroke-linecap="round"/>
-      <path d="M44 40l-2 2M76 40l-2 2" stroke="#00838F" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-    </svg>`,
+    icone: 'how_to_reg',
   },
   {
     nome: 'Agendamento de Espaços',
     descricao: 'Reserve teatros, museus e salas',
     url: 'http://10.24.18.50:3000/agendamento',
     cor: '#AD1457',
-    logoSvg: `<svg viewBox="0 0 120 72" xmlns="http://www.w3.org/2000/svg">
-      <rect width="120" height="72" rx="10" fill="#FCE4EC"/>
-      <rect x="30" y="18" width="60" height="38" rx="6" fill="#AD1457" opacity="0.06"/>
-      <rect x="42" y="22" width="36" height="28" rx="4" fill="#AD1457" opacity="0.1"/>
-      <rect x="42" y="30" width="36" height="2" fill="#AD1457" opacity="0.3"/>
-      <rect x="48" y="20" width="4" height="6" rx="1" fill="#AD1457"/>
-      <rect x="68" y="20" width="4" height="6" rx="1" fill="#AD1457"/>
-      <circle cx="60" cy="38" r="6" fill="#AD1457" opacity="0.15"/>
-      <text x="60" y="41" text-anchor="middle" font-family="system-ui" font-weight="700" font-size="8" fill="#AD1457">17</text>
-      <path d="M46 50l-2 2M76 50l-2 2" stroke="#AD1457" stroke-width="1.5" stroke-linecap="round" opacity="0.4"/>
-    </svg>`,
+    icone: 'calendar_month',
   },
 ];
 ---
@@ -171,35 +97,27 @@ const sistemasInternos = [
         <span class="material-symbols-outlined text-3xl text-primary">public</span>
         Sistemas Externos
       </h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {sistemasExternos.map((s) => (
           <a
             href={s.url}
             target="_blank"
             rel="noopener noreferrer"
-            class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
             style={`--card-cor: ${s.cor}`}
           >
-            <div class="flex items-center justify-center p-4 bg-surface-container-low" set:html={s.logoSvg} />
-            <div class="p-5 pt-4">
-              <h3 class="font-display text-headline-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
+            <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
+              <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px">{s.icone}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <span class="font-label-md text-label-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
                 {s.nome}
-              </h3>
-              <p class="font-sans text-body-md text-on-surface-variant mt-1 line-clamp-2 leading-relaxed">
-                {s.descricao}
-              </p>
-              <div class="mt-5 flex items-center justify-between">
-                <span class="px-3 py-1 rounded-full font-label-md text-xs bg-primary-container/20 text-on-primary-container">
-                  Externo
-                </span>
-                <span
-                  class="inline-flex items-center gap-1 font-label-md text-label-md transition-all duration-300"
-                  style="color: var(--card-cor)"
-                >
-                  Acessar
-                  <span class="material-symbols-outlined text-[18px]">open_in_new</span>
-                </span>
-              </div>
+              </span>
+              <p class="font-sans text-body-md text-on-surface-variant text-sm">{s.descricao}</p>
+            </div>
+            <div class="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg font-label-md text-label-md text-sm transition-all" style="background: color-mix(in srgb, var(--card-cor) 10%, transparent); color: var(--card-cor)">
+              <span>Acessar</span>
+              <span class="material-symbols-outlined text-[16px]">open_in_new</span>
             </div>
           </a>
         ))}
@@ -212,35 +130,27 @@ const sistemasInternos = [
         <span class="material-symbols-outlined text-3xl">dns</span>
         Sistemas Internos
       </h2>
-      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         {sistemasInternos.map((s) => (
           <a
             href={s.url}
             target="_self"
-            class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+            class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
             style={`--card-cor: ${s.cor}`}
             onclick="if(!confirm('Você está acessando um sistema interno da FEM. Certifique-se de estar na rede do governo.'))event.preventDefault()"
           >
-            <div class="flex items-center justify-center p-4 bg-surface-container-low" set:html={s.logoSvg} />
-            <div class="p-5 pt-4">
-              <h3 class="font-display text-headline-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
+            <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
+              <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px">{s.icone}</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <span class="font-label-md text-label-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
                 {s.nome}
-              </h3>
-              <p class="font-sans text-body-md text-on-surface-variant mt-1 line-clamp-2 leading-relaxed">
-                {s.descricao}
-              </p>
-              <div class="mt-5 flex items-center justify-between">
-                <span class="px-3 py-1 rounded-full font-label-md text-xs bg-secondary-container/30 text-on-secondary-container">
-                  Interno
-                </span>
-                <span
-                  class="inline-flex items-center gap-1 font-label-md text-label-md transition-all duration-300"
-                  style="color: var(--card-cor)"
-                >
-                  Acessar
-                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                </span>
-              </div>
+              </span>
+              <p class="font-sans text-body-md text-on-surface-variant text-sm">{s.descricao}</p>
+            </div>
+            <div class="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg font-label-md text-label-md text-sm transition-all" style="background: color-mix(in srgb, var(--card-cor) 10%, transparent); color: var(--card-cor)">
+              <span>Acessar</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </div>
           </a>
         ))}
@@ -253,33 +163,27 @@ const sistemasInternos = [
         <span class="material-symbols-outlined text-3xl" style="color:#1565C0">description</span>
         Documentações e Portarias
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <a
           href="https://drive.google.com/file/d/1SwwgZcb4UmDh0cYNtIdw-K404mFwuzP2/view"
           target="_blank"
           rel="noopener noreferrer"
-          class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
+          class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
-          <div class="flex items-center gap-4 p-5" style="background: #E3F2FD">
-            <div class="shrink-0 flex items-center justify-center w-12 h-12 rounded-xl bg-white/60">
-              <span class="material-symbols-outlined" style="color:#1565C0">description</span>
-            </div>
-            <div>
-              <span class="text-sm font-medium" style="color:#1565C0">Documento Oficial</span>
-              <span class="block text-xs text-on-surface-variant mt-0.5">2023</span>
-            </div>
+          <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center bg-[#1565C0]/10">
+            <span class="material-symbols-outlined" style="color:#1565C0; font-size: 24px">description</span>
           </div>
-          <div class="p-5 pt-4">
-            <h3 class="font-display text-headline-md text-on-surface group-hover:text-secondary transition-colors">
+          <div class="flex-1 min-w-0">
+            <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1565C0] transition-colors">
               Portaria nº 169/2023
-            </h3>
-            <p class="font-sans text-body-md text-on-surface-variant mt-1 leading-relaxed">
+            </span>
+            <p class="font-sans text-body-md text-on-surface-variant text-sm">
               Dispõe sobre o uso e a gestão dos espaços públicos de cultura geridos pela Fundação de Cultura Elias Mansour – FEM.
             </p>
-            <div class="mt-4 flex items-center gap-1.5 font-label-md text-label-md" style="color:#1565C0">
-              <span>Abrir documento</span>
-              <span class="material-symbols-outlined text-[18px]">open_in_new</span>
-            </div>
+          </div>
+          <div class="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg font-label-md text-label-md text-sm bg-[#1565C0]/10 text-[#1565C0] group-hover:bg-[#1565C0] group-hover:text-white transition-all">
+            <span>Abrir</span>
+            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
           </div>
         </a>
       </div>
@@ -302,7 +206,7 @@ const sistemasInternos = [
           class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1A237E]/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[#1A237E]">receipt_long</span>
+            <span class="material-symbols-outlined text-[#1A237E]" style="font-size: 24px">receipt_long</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1A237E] transition-colors">
@@ -322,7 +226,7 @@ const sistemasInternos = [
           class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#E65100]/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[#E65100]">account_balance</span>
+            <span class="material-symbols-outlined text-[#E65100]" style="font-size: 24px">account_balance</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#E65100] transition-colors">
@@ -342,7 +246,7 @@ const sistemasInternos = [
           class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#C62828]/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[#C62828]">gavel</span>
+            <span class="material-symbols-outlined text-[#C62828]" style="font-size: 24px">gavel</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#C62828] transition-colors">
@@ -362,7 +266,7 @@ const sistemasInternos = [
           class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#00695C]/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[#00695C]">location_city</span>
+            <span class="material-symbols-outlined text-[#00695C]" style="font-size: 24px">location_city</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#00695C] transition-colors">
@@ -382,7 +286,7 @@ const sistemasInternos = [
           class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1565C0]/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[#1565C0]">real_estate_agent</span>
+            <span class="material-symbols-outlined text-[#1565C0]" style="font-size: 24px">real_estate_agent</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1565C0] transition-colors">
@@ -402,7 +306,7 @@ const sistemasInternos = [
           class="group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#4A148C]/10 flex items-center justify-center">
-            <span class="material-symbols-outlined text-[#4A148C]">balance</span>
+            <span class="material-symbols-outlined text-[#4A148C]" style="font-size: 24px">balance</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#4A148C] transition-colors">
