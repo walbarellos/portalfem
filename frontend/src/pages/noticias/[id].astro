@@ -50,8 +50,8 @@ const recentes = await getUltimasNoticias(4);
 
     <article class="max-w-3xl mx-auto">
       {imgSrc && (
-        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high">
-          <img src={imgSrc} alt="" class="w-full h-full object-cover" />
+        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high img-shimmer">
+          <img src={imgSrc} alt="" class="w-full h-full object-cover" onLoad="this.parentElement.classList.remove('img-shimmer')" />
         </div>
       )}
 

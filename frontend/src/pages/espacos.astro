@@ -61,9 +61,9 @@ function categoriaLabel(value: string): string {
         {filtered.map((espaco) => {
           const imgSrc = espaco.imagem ? `${directusUrl}/assets/${espaco.imagem}` : null;
           return (
-            <a href={`/espacos/${espaco.id}`} class="group relative rounded-xl overflow-hidden aspect-[4/3] md:aspect-[3/4] lg:aspect-square bg-surface-container-lowest border border-outline-variant/20 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1">
+            <a href={`/espacos/${espaco.id}`} class="group relative rounded-xl overflow-hidden aspect-[4/3] md:aspect-[3/4] lg:aspect-square bg-surface-container-lowest border border-outline-variant/20 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 img-shimmer">
               {imgSrc ? (
-                <img src={imgSrc} alt={espaco.nome} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+                <img src={imgSrc} alt={espaco.nome} class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
               ) : (
                 <div class="absolute inset-0 bg-surface-container-high flex items-center justify-center">
                   <span class="material-symbols-outlined text-5xl text-outline">location_city</span>

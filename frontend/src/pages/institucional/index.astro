@@ -34,7 +34,7 @@ const primeira = paginas.length > 0 ? paginas[0] : null;
           </ul>
           {primeira && (
             <div class="mt-6 pt-6 border-t border-outline-variant/30">
-              <a href={`/institucional/${primeira.slug}`} class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary px-4 py-3 rounded-lg font-label-md text-label-md hover:bg-primary/90 transition-all">
+              <a href={`/institucional/${primeira.slug}`} class="w-full flex items-center justify-center gap-2 bg-primary text-on-primary px-4 py-3 rounded-xl font-label-md text-label-md hover:bg-primary-container hover:scale-[1.02] transition-all">
                 {primeira.titulo}
                 <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
               </a>

@@ -91,9 +91,9 @@ const categoriaLabels: Record<string, string> = {
 
     {featured && activeCategoria === 'todas' && currentPage === 1 && (
       <section class="max-w-container-max-width mx-auto px-gutter mb-section-gap">
-        <a href={`/noticias/${featured.id}`} class="group block relative w-full aspect-[4/3] md:aspect-[21/9] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 bg-surface-container-high">
+        <a href={`/noticias/${featured.id}`} class="group block relative w-full aspect-[4/3] md:aspect-[21/9] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 bg-surface-container-high img-shimmer">
           {featuredImg ? (
-            <img src={featuredImg} alt={featured.titulo} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+            <img src={featuredImg} alt={featured.titulo} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onLoad="this.parentElement.classList.remove('img-shimmer')" />
           ) : (
             <div class="w-full h-full flex items-center justify-center">
               <span class="material-symbols-outlined text-5xl text-outline">image</span>

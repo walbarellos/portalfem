@@ -32,9 +32,9 @@ const categoriaLabel = noticia.categoria ? (categoriaLabels[noticia.categoria] |
 
 <article class="group bg-surface-container-lowest rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
   <a href={`/noticias/${noticia.id}`} class="block">
-    <div class="relative overflow-hidden aspect-[4/3]">
+    <div class="relative overflow-hidden aspect-[4/3] img-shimmer">
       {imgSrc ? (
-        <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" />
+        <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
       ) : (
         <div class="w-full h-full flex items-center justify-center bg-surface-container-high">
           <span class="material-symbols-outlined text-4xl text-outline">image</span>

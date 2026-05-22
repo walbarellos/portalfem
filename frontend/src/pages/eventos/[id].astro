@@ -53,8 +53,8 @@ const outrosEventos = await safeRequest(
 
     <article class="max-w-3xl mx-auto">
       {imgCapa && (
-        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high">
-          <img src={imgCapa} alt="" class="w-full h-full object-cover" />
+        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high img-shimmer">
+          <img src={imgCapa} alt="" class="w-full h-full object-cover" onLoad="this.parentElement.classList.remove('img-shimmer')" />
         </div>
       )}
 
@@ -85,7 +85,7 @@ const outrosEventos = await safeRequest(
       {evento.link_inscricao && (
         <div class="mt-8">
           <a href={evento.link_inscricao} target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-lg font-sans text-label-md hover:scale-[1.02] hover:bg-primary/90 transition-all shadow-sm">
+            class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-sans text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
             <span class="material-symbols-outlined text-[18px]">edit_document</span>
             Inscreva-se
           </a>

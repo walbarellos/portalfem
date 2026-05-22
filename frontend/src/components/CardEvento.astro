@@ -83,8 +83,8 @@ const imgSrc = evento.imagem_capa ? `${directusUrl}/assets/${evento.imagem_capa}
       </div>
     </div>
     {imgSrc && (
-      <div class="hidden lg:block w-64 bg-surface-container-high shrink-0">
-        <img src={imgSrc} alt={evento.titulo} class="w-full h-full object-cover" loading="lazy" />
+      <div class="hidden lg:block w-64 bg-surface-container-high shrink-0 img-shimmer">
+        <img src={imgSrc} alt={evento.titulo} class="w-full h-full object-cover" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
       </div>
     )}
   </a>

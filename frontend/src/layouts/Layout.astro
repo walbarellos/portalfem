@@ -4,11 +4,18 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import VLibras from '../components/VLibras.astro';
 import CookieConsent from '../components/CookieConsent.astro';
+import { validateEnvironment } from '../lib/env-validation';
 
 export interface Props {
   title: string;
   description?: string;
   image?: string;
+}
+
+// Validate environment variables on each render (in development)
+// In production, this runs once per request
+if (import.meta.env.DEV) {
+  validateEnvironment();
 }
 
 const { title, description, image } = Astro.props;
@@ -116,6 +123,15 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
       [data-reveal].revealed {
         opacity: 1;
         transform: translateY(0);
+      }
+      @keyframes shimmer {
+        0% { background-position: -200% 0; }
+        100% { background-position: 200% 0; }
+      }
+      .img-shimmer {
+        background: linear-gradient(90deg, #e0e4db 25%, #ecefe6 50%, #e0e4db 75%);
+        background-size: 200% 100%;
+        animation: shimmer 1.8s ease-in-out infinite;
       }
     </style>
   </head>
