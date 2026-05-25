@@ -8,7 +8,8 @@ const REBUILD_URL = import.meta.env.REBUILD_URL || '';
 export const POST: APIRoute = async ({ request }) => {
   try {
     const authHeader = request.headers.get('authorization') || '';
-    const token = authHeader.replace('Bearer ', '');
+    const webhookToken = request.headers.get('x-webhook-token') || '';
+    const token = authHeader.replace('Bearer ', '') || webhookToken;
 
     if (token !== REBUILD_SECRET) {
       return new Response(JSON.stringify({ error: 'Não autorizado' }), {
