@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import PageHero from '../../components/PageHero.astro';
 import { directus, safeRequest, readItems, getAllPaginasInstitucionais } from '../../lib/directus';
 import type { PaginaInstitucional } from '../../schemas/directus';
 
@@ -25,126 +25,211 @@ const item = pagina?.[0] ?? null;
 if (!item) return Astro.redirect('/404');
 
 const allPaginas = await getAllPaginasInstitucionais();
+const currentIndex = allPaginas.findIndex((p) => p.slug === slug);
+const prev = currentIndex > 0 ? allPaginas[currentIndex - 1] : null;
+const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1] : null;
 ---
 
-<Layout title={item.titulo} description={`${item.titulo} - Fundação de Cultura Elias Mansour`}>
-  <div class="max-w-container-max-width mx-auto w-full px-gutter md:px-0 py-12">
-    <div class="md:px-gutter mb-12">
-      <Breadcrumbs items={[
-        { label: 'Institucional', href: '/institucional' },
-        { label: item.titulo },
-      ]} />
-      <h1 class="font-display text-display-sm md:text-display-lg text-primary mb-4 mt-4">{item.titulo}</h1>
-      <p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">A Fundação Elias Mansour (FEM) é a instituição responsável por formular, executar e fomentar políticas públicas culturais no Estado do Acre, promovendo a diversidade e o patrimônio histórico.</p>
-    </div>
+<Layout title={`${item.titulo} — Institucional`} description={`${item.titulo} - Fundação de Cultura Elias Mansour`}>
+  <div class="max-w-container-max-width mx-auto px-gutter py-8">
+    <PageHero title={item.titulo}
+      description={slug === 'quem-somos' ? 'História, objetivos, legislação e visão de futuro da Fundação de Cultura Elias Mansour.'
+        : slug === 'concultura' ? 'O Conselho Estadual de Cultura do Acre — história, composição e atribuições.'
+        : slug === 'presidencia' ? 'Conheça a presidência da Fundação de Cultura Elias Mansour e sua trajetória.'
+        : undefined}
+      breadcrumbLabel="Institucional" />
+  </div>
 
-    <div class="flex flex-col md:flex-row gap-gutter">
-      <aside class="w-full md:w-64 shrink-0 md:pl-gutter">
-        <div class="sticky top-[120px] bg-surface-container-lowest rounded-xl border border-outline-variant/30 p-6 shadow-sm">
-          <h3 class="font-label-md text-label-md text-on-surface-variant mb-4 uppercase tracking-wider">Menu Institucional</h3>
-          <ul class="flex flex-col gap-2">
-            {allPaginas.map((p) => {
-              const isActive = p.slug === slug;
-              return (
-                <li>
-                  <a
-                    href={`/institucional/${p.slug}`}
-                    class={`block px-4 py-3 rounded-lg font-label-md text-label-md transition-colors ${
-                      isActive
-                        ? 'bg-primary-container text-on-primary-container'
-                        : 'text-on-surface-variant hover:bg-surface-container hover:text-primary'
-                    }`}
-                  >
-                    {p.titulo}
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-        </div>
-      </aside>
-
-      <div class="flex-grow md:pr-gutter space-y-16">
-        <section>
-          <div class="w-full h-[400px] md:h-[500px] rounded-[24px] overflow-hidden relative shadow-sm border border-outline-variant/20 bg-surface-container-high">
-            <div class="absolute inset-0 bg-gradient-to-br from-primary/5 to-primary-container/20 flex items-center justify-center">
-              <span class="material-symbols-outlined text-6xl text-primary/30">account_balance</span>
-            </div>
-            <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-inverse-surface/80 to-transparent p-8">
-              <span class="inline-block px-3 py-1 bg-primary/90 text-on-primary rounded-full font-label-md text-label-md mb-3 backdrop-blur-sm">{item.titulo}</span>
-              <h2 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-lg md:text-headline-lg text-on-primary">{item.titulo}</h2>
-            </div>
-          </div>
-        </section>
-
-        <section>
-          <h2 class="font-headline-md text-headline-md text-primary mb-6 border-b border-outline-variant/30 pb-4">Conteúdo</h2>
-          <div class="prose prose-green max-w-none prose-headings:font-display prose-a:text-secondary prose-img:rounded-lg prose-h2:text-headline-md prose-h2:font-display prose-h2:text-primary prose-p:text-body-lg prose-p:leading-relaxed">
+  <section class="max-w-container-max-width mx-auto px-gutter pb-section-gap">
+    <div class="flex flex-col lg:flex-row gap-12">
+      <article class="flex-1 min-w-0">
+        {item.conteudo ? (
+          <div class="prose prose-green max-w-none prose-headings:font-display prose-a:text-secondary prose-img:rounded-xl prose-h2:text-headline-md prose-h2:font-display prose-h2:text-primary prose-h3:text-headline-sm prose-h3:font-display prose-h3:text-primary prose-p:text-body-lg prose-p:leading-relaxed prose-p:text-on-surface-variant prose-strong:text-on-surface prose-ul:text-body-lg prose-li:marker:text-primary">
             <Fragment set:html={item.conteudo} />
           </div>
-        </section>
+        ) : (
+          <div class="text-center py-20">
+            <span class="material-symbols-outlined text-5xl text-outline mb-4">description</span>
+            <p class="text-body-lg text-on-surface-variant">Conteúdo em atualização.</p>
+          </div>
+        )}
 
         {slug === 'quem-somos' && (
           <>
-            <section>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
-                  <span class="material-symbols-outlined text-primary mb-4 text-4xl">visibility</span>
-                  <h4 class="font-headline-md text-headline-md text-primary mb-3 text-xl">Visão</h4>
-                  <p class="font-body-md text-body-md text-on-surface-variant">Ser referência nacional na gestão de políticas culturais, reconhecida pela excelência na valorização da diversidade, na preservação da memória e no estímulo à economia criativa da Amazônia.</p>
-                </div>
-                <div class="bg-surface-container-low p-8 rounded-2xl border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
-                  <span class="material-symbols-outlined text-primary mb-4 text-4xl">flag</span>
-                  <h4 class="font-headline-md text-headline-md text-primary mb-3 text-xl">Missão</h4>
-                  <p class="font-body-md text-body-md text-on-surface-variant">Fomentar, proteger e difundir as manifestações culturais, promovendo a cidadania, a inclusão social e o desenvolvimento sustentável por meio da arte e do patrimônio cultural acreano.</p>
-                </div>
+            <section class="mt-16">
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+                {[
+                  { value: '42', label: 'Espaços Culturais', icon: 'location_city' },
+                  { value: '26', label: 'Municípios', icon: 'map' },
+                  { value: '1999', label: 'Fundação', icon: 'calendar_today' },
+                  { value: '8', label: 'Bibliotecas', icon: 'library_books' },
+                ].map((s) => (
+                  <div class="bg-surface-container-low rounded-2xl p-6 text-center shadow-sm border border-outline-variant/20">
+                    <span class="material-symbols-outlined text-3xl text-primary mb-2">{s.icon}</span>
+                    <div class="font-display text-display-md text-primary">{s.value}</div>
+                    <div class="font-label-md text-label-md text-on-surface-variant mt-1">{s.label}</div>
+                  </div>
+                ))}
               </div>
             </section>
 
-            <section>
-              <h2 class="font-headline-md text-headline-md text-primary mb-8">Áreas de Atuação</h2>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px]">
-                <div class="md:col-span-2 md:row-span-1 bg-surface-container rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
-                  <div class="relative z-10 flex flex-col h-full justify-between">
-                    <span class="material-symbols-outlined text-primary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">museum</span>
-                    <div>
-                      <h3 class="font-headline-md text-headline-md text-primary text-xl mb-2">Patrimônio Histórico</h3>
-                      <p class="font-body-md text-body-md text-on-surface-variant max-w-[80%] line-clamp-2">Preservação, tombamento e gestão de museus e sítios arqueológicos.</p>
-                    </div>
+            <section class="mt-16">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
+                  <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5">
+                    <span class="material-symbols-outlined text-2xl text-primary">visibility</span>
                   </div>
+                  <h3 class="font-headline-md text-headline-md text-primary mb-3">Missão</h3>
+                  <p class="text-body-md text-on-surface-variant leading-relaxed">Fomentar, proteger e difundir as manifestações culturais, promovendo a cidadania, a inclusão social e o desenvolvimento sustentável por meio da arte e do patrimônio cultural acreano.</p>
                 </div>
-                <div class="md:col-span-1 md:row-span-1 bg-secondary-fixed rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
-                  <div class="relative z-10 flex flex-col h-full justify-between">
-                    <span class="material-symbols-outlined text-secondary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">payments</span>
-                    <div>
-                      <h3 class="font-headline-md text-headline-md text-on-secondary-fixed-variant text-xl mb-2">Fomento à Arte</h3>
-                      <p class="font-body-md text-body-md text-on-secondary-fixed-variant opacity-80 line-clamp-2">Editais, leis de incentivo e financiamento direto a projetos culturais.</p>
-                    </div>
+                <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
+                  <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mb-5">
+                    <span class="material-symbols-outlined text-2xl text-secondary">flag</span>
                   </div>
-                </div>
-                <div class="md:col-span-1 md:row-span-1 bg-tertiary-fixed rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
-                  <div class="relative z-10 flex flex-col h-full justify-between">
-                    <span class="material-symbols-outlined text-tertiary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">library_books</span>
-                    <div>
-                      <h3 class="font-headline-md text-headline-md text-on-tertiary-fixed-variant text-xl mb-2">Sistema de Bibliotecas</h3>
-                      <p class="font-body-md text-body-md text-on-tertiary-fixed-variant opacity-80 line-clamp-2">Gestão da leitura, literatura e bibliotecas públicas.</p>
-                    </div>
-                  </div>
-                </div>
-                <div class="md:col-span-2 md:row-span-1 bg-surface-container rounded-2xl p-6 relative overflow-hidden group hover:-translate-y-1 transition-transform duration-300 cursor-pointer shadow-sm">
-                  <div class="relative z-10 flex flex-col h-full justify-between">
-                    <span class="material-symbols-outlined text-primary bg-surface/50 w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-sm">stadium</span>
-                    <div>
-                      <h3 class="font-headline-md text-headline-md text-primary text-xl mb-2">Gestão de Equipamentos</h3>
-                      <p class="font-body-md text-body-md text-on-surface-variant max-w-[80%] line-clamp-2">Manutenção e programação de teatros, galerias, tendas e centros culturais.</p>
-                    </div>
-                  </div>
+                  <h3 class="font-headline-md text-headline-md text-primary mb-3">Visão</h3>
+                  <p class="text-body-md text-on-surface-variant leading-relaxed">Ser referência nacional na gestão de políticas culturais, reconhecida pela excelência na valorização da diversidade, na preservação da memória e no estímulo à economia criativa da Amazônia.</p>
                 </div>
               </div>
             </section>
           </>
         )}
-      </div>
+
+        {slug === 'concultura' && (
+          <>
+            <section class="mt-16">
+              <h2 class="font-display text-headline-md text-primary mb-8">Linha do Tempo</h2>
+              <div class="relative pl-8 border-l-2 border-primary/30 space-y-10">
+                {[
+                  { year: '1989', title: 'Criação', desc: 'Previsto no art. 193 da Constituição Estadual, com competência de contribuir com a política estadual de cultura.' },
+                  { year: '2005', title: 'Regulamentação', desc: 'Decreto nº 12.616 de 09/08/2005 estabelece atribuições, composição e funcionamento.' },
+                  { year: '2006', title: 'Primeira Composição', desc: 'Eleição e posse dos primeiros 22 membros (11 titulares e 11 suplentes).' },
+                  { year: '2020', title: 'Reforma', desc: 'Decreto nº 6.369 altera a composição para 16 membros (8 titulares e 8 suplentes).' },
+                ].map((m) => (
+                  <div class="relative">
+                    <div class="absolute -left-[calc(2rem+7px)] top-1 w-3.5 h-3.5 rounded-full bg-primary border-2 border-surface" />
+                    <span class="inline-block px-3 py-1 bg-primary/10 text-primary rounded-full text-label-sm font-semibold mb-2">{m.year}</span>
+                    <h3 class="font-label-lg text-label-lg text-on-surface mb-1">{m.title}</h3>
+                    <p class="text-body-md text-on-surface-variant">{m.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section class="mt-16">
+              <h2 class="font-display text-headline-md text-primary mb-8">Presidência do Conselho</h2>
+              <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 flex flex-col sm:flex-row items-center gap-6">
+                <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-4xl text-primary">person</span>
+                </div>
+                <div>
+                  <h3 class="font-label-lg text-label-lg text-on-surface">Manoel Coracy Saboia Dias</h3>
+                  <p class="text-label-md text-outline mb-2">Presidente do Concultura/AC</p>
+                  <p class="text-body-md text-on-surface-variant">Presidente do Conselho Estadual de Cultura do Acre.</p>
+                </div>
+              </div>
+            </section>
+          </>
+        )}
+
+        {slug === 'presidencia' && (
+          <>
+            <section class="mt-16">
+              <div class="bg-gradient-to-br from-primary/5 to-primary-container/10 rounded-3xl p-8 md:p-12 border border-primary/10">
+                <div class="flex flex-col md:flex-row items-center gap-8">
+                  <div class="w-32 h-32 md:w-40 md:h-40 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border-4 border-primary/20">
+                    <span class="material-symbols-outlined text-6xl text-primary">account_circle</span>
+                  </div>
+                  <div>
+                    <span class="inline-block px-3 py-1 bg-primary text-on-primary rounded-full text-label-sm font-semibold mb-3">Presidente</span>
+                    <h3 class="font-display text-display-sm text-primary">Matheus Gomes</h3>
+                    <p class="text-label-lg text-outline mt-1">Presidente da Fundação de Cultura Elias Mansour (FEM)</p>
+                    <p class="text-body-md text-on-surface-variant mt-4 leading-relaxed">
+                      Assume a presidência da Fundação de Cultura Elias Mansour em abril de 2026, dando continuidade ao trabalho de fortalecimento das políticas culturais do Estado do Acre. Gestão 2026.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <section class="mt-16">
+              <h2 class="font-display text-headline-md text-primary mb-8">Presidentes Anteriores</h2>
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { nome: 'Minoru Kinpara', periodo: 'Jan/2023 — Abr/2026' },
+                ].map((ep) => {
+                  const iniciais = ep.nome.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
+                  return (
+                    <div class="bg-surface-container-low rounded-2xl p-6 text-center border border-outline-variant/20 hover:-translate-y-1 transition-all duration-300">
+                      <div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mx-auto mb-4">
+                        <span class="font-display text-headline-md text-on-surface-variant">{iniciais}</span>
+                      </div>
+                      <h4 class="font-label-md text-label-md text-on-surface mb-1">{ep.nome}</h4>
+                      <p class="text-label-sm text-outline whitespace-nowrap">{ep.periodo}</p>
+                    </div>
+                  );
+                })}
+              </div>
+              <p class="text-center text-body-md text-outline mt-8 italic">
+        Em breve, fotos e biografias completas de todos os ex-presidentes.
+              </p>
+            </section>
+          </>
+        )}
+
+        <div class="flex items-center justify-between mt-16 pt-8 border-t border-outline-variant/20">
+          {prev ? (
+            <a href={`/institucional/${prev.slug}`} class="group flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors">
+              <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+              <div class="text-left">
+                <div class="text-label-sm text-outline">Anterior</div>
+                <div class="font-label-md text-label-md">{prev.titulo}</div>
+              </div>
+            </a>
+          ) : <div />}
+          {next ? (
+            <a href={`/institucional/${next.slug}`} class="group flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors text-right">
+              <div>
+                <div class="text-label-sm text-outline">Próximo</div>
+                <div class="font-label-md text-label-md">{next.titulo}</div>
+              </div>
+              <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            </a>
+          ) : <div />}
+        </div>
+      </article>
+
+      {allPaginas.length > 1 && (
+        <aside class="lg:w-72 shrink-0">
+          <div class="sticky top-[120px] bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-6 shadow-sm">
+            <h3 class="font-label-md text-label-md text-outline uppercase tracking-wider mb-5">Nesta seção</h3>
+            <ul class="flex flex-col gap-1">
+              {allPaginas.map((p) => {
+                const isActive = p.slug === slug;
+                return (
+                  <li>
+                    <a
+                      href={`/institucional/${p.slug}`}
+                      class={`block px-4 py-2.5 rounded-xl font-label-md text-label-md transition-all ${
+                        isActive
+                          ? 'bg-primary text-on-primary font-medium shadow-sm'
+                          : 'text-on-surface-variant hover:bg-surface-container hover:text-primary'
+                      }`}
+                    >
+                      {p.titulo}
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+            <div class="mt-6 pt-5 border-t border-outline-variant/20">
+              <a href="/institucional" class="flex items-center gap-2 text-label-md text-primary hover:underline">
+                <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                Visão geral
+              </a>
+            </div>
+          </div>
+        </aside>
+      )}
     </div>
-  </div>
+  </section>
 </Layout>
