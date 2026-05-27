@@ -57,23 +57,6 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
         {slug === 'quem-somos' && (
           <>
             <section class="mt-16">
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-                {[
-                  { value: '42', label: 'Espaços Culturais', icon: 'location_city' },
-                  { value: '26', label: 'Municípios', icon: 'map' },
-                  { value: '1999', label: 'Fundação', icon: 'calendar_today' },
-                  { value: '8', label: 'Bibliotecas', icon: 'library_books' },
-                ].map((s) => (
-                  <div class="bg-surface-container-low rounded-2xl p-6 text-center shadow-sm border border-outline-variant/20">
-                    <span class="material-symbols-outlined text-3xl text-primary mb-2">{s.icon}</span>
-                    <div class="font-display text-display-md text-primary">{s.value}</div>
-                    <div class="font-label-md text-label-md text-on-surface-variant mt-1">{s.label}</div>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            <section class="mt-16">
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
                   <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5">
@@ -118,8 +101,8 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
             <section class="mt-16">
               <h2 class="font-display text-headline-md text-primary mb-8">Presidência do Conselho</h2>
               <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 flex flex-col sm:flex-row items-center gap-6">
-                <div class="w-24 h-24 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <span class="material-symbols-outlined text-4xl text-primary">person</span>
+                <div class="w-40 h-40 md:w-48 md:h-48 rounded-full bg-primary/10 flex items-center justify-center shrink-0 overflow-hidden">
+                  <img src="/api/file/a8eee571-23fe-42f1-a5f0-5161e08edb28" alt="Manoel Coracy Saboia Dias" class="w-full h-full object-cover object-top" />
                 </div>
                 <div>
                   <h3 class="font-label-lg text-label-lg text-on-surface">Manoel Coracy Saboia Dias</h3>
@@ -165,15 +148,15 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
             <section class="mt-16">
               <div class="bg-gradient-to-br from-primary/5 to-primary-container/10 rounded-3xl p-8 md:p-12 border border-primary/10">
                 <div class="flex flex-col md:flex-row items-center gap-8">
-                  <div class="w-32 h-32 md:w-40 md:h-40 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border-4 border-primary/20">
-                    <span class="material-symbols-outlined text-6xl text-primary">account_circle</span>
+                  <div class="w-40 h-40 md:w-48 md:h-48 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border-4 border-primary/20 overflow-hidden">
+                    <img src="/api/file/7303de3b-c2c1-4849-9c38-eff9b51e02d1" alt="Matheus Gomes" class="w-full h-full object-cover object-top" />
                   </div>
                   <div>
                     <span class="inline-block px-3 py-1 bg-primary text-on-primary rounded-full text-label-sm font-semibold mb-3">Presidente</span>
                     <h3 class="font-display text-display-sm text-primary">Matheus Gomes</h3>
                     <p class="text-label-lg text-outline mt-1">Presidente da Fundação de Cultura Elias Mansour (FEM)</p>
                     <p class="text-body-md text-on-surface-variant mt-4 leading-relaxed">
-                      Assume a presidência da Fundação de Cultura Elias Mansour em abril de 2026, dando continuidade ao trabalho de fortalecimento das políticas culturais do Estado do Acre. Gestão 2026.
+                                            Assume a presidência da Fundação de Cultura Elias Mansour em abril de 2026, com a missão de dar continuidade ao fortalecimento das políticas culturais do Estado do Acre, ampliar o acesso da população aos bens e serviços culturais e consolidar o Sistema Estadual de Cultura como instrumento de desenvolvimento social e econômico.
                     </p>
                   </div>
                 </div>
@@ -184,13 +167,17 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
               <h2 class="font-display text-headline-md text-primary mb-8">Presidentes Anteriores</h2>
               <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { nome: 'Minoru Kinpara', periodo: 'Jan/2023 — Abr/2026' },
+                  { nome: 'Minoru Kinpara', periodo: 'Jan/2023 — Abr/2026', foto: 'fbbd0487-d682-427d-8048-7dc41457237e' },
                 ].map((ep) => {
                   const iniciais = ep.nome.split(' ').map((p) => p[0]).join('').slice(0, 2).toUpperCase();
                   return (
                     <div class="bg-surface-container-low rounded-2xl p-6 text-center border border-outline-variant/20 hover:-translate-y-1 transition-all duration-300">
-                      <div class="w-16 h-16 rounded-full bg-surface-container-high flex items-center justify-center mx-auto mb-4">
-                        <span class="font-display text-headline-md text-on-surface-variant">{iniciais}</span>
+                      <div class="w-32 h-32 rounded-full bg-surface-container-high flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        {ep.foto ? (
+                          <img src={`/api/file/${ep.foto}`} alt={ep.nome} class="w-full h-full object-cover object-top" />
+                        ) : (
+                          <span class="font-display text-headline-md text-on-surface-variant">{iniciais}</span>
+                        )}
                       </div>
                       <h4 class="font-label-md text-label-md text-on-surface mb-1">{ep.nome}</h4>
                       <p class="text-label-sm text-outline whitespace-nowrap">{ep.periodo}</p>

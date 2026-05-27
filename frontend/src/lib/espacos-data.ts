@@ -5,7 +5,7 @@ interface EspacoEstatico {
   id: number;
   nome: string;
   slug: string;
-  categoria: 'museu' | 'teatro' | 'biblioteca' | 'espaco_memoria' | 'centro_cultural';
+  categoria: 'museu' | 'teatro' | 'biblioteca' | 'espaco_memoria' | 'centro_cultural' | 'casa_de_cultura';
   descricao: string;
   endereco: string;
   latitude: number | null;
@@ -23,6 +23,7 @@ const horarios: Record<TipoEspaco, string> = {
   teatro: 'Conforme programação',
   centro_cultural: 'Terça a Domingo, 10h às 20h',
   espaco_memoria: 'Segunda a Sexta, 8h às 17h',
+  casa_de_cultura: 'Segunda a Sexta, 8h às 18h',
 };
 
 const descricoes: Record<TipoEspaco, string> = {
@@ -31,6 +32,7 @@ const descricoes: Record<TipoEspaco, string> = {
   teatro: 'Palco para apresentações de artes cênicas, espetáculos musicais, dança e manifestações culturais.',
   centro_cultural: 'Espaço multifuncional dedicado à promoção de atividades artísticas, culturais e educacionais para a comunidade.',
   espaco_memoria: 'Espaço dedicado à preservação e difusão da memória política, histórica e cultural do Acre.',
+  casa_de_cultura: 'Espaço dedicado à promoção da cultura local, com programação de atividades artísticas, educacionais e de integração comunitária.',
 };
 
 function slugify(text: string): string {
@@ -97,14 +99,14 @@ export const espacosEstaticos: EspacoEstatico[] = [
   },
   {
     id: 5,
-    nome: 'FEM – Casa da Cultura Arte Viva',
-    slug: slugify('FEM – Casa da Cultura Arte Viva'),
-    categoria: 'centro_cultural',
-    descricao: descricoes.centro_cultural,
+    nome: 'Casa da Cultura Arte Viva',
+    slug: slugify('Casa da Cultura Arte Viva'),
+    categoria: 'casa_de_cultura',
+    descricao: descricoes.casa_de_cultura,
     endereco: 'Rua 17 De Novembro, 1291, 6 De Agosto',
     latitude: null,
     longitude: null,
-    horario_funcionamento: horarios.centro_cultural,
+    horario_funcionamento: horarios.casa_de_cultura,
     imagem: null,
     status: 'published',
   },
@@ -162,14 +164,14 @@ export const espacosEstaticos: EspacoEstatico[] = [
   },
   {
     id: 10,
-    nome: 'Casa De Leitura Chico Mendes',
-    slug: slugify('Casa De Leitura Chico Mendes'),
-    categoria: 'biblioteca',
-    descricao: descricoes.biblioteca,
-    endereco: 'Rua Gregório Filho, 80 – Bairro Chico Mendes',
+    nome: 'Casa de Cultura Chico Mendes',
+    slug: slugify('Casa de Cultura Chico Mendes'),
+    categoria: 'casa_de_cultura',
+    descricao: descricoes.casa_de_cultura,
+    endereco: 'Rua Gregório Filho, 80 - Bairro Chico Mendes',
     latitude: null,
     longitude: null,
-    horario_funcionamento: horarios.biblioteca,
+    horario_funcionamento: horarios.casa_de_cultura,
     imagem: null,
     status: 'published',
   },
@@ -370,14 +372,14 @@ export const espacosEstaticos: EspacoEstatico[] = [
   },
   {
     id: 26,
-    nome: 'Casa De Leitura',
-    slug: slugify('Casa De Leitura'),
-    categoria: 'biblioteca',
-    descricao: descricoes.biblioteca,
-    endereco: 'Avenida Castelo Branco – Parque Buritizal',
+    nome: 'Casa de Cultura de Feijó',
+    slug: slugify('Casa de Cultura de Feijó'),
+    categoria: 'casa_de_cultura',
+    descricao: descricoes.casa_de_cultura,
+    endereco: 'Avenida Castelo Branco - Parque Buritizal',
     latitude: null,
     longitude: null,
-    horario_funcionamento: horarios.biblioteca,
+    horario_funcionamento: horarios.casa_de_cultura,
     imagem: null,
     status: 'published',
   },

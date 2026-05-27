@@ -8,6 +8,13 @@ import type { EspacoCultural } from '../schemas/directus';
 
 const espacos = espacosEstaticos as EspacoCultural[];
 
+const ordemCategorias: Record<string, number> = {
+  museu: 1, teatro: 2, biblioteca: 3,
+  espaco_memoria: 4, centro_cultural: 5, casa_de_cultura: 6,
+};
+
+espacos.sort((a, b) => (ordemCategorias[a.categoria] || 99) - (ordemCategorias[b.categoria] || 99));
+
 const categorias: { value: string; label: string }[] = [
   { value: 'todas', label: 'Todos' },
   { value: 'museu', label: 'Museus' },
@@ -15,6 +22,7 @@ const categorias: { value: string; label: string }[] = [
   { value: 'biblioteca', label: 'Bibliotecas' },
   { value: 'espaco_memoria', label: 'Espaços de Memória' },
   { value: 'centro_cultural', label: 'Centros Culturais' },
+  { value: 'casa_de_cultura', label: 'Casas de Cultura' },
 ];
 
 const categoriaColors: Record<string, string> = {
@@ -23,6 +31,7 @@ const categoriaColors: Record<string, string> = {
   biblioteca: 'bg-tertiary/90',
   espaco_memoria: 'bg-primary-container/90',
   centro_cultural: 'bg-secondary-container/90',
+  casa_de_cultura: 'bg-error/90',
 };
 
 function categoriaLabel(value: string): string {
