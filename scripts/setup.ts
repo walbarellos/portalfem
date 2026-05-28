@@ -320,6 +320,8 @@ async function main() {
       { text: 'Educação', value: 'educacao' },
       { text: 'Eventos', value: 'eventos' },
     ]}} },
+    { field: 'slug', type: 'string', meta: { interface: 'input', options: { placeholder: 'titulo-da-noticia' } } },
+    { field: 'destaque', type: 'boolean', meta: { interface: 'boolean' }, schema: { default_value: false } },
     { field: 'status', type: 'string', meta: { required: true, interface: 'select-dropdown', options: { choices: [
       { text: 'Rascunho', value: 'draft' },
       { text: 'Publicado', value: 'published' },
@@ -347,6 +349,13 @@ async function main() {
     { field: 'destaque', type: 'boolean', meta: { interface: 'boolean', default_value: false } },
     { field: 'horario', type: 'string', meta: { interface: 'input', options: { placeholder: '19:00 - 21:30' } } },
     { field: 'gratuito', type: 'boolean', meta: { interface: 'boolean', default_value: false } },
+    { field: 'pdf_programacao', type: 'uuid', meta: { interface: 'file', special: ['file'] } },
+    { field: 'galeria', type: 'json', meta: { interface: 'list', special: ['json'], options: {
+      template: '{{file}}',
+      fields: [
+        { field: 'file', type: 'uuid', meta: { interface: 'file', special: ['file'] } },
+      ],
+    } } },
     { field: 'status', type: 'string', meta: { interface: 'select-dropdown', options: { choices: [
       { text: 'Rascunho', value: 'draft' },
       { text: 'Publicado', value: 'published' },
@@ -377,6 +386,16 @@ async function main() {
       { text: 'Breve', value: 'breve' },
     ]}, default_value: 'aberto' } },
     { field: 'link_pdf', type: 'uuid', meta: { interface: 'file', special: ['file'] } },
+    { field: 'link_inscricao', type: 'string', meta: { interface: 'input', options: { placeholder: 'https://forms.google.com/...' } } },
+    { field: 'pdf_edital', type: 'uuid', meta: { interface: 'file', special: ['file'] } },
+    { field: 'pdf_diario_oficial', type: 'uuid', meta: { interface: 'file', special: ['file'] } },
+    { field: 'anexos', type: 'json', meta: { interface: 'list', special: ['json'], options: {
+      template: '{{nome}}',
+      fields: [
+        { field: 'nome', type: 'string', meta: { interface: 'input', width: 'half' } },
+        { field: 'arquivo', type: 'uuid', meta: { interface: 'file', special: ['file'], width: 'half' } },
+      ],
+    } } },
     { field: 'resumo', type: 'text', meta: { interface: 'input-multiline' } },
     { field: 'categoria', type: 'integer', meta: { interface: 'select-dropdown-m2o', special: ['m2o'] } },
     { field: 'status', type: 'string', meta: { interface: 'select-dropdown', options: { choices: [

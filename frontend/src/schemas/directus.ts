@@ -7,6 +7,8 @@ export interface Noticia {
   data_publicacao: string;
   autor: number | { id: number; first_name: string; last_name: string } | null;
   categoria?: 'destaque' | 'editais' | 'musica' | 'patrimonio' | 'artes_visuais' | 'institucional' | 'educacao' | 'eventos';
+  slug?: string | null;
+  destaque?: boolean;
   status: 'draft' | 'published';
   date_created: string;
   date_updated: string;
@@ -25,6 +27,8 @@ export interface Evento {
   destaque?: boolean;
   horario?: string;
   gratuito?: boolean;
+  pdf_programacao?: string | null;
+  galeria?: string[] | null;
   status: 'draft' | 'published';
   date_created: string;
   date_updated: string;
@@ -38,11 +42,20 @@ export interface Edital {
   data_encerramento: string;
   status_label: 'aberto' | 'encerrado' | 'breve';
   link_pdf?: string | null;
+  link_inscricao?: string | null;
+  pdf_edital?: string | null;
+  pdf_diario_oficial?: string | null;
+  anexos?: Anexo[] | null;
   resumo: string;
   categoria?: number | CategoriaEdital | null;
   status: 'draft' | 'published';
   date_created: string;
   date_updated: string;
+}
+
+export interface Anexo {
+  nome: string;
+  arquivo: string;
 }
 
 export interface CategoriaEdital {

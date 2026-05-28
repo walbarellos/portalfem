@@ -3,6 +3,7 @@ export const prerender = false;
 
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
+import EditalCard from '../components/EditalCard.astro';
 import { safeRequest, directus, readItems } from '../lib/directus';
 
 const editais = await safeRequest(
@@ -22,9 +23,16 @@ const categorias = await safeRequest(
 );
 
 const activeFiltro = Astro.url.searchParams.get('status') || 'todos';
-const filtered = activeFiltro === 'todos'
-  ? editais
-  : editais.filter((e) => e.status_label === activeFiltro);
+const activeCategoria = Astro.url.searchParams.get('categoria') || '';
+
+const filtered = editais.filter((e) => {
+  if (activeFiltro !== 'todos' && e.status_label !== activeFiltro) return false;
+  if (activeCategoria) {
+    const catObj = typeof e.categoria === 'object' && e.categoria ? e.categoria as { slug: string } : null;
+    if (catObj?.slug !== activeCategoria) return false;
+  }
+  return true;
+});
 
 const statusLabels: Record<string, string> = { todos: 'Todos', aberto: 'Abertos', breve: 'Em Análise', encerrado: 'Encerrados' };
 const statusColors: Record<string, string> = { aberto: 'bg-primary', breve: 'bg-secondary', encerrado: 'bg-outline' };
@@ -53,14 +61,24 @@ function statusConfig(label: string) {
         <div class="bg-surface-container-lowest rounded-xl p-6 border border-outline-variant/50">
           <h3 class="font-headline-md text-headline-md text-on-surface mb-6">Programas</h3>
           <ul class="flex flex-col gap-2">
-            {categorias.length > 0 ? categorias.map((cat) => (
+            <li>
+              <a href="/editais" class={`block w-full px-4 py-3 rounded-lg font-label-md text-label-md transition-colors ${!activeCategoria ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container'}`}>
+                Todos os Programas
+              </a>
+            </li>
+            {categorias.length > 0 ? categorias.map((cat) => {
+              const isActive = activeCategoria === cat.slug;
+              const href = activeFiltro !== 'todos' ? `/editais?categoria=${cat.slug}&status=${activeFiltro}` : `/editais?categoria=${cat.slug}`;
+              return (
               <li>
-                <button class="w-full text-left px-4 py-3 rounded-lg hover:bg-surface-container text-on-surface-variant font-label-md text-label-md transition-colors flex items-center justify-between group">
+                <a href={href} class={`block w-full px-4 py-3 rounded-lg font-label-md text-label-md transition-colors flex items-center justify-between group ${isActive ? 'bg-primary text-on-primary' : 'text-on-surface-variant hover:bg-surface-container'}`}>
                   {cat.nome}
-                  <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
-                </button>
+                  {isActive && <span class="material-symbols-outlined text-sm">check</span>}
+                  {!isActive && <span class="material-symbols-outlined text-sm opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>}
+                </a>
               </li>
-            )) : (
+              );
+            }) : (
               <li class="px-4 py-3 text-on-surface-variant font-body-md text-body-md">Nenhum programa cadastrado.</li>
             )}
           </ul>
@@ -80,7 +98,7 @@ function statusConfig(label: string) {
           <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">
             {['todos', 'aberto', 'breve', 'encerrado'].map((f) => {
               const isActive = activeFiltro === f;
-              const href = f === 'todos' ? '/editais' : `?status=${f}`;
+              const href = f === 'todos' ? (activeCategoria ? `/editais?categoria=${activeCategoria}` : '/editais') : (activeCategoria ? `/editais?status=${f}&categoria=${activeCategoria}` : `/editais?status=${f}`);
               return isActive ? (
                 <span class={`shrink-0 px-4 py-2 rounded-full border border-primary text-primary font-label-md text-label-md bg-surface flex items-center gap-2 cursor-default`}>
                   {f !== 'todos' && <span class={`w-2 h-2 rounded-full ${statusColors[f] || 'bg-outline'}`}></span>}
@@ -97,59 +115,49 @@ function statusConfig(label: string) {
         </div>
 
         {editais.length > 0 ? (
-          <div class="flex flex-col gap-4">
-            {filtered.map((edital) => {
-              const sc = statusConfig(edital.status_label);
-              const catObj = typeof edital.categoria === 'object' && edital.categoria ? edital.categoria : null;
-              const catNome = catObj ? (catObj as { nome: string }).nome : null;
-              const isEncerrado = edital.status_label === 'encerrado';
-              return (
-                <article class={`bg-surface-container-lowest border border-outline-variant rounded-xl p-6 hover:shadow-md transition-shadow flex flex-col md:flex-row gap-6 items-start relative group ${isEncerrado ? 'opacity-80' : ''}`}>
-                  <div class={`absolute left-0 top-6 bottom-6 w-1 ${sc.bar} rounded-r-full ${isEncerrado ? 'opacity-40' : ''}`}></div>
-                  <div class="flex-1 flex flex-col gap-3">
-                    <div class="flex flex-wrap items-center gap-3">
-                      <span class={`px-3 py-1 ${sc.bg} ${sc.text} rounded-full font-label-md text-[12px] uppercase tracking-wider`}>{sc.label}</span>
-                      <span class="font-label-md text-label-md text-on-surface-variant">{edital.status_label === 'aberto' ? 'Edital' : 'Chamamento'} Nº {edital.numero}</span>
-                      {catNome && <span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded-md font-label-md text-[12px]">{catNome}</span>}
-                    </div>
-                    <a href={`/editais/${edital.id}`}>
-                      <h2 class="font-headline-lg-mobile md:font-headline-md text-headline-lg-mobile md:text-headline-md text-on-surface group-hover:text-primary transition-colors">{edital.titulo}</h2>
-                    </a>
-                    {edital.resumo && (
-                      <p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 max-w-3xl">{edital.resumo}</p>
-                    )}
-                    <div class="flex flex-wrap items-center gap-6 mt-2 text-on-surface-variant font-label-md text-label-md">
-                      <div class="flex items-center gap-2">
-                        <span class="material-symbols-outlined text-xl">calendar_today</span>
-                        <span>Inscrições: {new Date(edital.data_abertura).toLocaleDateString('pt-BR')} a {new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}</span>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="w-full md:w-auto flex md:flex-col gap-3 justify-end shrink-0 md:pl-6 md:border-l md:border-outline-variant/30">
-                    {edital.status_label === 'aberto' ? (
-                      <>
-                        <a href={`/editais/${edital.id}`} class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-label-md text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
-                          <span class="material-symbols-outlined">edit_document</span>
-                          Inscrever-se
-                        </a>
-                        {edital.link_pdf && (
-                          <a href={edital.link_pdf} target="_blank" rel="noopener noreferrer" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-surface text-secondary border border-secondary/30 px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
-                            <span class="material-symbols-outlined">download</span>
-                            Edital PDF
-                          </a>
-                        )}
-                      </>
-                    ) : (
-                      <a href={`/editais/${edital.id}`} class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-surface text-secondary border border-secondary/30 px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
-                        <span class="material-symbols-outlined">visibility</span>
-                        Ver Resultados
-                      </a>
-                    )}
-                  </div>
-                </article>
-              );
-            })}
+          <>
+          <div class="flex items-center justify-between">
+            <p class="font-body-md text-body-md text-on-surface-variant" id="result-count">Mostrando <strong>{filtered.length}</strong> de <strong>{editais.length}</strong> editais</p>
           </div>
+          <div class="flex flex-col gap-8" id="editais-list">
+            {activeFiltro === 'todos' ? (
+              <>
+                {abertos.length > 0 && (
+                  <div class="flex flex-col gap-4" data-group="aberto">
+                    <div class="flex items-center gap-3">
+                      <span class="w-3 h-3 rounded-full bg-primary"></span>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface">Abertos</h3>
+                      <span class="text-on-surface-variant font-label-md text-label-md">({abertos.length})</span>
+                    </div>
+                    {abertos.map((edital) => <EditalCard edital={edital} />)}
+                  </div>
+                )}
+                {analise.length > 0 && (
+                  <div class="flex flex-col gap-4" data-group="breve">
+                    <div class="flex items-center gap-3">
+                      <span class="w-3 h-3 rounded-full bg-secondary"></span>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface">Em Análise</h3>
+                      <span class="text-on-surface-variant font-label-md text-label-md">({analise.length})</span>
+                    </div>
+                    {analise.map((edital) => <EditalCard edital={edital} />)}
+                  </div>
+                )}
+                {encerrados.length > 0 && (
+                  <div class="flex flex-col gap-4" data-group="encerrado">
+                    <div class="flex items-center gap-3">
+                      <span class="w-3 h-3 rounded-full bg-outline"></span>
+                      <h3 class="font-headline-sm text-headline-sm text-on-surface">Encerrados</h3>
+                      <span class="text-on-surface-variant font-label-md text-label-md">({encerrados.length})</span>
+                    </div>
+                    {encerrados.map((edital) => <EditalCard edital={edital} />)}
+                  </div>
+                )}
+              </>
+            ) : (
+              filtered.map((edital) => <EditalCard edital={edital} />)
+            )}
+          </div>
+          </>
         ) : (
           <div class="text-center py-16">
             <span class="material-symbols-outlined text-4xl text-outline">description</span>
@@ -160,3 +168,37 @@ function statusConfig(label: string) {
     </section>
   </div>
 </Layout>
+
+<script>
+  const input = document.querySelector('input[type="text"]');
+  const count = document.getElementById('result-count');
+
+  if (input && count) {
+    const updateCount = (visible) => {
+      count.innerHTML = `Mostrando <strong>${visible}</strong> de <strong>${editaisTotal}</strong> editais`;
+    };
+    const editaisTotal = count.querySelector('strong:last-child')?.textContent || '0';
+
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      const cards = document.querySelectorAll('[data-search]');
+      const groups = document.querySelectorAll('[data-group]');
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const match = !q || card.dataset.search.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+
+      groups.forEach((group) => {
+        const hasVisible = Array.from(group.querySelectorAll('[data-search]')).some(
+          (c) => (c as HTMLElement).style.display !== 'none'
+        );
+        (group as HTMLElement).style.display = hasVisible ? '' : 'none';
+      });
+
+      updateCount(visible);
+    });
+  }
+</script>

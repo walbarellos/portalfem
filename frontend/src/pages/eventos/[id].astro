@@ -15,30 +15,52 @@ export async function getStaticPaths() {
 
 const { id } = Astro.params;
 const evento = await safeRequest(
-  directus.request(readItem('eventos', Number(id))),
+  directus.request(readItem('eventos', Number(id), {
+    fields: ['*'],
+  })),
   null
 );
 
 if (!evento) return Astro.redirect('/404');
 
-const dataInicio = new Date(evento.data_inicio).toLocaleDateString('pt-BR', {
+const dataInicio = new Date(evento.data_inicio);
+const dataFim = evento.data_fim ? new Date(evento.data_fim) : null;
+
+const dataInicioStr = dataInicio.toLocaleDateString('pt-BR', {
   day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
 });
-const dataFim = evento.data_fim
-  ? new Date(evento.data_fim).toLocaleDateString('pt-BR', {
+const dataFimStr = dataFim
+  ? dataFim.toLocaleDateString('pt-BR', {
     day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
   })
   : null;
 
-const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
-const imgCapa = evento.imagem_capa ? `${directusUrl}/assets/${evento.imagem_capa}` : null;
+const imgCapa = evento.imagem_capa ? `/api/file/${evento.imagem_capa}` : null;
+
+const galeria = evento.galeria && Array.isArray(evento.galeria)
+  ? evento.galeria.map((f: any) => typeof f === 'string' ? f : f?.file).filter(Boolean)
+  : [];
+
+// Google Calendar URL
+function googleCalendarUrl() {
+  const start = dataInicio.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z';
+  const end = dataFim ? dataFim.toISOString().replace(/[-:]/g, '').split('.')[0] + 'Z' : start;
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: evento.titulo,
+    dates: `${start}/${end}`,
+    details: evento.descricao?.replace(/<[^>]*>/g, '') || '',
+    location: evento.local || '',
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
 
 const outrosEventos = await safeRequest(
   directus.request(readItems('eventos', {
     filter: { status: { _eq: 'published' }, id: { _neq: evento.id } },
     sort: ['-data_inicio'],
     limit: 3,
-    fields: ['id', 'titulo', 'data_inicio', 'data_fim', 'local'],
+    fields: ['id', 'titulo', 'data_inicio', 'data_fim', 'local', 'imagem_capa', 'categoria', 'destaque', 'horario', 'gratuito'],
   })),
   []
 );
@@ -51,52 +73,134 @@ const outrosEventos = await safeRequest(
       { label: evento.titulo },
     ]} />
 
-    <article class="max-w-3xl mx-auto">
-      {imgCapa && (
-        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high img-shimmer">
-          <img src={imgCapa} alt="" class="w-full h-full object-cover" onLoad="this.parentElement.classList.remove('img-shimmer')" />
-        </div>
-      )}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
 
-      <header class="mb-8">
-        <h1 class="font-display text-display-sm md:text-display-lg text-on-surface leading-tight">{evento.titulo}</h1>
-        <div class="flex flex-wrap gap-4 mt-4">
-          <div class="flex items-center gap-2 text-on-surface-variant">
-            <span class="material-symbols-outlined text-[18px]">schedule</span>
-            <span class="font-sans text-body-md">{dataInicio}{dataFim ? ` — ${dataFim}` : ''}</span>
+      <!-- Conteúdo principal -->
+      <div class="lg:col-span-2">
+        {imgCapa && (
+          <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high img-shimmer">
+            <img src={imgCapa} alt="" class="w-full h-full object-cover" onLoad="this.parentElement.classList.remove('img-shimmer')" />
           </div>
-          {evento.local && (
+        )}
+
+        <header class="mb-8">
+          <h1 class="font-display text-display-sm md:text-display-lg text-on-surface leading-tight">{evento.titulo}</h1>
+          <div class="flex flex-wrap gap-4 mt-4">
             <div class="flex items-center gap-2 text-on-surface-variant">
-              <span class="material-symbols-outlined text-[18px]">location_on</span>
-              <span class="font-sans text-body-md">{evento.local}</span>
+              <span class="material-symbols-outlined text-[18px]">schedule</span>
+              <span class="font-sans text-body-md">{dataInicioStr}{dataFimStr ? ` — ${dataFimStr}` : ''}</span>
             </div>
+            {evento.local && (
+              <div class="flex items-center gap-2 text-on-surface-variant">
+                <span class="material-symbols-outlined text-[18px]">location_on</span>
+                <span class="font-sans text-body-md">{evento.local}</span>
+              </div>
+            )}
+          </div>
+        </header>
+
+        <div class="prose prose-green max-w-none">
+          {evento.descricao ? (
+            <Fragment set:html={evento.descricao} />
+          ) : (
+            <p class="text-on-surface-variant italic">Sem descrição disponível.</p>
           )}
         </div>
-      </header>
 
-      <div class="prose prose-green max-w-none">
-        {evento.descricao ? (
-          <Fragment set:html={evento.descricao} />
-        ) : (
-          <p class="text-on-surface-variant italic">Sem descrição disponível.</p>
+        <!-- Galeria -->
+        {galeria.length > 0 && (
+          <div class="mt-12">
+            <h2 class="font-headline-md text-headline-md text-on-surface mb-6">Galeria</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+              {galeria.map((foto: string) => (
+                <a href={`/api/file/${foto}`} target="_blank" rel="noopener noreferrer"
+                  class="aspect-square rounded-xl overflow-hidden bg-surface-container-high img-shimmer hover:scale-[1.02] transition-transform">
+                  <img src={`/api/file/${foto}`} alt="" class="w-full h-full object-cover" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
+                </a>
+              ))}
+            </div>
+          </div>
         )}
       </div>
 
-      {evento.link_inscricao && (
-        <div class="mt-8">
-          <a href={evento.link_inscricao} target="_blank" rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-sans text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
-            <span class="material-symbols-outlined text-[18px]">edit_document</span>
-            Inscreva-se
+      <!-- Sidebar -->
+      <aside class="lg:col-span-1">
+        <div class="sticky top-8 flex flex-col gap-4">
+
+          <!-- Inscrição -->
+          {evento.link_inscricao && (
+            <a href={evento.link_inscricao} target="_blank" rel="noopener noreferrer"
+              class="flex items-center justify-center gap-3 bg-primary text-on-primary px-6 py-4 rounded-xl font-label-md text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
+              <span class="material-symbols-outlined">edit_document</span>
+              Inscreva-se
+            </a>
+          )}
+
+          {/* <!-- Adicionar ao Calendário --> */}
+          <a href={googleCalendarUrl()} target="_blank" rel="noopener noreferrer"
+            class="flex items-center justify-center gap-3 bg-surface text-secondary border border-secondary/30 px-6 py-4 rounded-xl font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-all">
+            <span class="material-symbols-outlined">calendar_month</span>
+            Adicionar ao Calendário
           </a>
+
+          {/* <!-- Documentos --> */}
+          {evento.pdf_programacao && (
+            <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
+              <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">description</span>
+                Documentos
+              </h3>
+              <a href={`/api/file/${evento.pdf_programacao}`} target="_blank" rel="noopener noreferrer"
+                class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
+                <span class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-primary text-lg">picture_as_pdf</span>
+                </span>
+                <div class="flex-1 min-w-0">
+                  <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Programação</p>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">PDF</p>
+                </div>
+                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+              </a>
+            </div>
+          )}
+
+          {/* <!-- Info extra --> */}
+          <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">info</span>
+              Informações
+            </h3>
+            <div class="flex flex-col gap-3">
+              {evento.horario && (
+                <div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+                  <span class="material-symbols-outlined text-[18px]">schedule</span>
+                  {evento.horario}
+                </div>
+              )}
+              {evento.local && (
+                <div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
+                  <span class="material-symbols-outlined text-[18px]">location_on</span>
+                  {evento.local}
+                </div>
+              )}
+              {evento.gratuito && (
+                <div class="flex items-center gap-2 text-primary font-body-md text-body-md">
+                  <span class="material-symbols-outlined text-[18px]">confirmation_number</span>
+                  Gratuito
+                </div>
+              )}
+            </div>
+          </div>
+
         </div>
-      )}
-    </article>
+      </aside>
+
+    </div>
 
     {outrosEventos.length > 0 && (
-      <aside class="max-w-3xl mx-auto mt-16 pt-8 border-t border-outline-variant/30">
+      <aside class="mt-16 pt-8 border-t border-outline-variant/30">
         <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface mb-6">Outros Eventos</h2>
-        <div class="grid gap-4">
+        <div class="grid gap-4 md:grid-cols-2">
           {outrosEventos.slice(0, 2).map((e) => <CardEvento evento={e} />)}
         </div>
       </aside>

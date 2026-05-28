@@ -1,16 +1,9 @@
 ---
+export const prerender = false;
+
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { directus, safeRequest, readItem, getEditais } from '../../lib/directus';
-import type { Edital } from '../../schemas/directus';
-
-export async function getStaticPaths() {
-  const editais = await getEditais();
-  return editais.map((e: Edital) => ({
-    params: { id: String(e.id) },
-    props: { edital: e },
-  }));
-}
+import { directus, safeRequest, readItem } from '../../lib/directus';
 
 const { id } = Astro.params;
 const edital = await safeRequest(
@@ -24,15 +17,25 @@ if (!edital) return Astro.redirect('/404');
 
 function statusConfig(label: string) {
   switch (label) {
-    case 'aberto': return { bg: 'bg-primary-container', text: 'text-on-primary-container', label: 'Aberto' };
-    case 'encerrado': return { bg: 'bg-error-container', text: 'text-on-error-container', label: 'Encerrado' };
-    case 'breve': return { bg: 'bg-secondary-container', text: 'text-on-secondary-container', label: 'Em Breve' };
-    default: return { bg: 'bg-surface-container', text: 'text-on-surface-variant', label: label };
+    case 'aberto': return { bg: 'bg-primary-container', text: 'text-on-primary-container', label: 'Aberto', dot: 'bg-primary' };
+    case 'encerrado': return { bg: 'bg-surface-container-highest', text: 'text-on-surface-variant', label: 'Encerrado', dot: 'bg-outline' };
+    case 'breve': return { bg: 'bg-secondary-container', text: 'text-on-secondary-container', label: 'Em Análise', dot: 'bg-secondary' };
+    default: return { bg: 'bg-surface-container', text: 'text-on-surface-variant', label: label, dot: 'bg-outline' };
   }
 }
 
 const sc = statusConfig(edital.status_label);
 const categoria = edital.categoria && typeof edital.categoria === 'object' ? edital.categoria : null;
+
+const abertasEm = edital.data_abertura ? new Date(edital.data_abertura).toLocaleDateString('pt-BR') : '';
+const encerraEm = edital.data_encerramento ? new Date(edital.data_encerramento).toLocaleDateString('pt-BR') : '';
+
+function formatDateRange(start: string, end: string) {
+  const s = new Date(start);
+  const e = new Date(end);
+  const diff = Math.ceil((e.getTime() - s.getTime()) / (1000 * 60 * 60 * 24));
+  return `${diff} dias`;
+}
 ---
 
 <Layout title={edital.titulo} description={edital.resumo?.slice(0, 160)}>
@@ -42,45 +45,165 @@ const categoria = edital.categoria && typeof edital.categoria === 'object' ? edi
       { label: edital.titulo },
     ]} />
 
-    <article class="max-w-3xl mx-auto">
-      <header class="mb-8">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-          {categoria && (
-            <span class="font-sans text-label-md text-secondary bg-secondary-container/30 px-2.5 py-0.5 rounded-full">{categoria.nome}</span>
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-6">
+
+      <!-- Conteúdo principal -->
+      <div class="lg:col-span-2">
+        <header class="mb-8">
+          <div class="flex flex-wrap items-center gap-3 mb-4">
+            {categoria && (
+              <span class="font-sans text-label-md text-secondary bg-secondary-container/30 px-2.5 py-0.5 rounded-full">{categoria.nome}</span>
+            )}
+            <span class={`flex items-center gap-2 px-3 py-1 ${sc.bg} ${sc.text} rounded-full font-sans text-[12px] uppercase tracking-wider font-semibold`}>
+              <span class={`w-2 h-2 rounded-full ${sc.dot}`}></span>
+              {sc.label}
+            </span>
+          </div>
+
+          <h1 class="font-display text-display-sm md:text-display-lg text-on-surface leading-tight">{edital.titulo}</h1>
+
+          {edital.numero && (
+            <p class="font-sans text-label-md text-on-surface-variant mt-2">
+              <span class="material-symbols-outlined text-[16px] align-text-bottom">tag</span>
+              Edital nº {edital.numero}
+            </p>
           )}
-          <span class={`px-3 py-1 ${sc.bg} ${sc.text} rounded-full font-sans text-[12px] uppercase tracking-wider font-semibold`}>
-            {sc.label}
-          </span>
-        </div>
+        </header>
 
-        <h1 class="font-display text-display-sm md:text-display-lg text-on-surface leading-tight">{edital.titulo}</h1>
-        <p class="font-sans text-label-md text-on-surface-variant mt-2">Edital nº {edital.numero}</p>
-
-        <div class="flex flex-wrap gap-6 mt-6">
-          <div>
-            <span class="font-sans text-label-md text-on-surface-variant">Abertura</span>
-            <p class="font-sans text-body-md text-on-surface font-medium">{new Date(edital.data_abertura).toLocaleDateString('pt-BR')}</p>
+        <!-- Datas -->
+        <div class="flex flex-wrap gap-6 mb-8 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/50">
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+            </span>
+            <div>
+              <span class="font-sans text-label-md text-on-surface-variant">Início</span>
+              <p class="font-sans text-body-md text-on-surface font-medium">{abertasEm}</p>
+            </div>
           </div>
-          <div>
-            <span class="font-sans text-label-md text-on-surface-variant">Encerramento</span>
-            <p class="font-sans text-body-md text-on-surface font-medium">{new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}</p>
+          <div class="w-px bg-outline-variant/30 hidden md:block"></div>
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
+              <span class="material-symbols-outlined text-on-surface-variant text-xl">event_upcoming</span>
+            </span>
+            <div>
+              <span class="font-sans text-label-md text-on-surface-variant">Encerramento</span>
+              <p class="font-sans text-body-md text-on-surface font-medium">{encerraEm}</p>
+            </div>
+          </div>
+          <div class="w-px bg-outline-variant/30 hidden md:block"></div>
+          <div class="flex items-center gap-3">
+            <span class="w-10 h-10 rounded-lg bg-tertiary-container flex items-center justify-center">
+              <span class="material-symbols-outlined text-tertiary text-xl">hourglass</span>
+            </span>
+            <div>
+              <span class="font-sans text-label-md text-on-surface-variant">Período</span>
+              <p class="font-sans text-body-md text-on-surface font-medium">{edital.data_abertura && edital.data_encerramento ? formatDateRange(edital.data_abertura, edital.data_encerramento) : '-'}</p>
+            </div>
           </div>
         </div>
-      </header>
 
-      {edital.resumo && (
-        <div class="prose prose-green max-w-none mb-8">
-          <p>{edital.resumo}</p>
+        <!-- Resumo -->
+        {edital.resumo && (
+          <div class="prose prose-green max-w-none mb-8">
+            <h2 class="font-headline-md text-headline-md text-on-surface !mb-4">Sobre o Edital</h2>
+            <p class="font-body-md text-body-md text-on-surface leading-relaxed">{edital.resumo}</p>
+          </div>
+        )}
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="lg:col-span-1">
+        <div class="sticky top-8 flex flex-col gap-4">
+
+          <!-- Inscrição -->
+          {edital.status_label === 'aberto' && edital.link_inscricao && (
+            <a href={edital.link_inscricao} target="_blank" rel="noopener noreferrer"
+              class="flex items-center justify-center gap-3 bg-primary text-on-primary px-6 py-4 rounded-xl font-label-md text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
+              <span class="material-symbols-outlined">edit_document</span>
+              Inscrever-se agora
+            </a>
+          )}
+
+          <!-- Documentos -->
+          <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
+            <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary">description</span>
+              Documentos
+            </h3>
+            <div class="flex flex-col gap-2">
+              {edital.pdf_edital && (
+                <a href={`/api/file/${edital.pdf_edital}`} target="_blank" rel="noopener noreferrer"
+                  class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
+                  <span class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-primary text-lg">picture_as_pdf</span>
+                  </span>
+                  <div class="flex-1 min-w-0">
+                    <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Edital completo</p>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">PDF</p>
+                  </div>
+                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+                </a>
+              )}
+              {edital.pdf_diario_oficial && (
+                <a href={`/api/file/${edital.pdf_diario_oficial}`} target="_blank" rel="noopener noreferrer"
+                  class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
+                  <span class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-on-surface-variant text-lg">gavel</span>
+                  </span>
+                  <div class="flex-1 min-w-0">
+                    <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Diário Oficial</p>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">PDF</p>
+                  </div>
+                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+                </a>
+              )}
+              {edital.link_pdf && (
+                <a href={edital.link_pdf} target="_blank" rel="noopener noreferrer"
+                  class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
+                  <span class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-on-surface-variant text-lg">link</span>
+                  </span>
+                  <div class="flex-1 min-w-0">
+                    <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Link externo</p>
+                    <p class="font-body-sm text-body-sm text-on-surface-variant">Abrir site</p>
+                  </div>
+                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">open_in_new</span>
+                </a>
+              )}
+              {!edital.pdf_edital && !edital.pdf_diario_oficial && !edital.link_pdf && (
+                <p class="font-body-md text-body-md text-on-surface-variant py-2">Nenhum documento disponível.</p>
+              )}
+            </div>
+          </div>
+
+          <!-- Anexos -->
+          {edital.anexos && Array.isArray(edital.anexos) && edital.anexos.length > 0 && (
+            <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
+              <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">attachment</span>
+                Anexos
+              </h3>
+              <div class="flex flex-col gap-2">
+                {edital.anexos.map((anexo: any) => (
+                  <a href={`/api/file/${anexo.arquivo}`} target="_blank" rel="noopener noreferrer"
+                    class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
+                    <span class="w-9 h-9 rounded-lg bg-tertiary-container flex items-center justify-center shrink-0">
+                      <span class="material-symbols-outlined text-tertiary text-lg">description</span>
+                    </span>
+                    <div class="flex-1 min-w-0">
+                      <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">{anexo.nome}</p>
+                    </div>
+                    <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
         </div>
-      )}
+      </aside>
 
-      {edital.link_pdf && (
-        <a href={edital.link_pdf} target="_blank" rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-sans text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
-          <span class="material-symbols-outlined text-[18px]">download</span>
-          Baixar Edital (PDF)
-        </a>
-      )}
-    </article>
+    </div>
   </div>
 </Layout>

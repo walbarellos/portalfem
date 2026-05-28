@@ -42,16 +42,27 @@ const totalPages = Math.ceil(total / pageSize);
 
 const allForFeatured = await safeRequest(
   directus.request(readItems('noticias', {
-    filter: { status: { _eq: 'published' } },
+    filter: { status: { _eq: 'published' }, destaque: { _eq: true } },
     sort: ['-data_publicacao'],
     limit: 1,
     fields: ['id', 'titulo', 'resumo', 'data_publicacao', 'imagem_destaque', 'autor', 'categoria'],
   })),
   []
 );
-const featured = allForFeatured[0] || null;
-const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
-const featuredImg = featured?.imagem_destaque ? `${directusUrl}/assets/${featured.imagem_destaque}` : null;
+let featured = allForFeatured[0] || null;
+if (!featured) {
+  const fallback = await safeRequest(
+    directus.request(readItems('noticias', {
+      filter: { status: { _eq: 'published' } },
+      sort: ['-data_publicacao'],
+      limit: 1,
+      fields: ['id', 'titulo', 'resumo', 'data_publicacao', 'imagem_destaque', 'autor', 'categoria'],
+    })),
+    []
+  );
+  featured = fallback[0] || null;
+}
+const featuredImg = featured?.imagem_destaque ? `/api/file/${featured.imagem_destaque}` : null;
 
 const categorias: { value: string; label: string }[] = [
   { value: 'todas', label: 'Todas' },

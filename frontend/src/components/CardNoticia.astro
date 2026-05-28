@@ -6,9 +6,8 @@ export interface Props {
 }
 
 const { noticia } = Astro.props;
-const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
 const imgSrc = noticia.imagem_destaque
-  ? `${directusUrl}/assets/${noticia.imagem_destaque}`
+  ? `/api/file/${noticia.imagem_destaque}`
   : null;
 
 const dateFormatted = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', {

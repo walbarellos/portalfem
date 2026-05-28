@@ -4,23 +4,41 @@ export const prerender = false;
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import CardEvento from '../components/CardEvento.astro';
+import Pagination from '../components/Pagination.astro';
 import { safeRequest, directus, readItems } from '../lib/directus';
+
+const pageSize = 10;
+const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
+const offset = (currentPage - 1) * pageSize;
+const activeCategoria = Astro.url.searchParams.get('categoria') || 'todas';
+const activeView = Astro.url.searchParams.get('view') || 'lista';
+
+const filterBase: Record<string, unknown> = { status: { _eq: 'published' } };
+if (activeCategoria !== 'todas') {
+  filterBase.categoria = { _eq: activeCategoria };
+}
 
 const eventos = await safeRequest(
   directus.request(readItems('eventos', {
-    filter: { status: { _eq: 'published' } },
+    filter: filterBase,
     sort: ['-data_inicio'],
-    fields: ['id', 'titulo', 'descricao', 'data_inicio', 'data_fim', 'local', 'imagem_capa', 'categoria', 'destaque', 'horario', 'gratuito'],
+    limit: pageSize,
+    offset,
+    fields: ['id', 'titulo', 'descricao', 'data_inicio', 'data_fim', 'local', 'imagem_capa', 'categoria', 'destaque', 'horario', 'gratuito', 'link_inscricao'],
   })),
   []
 );
 
-const activeCategoria = Astro.url.searchParams.get('categoria') || 'todas';
-const activeView = Astro.url.searchParams.get('view') || 'lista';
+const allEventos = await safeRequest(
+  directus.request(readItems('eventos', {
+    filter: filterBase,
+    fields: ['id'],
+  })),
+  []
+);
 
-const filtered = activeCategoria === 'todas'
-  ? eventos
-  : eventos.filter((e) => e.categoria === activeCategoria);
+const total = allEventos.length;
+const totalPages = Math.ceil(total / pageSize);
 
 function groupByMonth(items: typeof eventos): Map<string, typeof eventos> {
   const groups = new Map<string, typeof eventos>();
@@ -39,6 +57,11 @@ function monthLabel(key: string): string {
   return d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' });
 }
 
+function monthKey(dateStr: string): string {
+  const d = new Date(dateStr);
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+}
+
 const categorias = [
   { value: 'todas', label: 'Todos' },
   { value: 'musica', label: 'Música' },
@@ -51,25 +74,27 @@ const categorias = [
 <Layout title="Eventos" description="Agenda cultural da Fundação de Cultura Elias Mansour - Eventos, exposições e apresentações no Acre">
   <div class="max-w-container-max-width mx-auto px-gutter py-8">
 
-      <PageHero title="Agenda Cultural" description="Descubra e participe dos eventos que movimentam a cultura acreana." breadcrumbLabel="Eventos" />
+    <PageHero title="Agenda Cultural" description="Descubra e participe dos eventos que movimentam a cultura acreana." breadcrumbLabel="Eventos" />
 
-      <div class="mb-12 flex justify-end">
-        <div class="flex bg-surface-container-high rounded-full p-1">
-          <a href={activeCategoria === 'todas' ? '?view=lista' : `?categoria=${activeCategoria}&view=lista`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'lista' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
-            <span class="material-symbols-outlined text-[18px]">view_list</span>
-            Lista
-          </a>
-          <a href={activeCategoria === 'todas' ? '?view=mes' : `?categoria=${activeCategoria}&view=mes`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'mes' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
-            <span class="material-symbols-outlined text-[18px]">calendar_month</span>
-            Mês
-          </a>
-        </div>
-      </div>
+    <!-- Busca -->
+    <div class="relative w-full max-w-md mb-6">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+      <input
+        class="w-full pl-10 pr-4 py-3 rounded-lg border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary bg-surface font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 transition-all"
+        placeholder="Buscar evento, local ou palavra-chave..."
+        type="text"
+      />
+    </div>
 
-      <div class="flex flex-wrap gap-3 mb-12">
+    <!-- Toolbar -->
+    <div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+      <div class="flex flex-wrap items-center gap-3">
         {categorias.map((cat) => {
           const isActive = cat.value === activeCategoria;
-          const href = cat.value === 'todas' ? '/eventos' : `?categoria=${cat.value}`;
+          const params = new URLSearchParams();
+          if (cat.value !== 'todas') params.set('categoria', cat.value);
+          params.delete('page');
+          const href = cat.value === 'todas' ? '/eventos' : `/eventos?${params.toString()}`;
           return isActive ? (
             <span class="px-4 py-2 rounded-full bg-primary-container text-on-primary-container font-label-md text-label-md border border-primary/20 cursor-default">{cat.label}</span>
           ) : (
@@ -77,33 +102,81 @@ const categorias = [
           );
         })}
       </div>
-
-      {filtered.length > 0 ? (
-        activeView === 'mes' ? (
-          <div class="flex flex-col gap-12">
-            {Array.from(groupByMonth(filtered).entries()).map(([key, events]) => (
-              <section>
-                <h2 class="font-headline-md text-headline-md text-primary mb-6 capitalize">{monthLabel(key)}</h2>
-                <div class="flex flex-col gap-6">
-                  {events.map((evento) => <CardEvento evento={evento} />)}
-                </div>
-              </section>
-            ))}
-          </div>
-        ) : (
-          <div class="flex flex-col gap-6">
-            {filtered.map((evento) => <CardEvento evento={evento} />)}
-          </div>
-        )
-      ) : (
-        <div class="text-center py-16">
-          <span class="material-symbols-outlined text-4xl text-outline">event_busy</span>
-          <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum evento encontrado.</p>
-        </div>
-      )}
-
-      <div class="mt-12 flex justify-center">
-        <a href="/eventos" class="px-8 py-3 rounded-full border-2 border-primary text-primary font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all">Carregar Mais Eventos</a>
+      <div class="flex bg-surface-container-high rounded-full p-1">
+        <a href={activeCategoria === 'todas' ? '?view=lista' : `?categoria=${activeCategoria}&view=lista`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'lista' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
+          <span class="material-symbols-outlined text-[18px]">view_list</span>
+          Lista
+        </a>
+        <a href={activeCategoria === 'todas' ? '?view=mes' : `?categoria=${activeCategoria}&view=mes`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'mes' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
+          <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+          Mês
+        </a>
       </div>
     </div>
+
+    <!-- Contador -->
+    <p class="font-body-md text-body-md text-on-surface-variant mb-6" id="result-count">Mostrando <strong>{total}</strong> {total === 1 ? 'evento' : 'eventos'}</p>
+
+    {eventos.length > 0 ? (
+      activeView === 'mes' ? (
+        <div class="flex flex-col gap-12" id="eventos-list">
+          {Array.from(groupByMonth(eventos).entries()).map(([key, events]) => (
+            <section data-group={key}>
+              <h2 class="font-headline-md text-headline-md text-primary mb-6 capitalize">{monthLabel(key)}</h2>
+              <div class="flex flex-col gap-6">
+                {events.map((evento) => <CardEvento evento={evento} />)}
+              </div>
+            </section>
+          ))}
+        </div>
+      ) : (
+        <div class="flex flex-col gap-6" id="eventos-list">
+          {eventos.map((evento) => <CardEvento evento={evento} />)}
+        </div>
+      )
+    ) : (
+      <div class="text-center py-16">
+        <span class="material-symbols-outlined text-4xl text-outline">event_busy</span>
+        <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum evento encontrado.</p>
+      </div>
+    )}
+
+    <!-- Paginação -->
+    <section class="max-w-container-max-width mx-auto px-gutter mt-12">
+      <Pagination currentPage={currentPage} totalPages={totalPages} baseUrl={activeCategoria !== 'todas' ? `/eventos?categoria=${activeCategoria}` : '/eventos'} />
+    </section>
+  </div>
 </Layout>
+
+<script>
+  const input = document.querySelector('input[type="text"]');
+  const count = document.getElementById('result-count');
+  const list = document.getElementById('eventos-list');
+
+  if (input && count && list) {
+    const totalText = count.textContent || '0';
+    input.addEventListener('input', () => {
+      const q = input.value.toLowerCase().trim();
+      const cards = list.querySelectorAll('[data-search]');
+      const groups = list.querySelectorAll('[data-group]');
+      let visible = 0;
+
+      cards.forEach((card) => {
+        const match = !q || card.dataset.search.includes(q);
+        card.style.display = match ? '' : 'none';
+        if (match) visible++;
+      });
+
+      groups.forEach((group) => {
+        const hasVisible = Array.from(group.querySelectorAll('[data-search]')).some(
+          (c) => (c as HTMLElement).style.display !== 'none'
+        );
+        (group as HTMLElement).style.display = hasVisible ? '' : 'none';
+      });
+
+      count.innerHTML = q
+        ? `Mostrando <strong>${visible}</strong> de <strong>${totalText.match(/\d+/)?.[0] || 0}</strong> eventos`
+        : `Mostrando <strong>${totalText.match(/\d+/)?.[0] || 0}</strong> eventos`;
+    });
+  }
+</script>

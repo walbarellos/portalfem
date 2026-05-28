@@ -47,12 +47,12 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
           <div class="prose prose-green max-w-none prose-headings:font-display prose-a:text-secondary prose-img:rounded-xl prose-h2:text-headline-md prose-h2:font-display prose-h2:text-primary prose-h3:text-headline-sm prose-h3:font-display prose-h3:text-primary prose-p:text-body-lg prose-p:leading-relaxed prose-p:text-on-surface-variant prose-strong:text-on-surface prose-ul:text-body-lg prose-li:marker:text-primary">
             <Fragment set:html={item.conteudo} />
           </div>
-        ) : (
+        ) : slug !== 'presidencia' ? (
           <div class="text-center py-20">
             <span class="material-symbols-outlined text-5xl text-outline mb-4">description</span>
             <p class="text-body-lg text-on-surface-variant">Conteúdo em atualização.</p>
           </div>
-        )}
+        ) : null}
 
         {slug === 'quem-somos' && (
           <>
@@ -149,7 +149,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
 
         {slug === 'presidencia' && (
           <>
-            <section class="mt-16">
+            <section>
               <div class="bg-gradient-to-br from-primary/5 to-primary-container/10 rounded-3xl p-8 md:p-12 border border-primary/10">
                 <div class="flex flex-col md:flex-row items-center gap-8">
                   <div class="w-40 h-40 md:w-48 md:h-48 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border-4 border-primary/20 overflow-hidden">
@@ -160,7 +160,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
                     <h3 class="font-display text-display-sm text-primary">Matheus Gomes</h3>
                     <p class="text-label-lg text-outline mt-1">Presidente da Fundação de Cultura Elias Mansour (FEM)</p>
                     <p class="text-body-md text-on-surface-variant mt-4 leading-relaxed">
-                                            Assume a presidência da Fundação de Cultura Elias Mansour em abril de 2026, com a missão de dar continuidade ao fortalecimento das políticas culturais do Estado do Acre, ampliar o acesso da população aos bens e serviços culturais e consolidar o Sistema Estadual de Cultura como instrumento de desenvolvimento social e econômico.
+                                            Historiador de formação, assumiu a presidência da Fundação de Cultura Elias Mansour em abril de 2026, nomeado pelo governador Gladson Cameli, dando continuidade à gestão de Minoru Kinpara. Sua gestão tem como prioridades ampliar o acesso à cultura, fortalecer o Sistema Estadual de Cultura e valorizar a identidade amazônica. Antes de liderar a FEM, atuou como diretor da instituição.
                     </p>
                   </div>
                 </div>

@@ -6,7 +6,6 @@ export interface Props {
 }
 
 const { evento } = Astro.props;
-const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
 const dataInicio = new Date(evento.data_inicio);
 const dia = dataInicio.getDate();
 const mes = dataInicio.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '');
@@ -24,10 +23,11 @@ const catColors: Record<string, string> = {
   artes_visuais: 'bg-tertiary-container/20 text-tertiary',
   literatura: 'bg-secondary-container/30 text-on-secondary-container',
 };
-const imgSrc = evento.imagem_capa ? `${directusUrl}/assets/${evento.imagem_capa}` : null;
+const imgSrc = evento.imagem_capa ? `/api/file/${evento.imagem_capa}` : null;
+const searchText = [evento.titulo, evento.descricao || '', evento.local || '', catLabels[evento.categoria] || ''].filter(Boolean).join(' ').toLowerCase();
 ---
 
-<article class={`group flex flex-col md:flex-row bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden ${isPast ? 'opacity-75' : ''}`}>
+<article class={`group flex flex-col md:flex-row bg-surface-container-lowest rounded-xl border border-outline-variant/20 shadow-sm hover:shadow-lg transition-all duration-300 overflow-hidden ${isPast ? 'opacity-75' : ''}`} data-search={searchText}>
   <a href={`/eventos/${evento.id}`} class="flex flex-col md:flex-row w-full">
     <div class={`${isPast ? 'bg-surface-container-highest' : 'bg-primary/5'} md:w-32 flex flex-row md:flex-col items-center justify-center p-4 border-b md:border-b-0 md:border-r border-outline-variant/20 shrink-0`}>
       <span class={`font-headline-md text-headline-md ${isPast ? 'text-on-surface-variant' : 'text-primary'}`}>{dia}</span>
