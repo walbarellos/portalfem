@@ -1,5 +1,5 @@
 import { createDirectus, rest, readItems, readItem, staticToken } from '@directus/sdk';
-import type { Schema, Noticia, Evento, Edital, ServicoSistema, EspacoCultural } from '../schemas/directus';
+import type { Schema, Noticia, Evento, Edital, ServicoSistema, EspacoCultural, Resultado } from '../schemas/directus';
 
 const DIRECTUS_URL = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
 const DIRECTUS_TOKEN = import.meta.env.PUBLIC_DIRECTUS_TOKEN || '';
@@ -48,7 +48,7 @@ export async function getEditaisAbertos(): Promise<Edital[]> {
         status_label: { _eq: 'aberto' },
       },
       sort: ['data_encerramento'],
-      fields: ['id', 'titulo', 'numero', 'data_abertura', 'data_encerramento', 'resumo', 'link_pdf'],
+      fields: ['id', 'titulo', 'numero', 'data_abertura', 'data_encerramento', 'resumo', 'link_pdf', 'status_label', { categoria: ['id', 'nome', 'slug'] }],
     })),
     []
   );
@@ -201,6 +201,27 @@ export async function getAllPaginasInstitucionais() {
     directus.request(readItems('paginas_institucionais', {
       filter: { status: { _eq: 'published' } },
       sort: ['menu_position'],
+    })),
+    []
+  );
+}
+
+export async function getCategoriasEditais() {
+  return safeRequest(
+    directus.request(readItems('categorias_editais', {
+      fields: ['id', 'nome', 'slug'],
+    })),
+    []
+  );
+}
+
+export async function getResultadosRecentes(limit = 4) {
+  return safeRequest(
+    directus.request(readItems('resultados', {
+      filter: { status: { _eq: 'published' } },
+      sort: ['-data_publicacao'],
+      limit,
+      fields: ['id', 'titulo', 'descricao', 'data_publicacao', 'arquivo', { edital_relacionado: ['id', 'titulo', 'numero'] }],
     })),
     []
   );

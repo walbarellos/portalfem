@@ -1,59 +1,230 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CardNoticia from '../components/CardNoticia.astro';
-import { getUltimasNoticias, getServicos, getEditaisAbertos } from '../lib/directus';
+import { getUltimasNoticias, getServicos, getEditaisAbertos, getAllNoticias, getAllEventos, getAllEditais, getCategoriasEditais, getResultadosRecentes } from '../lib/directus';
 
-const noticias = await getUltimasNoticias(3);
 const servicos = await getServicos();
 const editaisAbertos = await getEditaisAbertos();
 
-const edital = editaisAbertos.length > 0 ? editaisAbertos[0] : null;
+const noticias = await getUltimasNoticias(3);
 const featuredNews = noticias.length > 0 ? noticias[0] : null;
 const sideNews = noticias.filter((_, i) => i > 0).slice(0, 2);
-const directusUrl = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
-const featuredImg = featuredNews?.imagem_destaque
-  ? `${directusUrl}/assets/${featuredNews.imagem_destaque}`
-  : null;
+const heroNoticia = featuredNews;
+
+const totalNoticias = (await getAllNoticias()).length;
+const totalEventos = (await getAllEventos()).length;
+const totalEditais = (await getAllEditais()).length;
+
+const categoriasFomento = await getCategoriasEditais();
+const resultadosRecentes = await getResultadosRecentes(4);
+
+const programasFomento = categoriasFomento.length > 0 ? categoriasFomento : [
+  { id: null, nome: 'Lei Paulo Gustavo', slug: 'lei-paulo-gustavo' },
+  { id: null, nome: 'PNAB', slug: 'pnab' },
+  { id: null, nome: 'Fundo Estadual de Cultura', slug: 'fundo-estadual' },
+  { id: null, nome: 'Chamamento Público', slug: '' },
+];
+
+const programasIcons: Record<string, string> = {
+  'lei-paulo-gustavo': 'palette',
+  'pnab': 'diversity_3',
+  'fundo-estadual': 'account_balance',
+  '': 'campaign',
+};
 ---
 
 <Layout title="Início" description="Portal oficial da Fundação de Cultura Elias Mansour - FEM, Governo do Estado do Acre">
-  <!-- Hero Section -->
+
+  <!-- ═══════════════════════════════════════════════════════════
+       HERO — NOTÍCIA EM DESTAQUE
+  ═══════════════════════════════════════════════════════════ -->
   <section class="relative h-[600px] md:h-[819px] min-h-[600px] w-full flex items-end pb-section-gap px-margin-mobile md:px-gutter overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,_#1b5e20_0%,_transparent_60%),radial-gradient(ellipse_at_bottom_right,_#00450d_0%,_transparent_50%),radial-gradient(ellipse_at_center,_#2d6b30_0%,_#00450d_100%)]"></div>
+    {heroNoticia?.imagem_destaque ? (
+      <img src={`/api/file/${heroNoticia.imagem_destaque}`} alt="" class="absolute inset-0 w-full h-full object-cover" />
+    ) : (
+      <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-container to-surface-container-high"></div>
+    )}
+    <div class="absolute inset-0 bg-gradient-to-t from-[#191d17] via-[#191d17]/60 to-[#191d17]/20"></div>
     <div class="absolute inset-0 hero-overlay"></div>
     <div class="relative z-10 max-w-container-max-width mx-auto w-full flex flex-col items-start gap-unit">
-      <span class="inline-block px-4 py-1.5 rounded-full bg-primary/20 backdrop-blur-sm border border-primary/30 text-on-primary font-sans text-label-md mb-2">
-        {edital ? 'Edital Aberto' : 'Destaque Cultural'}
-      </span>
-      {edital ? (
-        <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">{edital.titulo}</h1>
+      {heroNoticia ? (
+        <>
+          <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface/15 backdrop-blur-sm border border-surface/25 text-on-primary font-sans text-label-md mb-2">
+            <span class="material-symbols-outlined text-[16px]">newspaper</span>
+            Notícia em Destaque
+          </span>
+          <p class="font-sans text-body-sm text-surface-container/80">
+            {new Date(heroNoticia.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
+          </p>
+          <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">{heroNoticia.titulo}</h1>
+          {heroNoticia.resumo && (
+            <p class="font-sans text-body-lg text-surface-container max-w-2xl mt-4 mb-6">{heroNoticia.resumo}</p>
+          )}
+          <a href={`/noticias/${heroNoticia.id}`}
+            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+            Ler Matéria
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+          </a>
+        </>
       ) : (
-        <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">Oportunidades<br/>Culturais</h1>
-      )}
-      <p class="font-sans text-body-lg text-surface-container max-w-2xl mt-4 mb-6">
-        {edital
-          ? `Inscrições até ${new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}`
-          : 'Fomento para projetos artísticos, preservação do patrimônio e desenvolvimento da economia criativa no Acre.'}
-      </p>
-      {edital ? (
-        <a href={`/editais/${edital.id}`}
-          class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
-          Ver Edital
-          <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
-        </a>
-      ) : (
-        <a href="/editais"
-          class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
-          Participar Agora
-          <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
-        </a>
+        <>
+          <span class="inline-block px-4 py-1.5 rounded-full bg-surface/15 backdrop-blur-sm border border-surface/25 text-on-primary font-sans text-label-md mb-2">Fundação Elias Mansour</span>
+          <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">Cultura que<br/>transforma o Acre</h1>
+          <p class="font-sans text-body-lg text-surface-container max-w-2xl mt-4 mb-6">
+            Fomento para projetos artísticos, preservação do patrimônio e desenvolvimento da economia criativa.
+          </p>
+          <a href="/editais"
+            class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
+            Explorar
+            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+          </a>
+        </>
       )}
     </div>
   </section>
 
-  <!-- Narrativas da Cultura (Notícias - Asymmetric Grid) -->
+  <!-- ═══════════════════════════════════════════════════════════
+       PROGRAMAS DE FOMENTO
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="py-16 px-margin-mobile md:px-gutter bg-surface-container-lowest border-b border-outline-variant/20">
+    <div class="max-w-container-max-width mx-auto">
+      <div class="text-center mb-10">
+        <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface">Programas de Fomento</h2>
+        <p class="font-sans text-body-md text-on-surface-variant mt-2">Conheça as linhas de incentivo à cultura acreana</p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+        {programasFomento.map((prog) => {
+          const isChamamento = !prog.slug;
+          const progSlug = isChamamento ? '' : prog.slug;
+          const href = isChamamento ? '/editais' : `/editais?categoria=${progSlug}`;
+          const icon = programasIcons[progSlug] || 'description';
+          return (
+            <a href={href}
+              class="group relative bg-surface rounded-2xl border border-outline-variant/20 p-6 text-center hover:border-primary/30 hover:shadow-sm transition-all duration-200">
+              <div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
+                <span class="material-symbols-outlined text-primary text-2xl">{icon}</span>
+              </div>
+              <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">{prog.nome}</h3>
+              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Acessar</p>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NÚMEROS DA CULTURA
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="py-12 px-margin-mobile md:px-gutter border-b border-outline-variant/20">
+    <div class="max-w-container-max-width mx-auto">
+      <div class="flex flex-wrap justify-center gap-x-12 gap-y-6">
+        <div class="text-center">
+          <p class="font-display text-display-sm text-primary font-bold">{totalEditais}</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">editais publicados</p>
+        </div>
+        <div class="text-center">
+          <p class="font-display text-display-sm text-primary font-bold">{totalEventos}</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">eventos realizados</p>
+        </div>
+        <div class="text-center">
+          <p class="font-display text-display-sm text-primary font-bold">{totalNoticias}</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">notícias publicadas</p>
+        </div>
+        <div class="text-center">
+          <p class="font-display text-display-sm text-primary font-bold">{editaisAbertos.length}</p>
+          <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">editais abertos agora</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       EDITAIS ABERTOS (mini-cards)
+  ═══════════════════════════════════════════════════════════ -->
+  {editaisAbertos.length > 0 && (
+    <section data-reveal class="py-16 px-margin-mobile md:px-gutter bg-surface-container-lowest border-b border-outline-variant/20">
+      <div class="max-w-container-max-width mx-auto">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface">Editais Abertos</h2>
+            <p class="font-sans text-body-md text-on-surface-variant mt-1">Oportunidades com inscrições abertas</p>
+          </div>
+          <a href="/editais" class="text-primary font-label-md text-label-md hover:underline hidden md:block">
+            Ver todos <span class="material-symbols-outlined text-[16px] align-text-bottom">arrow_forward</span>
+          </a>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {editaisAbertos.slice(0, 3).map((edital) => {
+            const catObj = typeof edital.categoria === 'object' && edital.categoria ? edital.categoria as { nome: string } : null;
+            const dataEncerra = new Date(edital.data_encerramento).toLocaleDateString('pt-BR');
+            const diasRestantes = Math.ceil((new Date(edital.data_encerramento).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+            return (
+              <a href={`/editais/${edital.id}`}
+                class="group bg-surface rounded-2xl border border-outline-variant/20 p-5 hover:border-primary/30 hover:shadow-sm transition-all duration-200">
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="w-2 h-2 rounded-full bg-primary"></span>
+                  <span class="font-label-md text-label-md text-primary">Aberto</span>
+                  {catObj && <span class="font-body-sm text-body-sm text-on-surface-variant">· {catObj.nome}</span>}
+                </div>
+                <p class="font-body-sm text-body-sm text-on-surface-variant mb-1">Edital nº {edital.numero}</p>
+                <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors line-clamp-2 mb-3">{edital.titulo}</h3>
+                <div class="flex items-center justify-between">
+                  <span class="font-body-sm text-body-sm text-on-surface-variant">Encerra {dataEncerra}</span>
+                  {diasRestantes <= 7 && (
+                    <span class="font-label-md text-label-md text-error flex items-center gap-1">
+                      <span class="material-symbols-outlined text-[14px]">schedule</span>
+                      {diasRestantes}d
+                    </span>
+                  )}
+                </div>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════
+       RESULTADOS RECENTES
+  ═══════════════════════════════════════════════════════════ -->
+  {resultadosRecentes.length > 0 && (
+    <section data-reveal class="py-16 px-margin-mobile md:px-gutter border-b border-outline-variant/20">
+      <div class="max-w-container-max-width mx-auto">
+        <div class="flex items-center justify-between mb-8">
+          <div>
+            <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface">Resultados Recentes</h2>
+            <p class="font-sans text-body-md text-on-surface-variant mt-1">Confira os resultados dos últimos editais</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {resultadosRecentes.map((res) => {
+            const editalRel = res.edital_relacionado && typeof res.edital_relacionado === 'object' ? res.edital_relacionado as { id: number; titulo: string; numero: string } : null;
+            return (
+              <a href={res.arquivo ? `/api/file/${res.arquivo}` : '#'} target={res.arquivo ? '_blank' : undefined} rel={res.arquivo ? 'noopener noreferrer' : undefined}
+                class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 hover:border-primary/30 hover:shadow-sm transition-all duration-200 flex items-center gap-4">
+                <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-on-surface-variant">fact_check</span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">{res.titulo}</h3>
+                  {editalRel && <p class="font-body-sm text-body-sm text-on-surface-variant truncate">{editalRel.titulo}</p>}
+                  <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{new Date(res.data_publicacao).toLocaleDateString('pt-BR')}</p>
+                </div>
+                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+              </a>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ═══════════════════════════════════════════════════════════
+       NOTÍCIAS
+  ═══════════════════════════════════════════════════════════ -->
   {noticias.length > 0 && (
-    <section data-reveal class="py-section-gap px-margin-mobile md:px-gutter bg-surface-container-lowest border-y border-outline-variant/20">
+    <section data-reveal class="py-16 px-margin-mobile md:px-gutter bg-surface-container-lowest border-b border-outline-variant/20">
       <div class="max-w-container-max-width mx-auto">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-4">
           <div>
@@ -74,8 +245,8 @@ const featuredImg = featuredNews?.imagem_destaque
             <article class="md:col-span-7 group cursor-pointer">
               <a href={`/noticias/${featuredNews.id}`}>
                 <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 shadow-md group-hover:shadow-xl transition-shadow duration-300 bg-surface-container-high img-shimmer">
-                  {featuredImg ? (
-                    <img src={featuredImg} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
+                  {featuredNews.imagem_destaque ? (
+                    <img src={`/api/file/${featuredNews.imagem_destaque}`} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
                   ) : (
                     <div class="w-full h-full flex items-center justify-center">
                       <span class="material-symbols-outlined text-5xl text-outline">image</span>
@@ -96,14 +267,13 @@ const featuredImg = featuredNews?.imagem_destaque
           {sideNews.length > 0 && (
             <div class="md:col-span-5 flex flex-col gap-8">
               {sideNews.map((noticia) => {
-                const imgSrc = noticia.imagem_destaque ? `${directusUrl}/assets/${noticia.imagem_destaque}` : null;
-                const sideDate = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short' }).replace('.', '');
+                const sideDate = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' }).replace('.', '');
                 return (
                   <article class="group cursor-pointer flex gap-4 items-center md:items-start border-b border-outline-variant/20 pb-6 last:border-b-0 last:pb-0">
                     <a href={`/noticias/${noticia.id}`} class="flex gap-4 w-full">
                       <div class="relative w-28 md:w-36 aspect-[4/3] flex-shrink-0 rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow bg-surface-container-high img-shimmer">
-                        {imgSrc ? (
-                          <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
+                        {noticia.imagem_destaque ? (
+                          <img src={`/api/file/${noticia.imagem_destaque}`} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
                         ) : (
                           <div class="w-full h-full flex items-center justify-center">
                             <span class="material-symbols-outlined text-2xl text-outline">image</span>
@@ -128,8 +298,10 @@ const featuredImg = featuredNews?.imagem_destaque
     </section>
   )}
 
-  <!-- Serviços ao Artista (Bento Grid) -->
-  <section data-reveal class="py-section-gap px-margin-mobile md:px-gutter max-w-container-max-width mx-auto">
+  <!-- ═══════════════════════════════════════════════════════════
+       SERVIÇOS
+  ═══════════════════════════════════════════════════════════ -->
+  <section data-reveal class="py-16 px-margin-mobile md:px-gutter max-w-container-max-width mx-auto">
     <div class="flex justify-between items-end mb-12">
       <div>
         <div class="flex items-center gap-3 mb-2">
@@ -138,7 +310,7 @@ const featuredImg = featuredNews?.imagem_destaque
         </div>
         <p class="font-sans text-body-md text-on-surface-variant mt-2 ml-4">Acesse os serviços essenciais para fazedores de cultura.</p>
       </div>
-      <a href="/servicos" class="hidden md:flex text-primary font-sans text-label-md hover:underline items-center gap-1 group">
+      <a href="/servicos" class="text-primary font-sans text-label-md hover:underline items-center gap-1 group hidden md:flex">
         Ver todos
         <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
       </a>
@@ -146,7 +318,7 @@ const featuredImg = featuredNews?.imagem_destaque
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[240px]">
       {servicos.length > 0 ? (
-        servicos.slice(0, 5).map((servico, i) => {
+        servicos.filter(s => s.titulo !== 'Transparência').slice(0, 5).map((servico, i) => {
           const isLarge = i === 0;
           const colors = [
             { bg: 'bg-surface-container-low', icon: 'how_to_reg', iconBg: 'bg-primary-container/20', iconColor: 'text-primary' },
@@ -199,6 +371,29 @@ const featuredImg = featuredNews?.imagem_destaque
           <p class="font-sans text-body-lg">Nenhum serviço disponível no momento.</p>
         </div>
       )}
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       REDES SOCIAIS
+  ═══════════════════════════════════════════════════════════ -->
+  <section class="py-16 px-margin-mobile md:px-gutter border-t border-outline-variant/20">
+    <div class="max-w-container-max-width mx-auto flex flex-col items-center gap-6">
+      <p class="font-body-md text-body-md text-on-surface-variant">Acompanhe a FEM nas redes sociais</p>
+      <div class="flex items-center gap-2">
+        <a href="https://instagram.com/fem.ac" target="_blank" rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-primary-container/20 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        </a>
+        <a href="https://facebook.com/fem.ac" target="_blank" rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-primary-container/20 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+        <a href="https://youtube.com/@femacre" target="_blank" rel="noopener noreferrer"
+          class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:text-primary hover:bg-primary-container/20 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+        </a>
+      </div>
     </div>
   </section>
 </Layout>
