@@ -1,11 +1,10 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import PageHero from '../../components/PageHero.astro';
-import { directus, safeRequest, readItems, getAllPaginasInstitucionais } from '../../lib/directus';
-import type { PaginaInstitucional } from '../../schemas/directus';
+import { directus, safeRequest, readItems, obterTodasPaginasInstitucionais } from '../../lib/directus';
 
 export async function getStaticPaths() {
-  const paginas = await getAllPaginasInstitucionais();
+  const paginas = await obterTodasPaginasInstitucionais();
   return paginas.map((p: PaginaInstitucional) => ({
     params: { slug: p.slug },
     props: { pagina: p },
@@ -24,7 +23,7 @@ const pagina = await safeRequest(
 const item = pagina?.[0] ?? null;
 if (!item) return Astro.redirect('/404');
 
-const allPaginas = await getAllPaginasInstitucionais();
+const allPaginas = await obterTodasPaginasInstitucionais();
 const currentIndex = allPaginas.findIndex((p) => p.slug === slug);
 const prev = currentIndex > 0 ? allPaginas[currentIndex - 1] : null;
 const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1] : null;

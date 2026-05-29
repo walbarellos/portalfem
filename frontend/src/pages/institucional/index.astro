@@ -3,9 +3,9 @@ export const prerender = true;
 
 import Layout from '../../layouts/Layout.astro';
 import PageHero from '../../components/PageHero.astro';
-import { getAllPaginasInstitucionais } from '../../lib/directus';
+import { obterTodasPaginasInstitucionais } from '../../lib/directus';
 
-const paginas = await getAllPaginasInstitucionais();
+const paginas = await obterTodasPaginasInstitucionais();
 
 const stats = [
   { value: '42', label: 'Espaços Culturais', icon: 'location_city' },

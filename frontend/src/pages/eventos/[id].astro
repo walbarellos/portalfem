@@ -2,11 +2,10 @@
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CardEvento from '../../components/CardEvento.astro';
-import { directus, safeRequest, readItem, readItems, getAllEventos } from '../../lib/directus';
-import type { Evento } from '../../schemas/directus';
+import { directus, safeRequest, readItem, readItems, obterTodosEventos } from '../../lib/directus';
 
 export async function getStaticPaths() {
-  const eventos = await getAllEventos();
+  const eventos = await obterTodosEventos();
   return eventos.map((e: Evento) => ({
     params: { id: String(e.id) },
     props: { evento: e },

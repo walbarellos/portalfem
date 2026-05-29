@@ -2,11 +2,10 @@
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CardNoticia from '../../components/CardNoticia.astro';
-import { directus, safeRequest, readItem, readItems, getUltimasNoticias } from '../../lib/directus';
-import type { Noticia } from '../../schemas/directus';
+import { directus, safeRequest, readItem, readItems, obterUltimasNoticias } from '../../lib/directus';
 
 export async function getStaticPaths() {
-  const noticias = await getUltimasNoticias(100);
+  const noticias = await obterUltimasNoticias(100);
   return noticias.map((n: Noticia) => ({
     params: { id: String(n.id) },
     props: { noticia: n },
@@ -37,7 +36,7 @@ const autor = noticia.autor && typeof noticia.autor === 'object'
   ? `${noticia.autor.first_name} ${noticia.autor.last_name}`
   : null;
 
-const recentes = await getUltimasNoticias(4);
+const recentes = await obterUltimasNoticias(4);
 ---
 
 <Layout title={noticia.titulo} description={noticia.resumo} image={imgSrc || undefined}>

@@ -19,7 +19,7 @@ export async function safeRequest<T>(promise: Promise<T>, fallback: T): Promise<
   }
 }
 
-export async function getUltimasNoticias(limit = 6): Promise<Noticia[]> {
+export async function obterUltimasNoticias(limit = 6): Promise<Noticia[]> {
   return safeRequest(
     directus.request(readItems('noticias', {
       filter: { status: { _eq: 'published' } },
@@ -31,7 +31,7 @@ export async function getUltimasNoticias(limit = 6): Promise<Noticia[]> {
   );
 }
 
-export async function getNoticia(id: number): Promise<Noticia | null> {
+export async function obterNoticia(id: number): Promise<Noticia | null> {
   return safeRequest(
     directus.request(readItem('noticias', id, {
       fields: ['*', { autor: ['id', 'first_name', 'last_name'] }],
@@ -40,7 +40,7 @@ export async function getNoticia(id: number): Promise<Noticia | null> {
   );
 }
 
-export async function getEditaisAbertos(): Promise<Edital[]> {
+export async function obterEditaisAbertos(): Promise<Edital[]> {
   return safeRequest(
     directus.request(readItems('editais', {
       filter: {
@@ -54,7 +54,7 @@ export async function getEditaisAbertos(): Promise<Edital[]> {
   );
 }
 
-export async function getEditais(): Promise<Edital[]> {
+export async function obterEditais(): Promise<Edital[]> {
   return safeRequest(
     directus.request(readItems('editais', {
       filter: { status: { _eq: 'published' } },
@@ -65,7 +65,7 @@ export async function getEditais(): Promise<Edital[]> {
   );
 }
 
-export async function getEdital(id: number): Promise<Edital | null> {
+export async function obterEdital(id: number): Promise<Edital | null> {
   return safeRequest(
     directus.request(readItem('editais', id, {
       fields: ['*', { categoria: ['id', 'nome', 'slug'] }],
@@ -74,7 +74,7 @@ export async function getEdital(id: number): Promise<Edital | null> {
   );
 }
 
-export async function getProximosEventos(limit = 4): Promise<Evento[]> {
+export async function obterProximosEventos(limit = 4): Promise<Evento[]> {
   return safeRequest(
     directus.request(readItems('eventos', {
       filter: {
@@ -89,14 +89,14 @@ export async function getProximosEventos(limit = 4): Promise<Evento[]> {
   );
 }
 
-export async function getEvento(id: number): Promise<Evento | null> {
+export async function obterEvento(id: number): Promise<Evento | null> {
   return safeRequest(
     directus.request(readItem('eventos', id)),
     null
   );
 }
 
-export async function getPaginaInstitucional(slug: string) {
+export async function obterPaginaInstitucional(slug: string) {
   const result = await safeRequest(
     directus.request(readItems('paginas_institucionais', {
       filter: {
@@ -110,7 +110,7 @@ export async function getPaginaInstitucional(slug: string) {
   return result?.[0] ?? null;
 }
 
-export async function getServicos(): Promise<ServicoSistema[]> {
+export async function obterServicos(): Promise<ServicoSistema[]> {
   return safeRequest(
     directus.request(readItems('servicos_sistemas', {
       filter: { ativo: { _eq: true } },
@@ -154,7 +154,7 @@ export async function buscarConteudo(query: string) {
   return { noticias, editais, eventos };
 }
 
-export async function getAllNoticias() {
+export async function obterTodasNoticias() {
   return safeRequest(
     directus.request(readItems('noticias', {
       filter: { status: { _eq: 'published' } },
@@ -165,7 +165,7 @@ export async function getAllNoticias() {
   );
 }
 
-export async function getAllEventos() {
+export async function obterTodosEventos() {
   return safeRequest(
     directus.request(readItems('eventos', {
       filter: { status: { _eq: 'published' } },
@@ -176,7 +176,7 @@ export async function getAllEventos() {
   );
 }
 
-export async function getAllEditais() {
+export async function obterTodosEditais() {
   return safeRequest(
     directus.request(readItems('editais', {
       filter: { status: { _eq: 'published' } },
@@ -187,7 +187,7 @@ export async function getAllEditais() {
   );
 }
 
-export async function getAllPaginasInstitucionais() {
+export async function obterTodasPaginasInstitucionais() {
   return safeRequest(
     directus.request(readItems('paginas_institucionais', {
       filter: { status: { _eq: 'published' } },
@@ -197,7 +197,7 @@ export async function getAllPaginasInstitucionais() {
   );
 }
 
-export async function getCategoriasEditais() {
+export async function obterCategoriasEditais() {
   return safeRequest(
     directus.request(readItems('categorias_editais', {
       fields: ['id', 'nome', 'slug'],
@@ -206,7 +206,7 @@ export async function getCategoriasEditais() {
   );
 }
 
-export async function getResultadosRecentes(limit = 4) {
+export async function obterResultadosRecentes(limit = 4) {
   return safeRequest(
     directus.request(readItems('resultados', {
       filter: { status: { _eq: 'published' } },

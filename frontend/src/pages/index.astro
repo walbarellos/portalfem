@@ -1,19 +1,19 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { getUltimasNoticias, getServicos, getEditaisAbertos, getAllNoticias, getAllEventos, getAllEditais, getCategoriasEditais, getResultadosRecentes } from '../lib/directus';
+import { obterUltimasNoticias, obterServicos, obterEditaisAbertos, obterTodasNoticias, obterTodosEventos, obterTodosEditais, obterCategoriasEditais, obterResultadosRecentes } from '../lib/directus';
 
-const servicos = await getServicos();
-const editaisAbertos = await getEditaisAbertos();
+const servicos = await obterServicos();
+const editaisAbertos = await obterEditaisAbertos();
 
-const noticias = await getUltimasNoticias(3);
+const noticias = await obterUltimasNoticias(3);
 const featuredNews = noticias.length > 0 ? noticias[0] : null;
 const sideNews = noticias.filter((_, i) => i > 0).slice(0, 2);
-const totalNoticias = (await getAllNoticias()).length;
-const totalEventos = (await getAllEventos()).length;
-const totalEditais = (await getAllEditais()).length;
+const totalNoticias = (await obterTodasNoticias()).length;
+const totalEventos = (await obterTodosEventos()).length;
+const totalEditais = (await obterTodosEditais()).length;
 
-const categoriasFomento = await getCategoriasEditais();
-const resultadosRecentes = await getResultadosRecentes(4);
+const categoriasFomento = await obterCategoriasEditais();
+const resultadosRecentes = await obterResultadosRecentes(4);
 
 const programasFomento = categoriasFomento.length > 0 ? categoriasFomento : [
   { id: null, nome: 'Lei Paulo Gustavo', slug: 'lei-paulo-gustavo' },
