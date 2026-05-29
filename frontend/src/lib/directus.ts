@@ -120,15 +120,6 @@ export async function getServicos(): Promise<ServicoSistema[]> {
   );
 }
 
-export async function getEspacosCulturais(): Promise<EspacoCultural[]> {
-  return safeRequest(
-    directus.request(readItems('espacos_culturais', {
-      filter: { status: { _eq: 'published' } },
-    })),
-    []
-  );
-}
-
 export async function buscarConteudo(query: string) {
   const [noticias, editais, eventos] = await Promise.all([
     safeRequest(

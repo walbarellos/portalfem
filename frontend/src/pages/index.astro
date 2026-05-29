@@ -8,8 +8,6 @@ const editaisAbertos = await getEditaisAbertos();
 const noticias = await getUltimasNoticias(3);
 const featuredNews = noticias.length > 0 ? noticias[0] : null;
 const sideNews = noticias.filter((_, i) => i > 0).slice(0, 2);
-const heroNoticia = featuredNews;
-
 const totalNoticias = (await getAllNoticias()).length;
 const totalEventos = (await getAllEventos()).length;
 const totalEditais = (await getAllEditais()).length;
@@ -38,28 +36,28 @@ const programasIcons: Record<string, string> = {
        HERO — NOTÍCIA EM DESTAQUE
   ═══════════════════════════════════════════════════════════ -->
   <section class="relative h-[600px] md:h-[819px] min-h-[600px] w-full flex items-end pb-section-gap px-margin-mobile md:px-gutter overflow-hidden">
-    {heroNoticia?.imagem_destaque ? (
-      <img src={`/api/file/${heroNoticia.imagem_destaque}`} alt="" class="absolute inset-0 w-full h-full object-cover" />
+    {featuredNews?.imagem_destaque ? (
+      <img src={`/api/file/${featuredNews.imagem_destaque}`} alt="" class="absolute inset-0 w-full h-full object-cover" />
     ) : (
       <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-container to-surface-container-high"></div>
     )}
     <div class="absolute inset-0 bg-gradient-to-t from-[#191d17] via-[#191d17]/60 to-[#191d17]/20"></div>
     <div class="absolute inset-0 hero-overlay"></div>
     <div class="relative z-10 max-w-container-max-width mx-auto w-full flex flex-col items-start gap-unit">
-      {heroNoticia ? (
+      {featuredNews ? (
         <>
           <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface/15 backdrop-blur-sm border border-surface/25 text-on-primary font-sans text-label-md mb-2">
             <span class="material-symbols-outlined text-[16px]">newspaper</span>
             Notícia em Destaque
           </span>
           <p class="font-sans text-body-sm text-surface-container/80">
-            {new Date(heroNoticia.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
+            {new Date(featuredNews.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
           </p>
-          <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">{heroNoticia.titulo}</h1>
-          {heroNoticia.resumo && (
-            <p class="font-sans text-body-lg text-surface-container max-w-2xl mt-4 mb-6">{heroNoticia.resumo}</p>
+          <h1 class="font-display text-display-sm md:text-display-lg text-on-primary max-w-3xl leading-tight">{featuredNews.titulo}</h1>
+          {featuredNews.resumo && (
+            <p class="font-sans text-body-lg text-surface-container max-w-2xl mt-4 mb-6">{featuredNews.resumo}</p>
           )}
-          <a href={`/noticias/${heroNoticia.id}`}
+          <a href={`/noticias/${featuredNews.id}`}
             class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
             Ler Matéria
             <span class="material-symbols-outlined text-[20px]">arrow_forward</span>

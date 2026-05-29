@@ -174,10 +174,10 @@ function statusConfig(label: string) {
   const count = document.getElementById('result-count');
 
   if (input && count) {
+    const editaisTotal = count.querySelector('strong:last-child')?.textContent || '0';
     const updateCount = (visible) => {
       count.innerHTML = `Mostrando <strong>${visible}</strong> de <strong>${editaisTotal}</strong> editais`;
     };
-    const editaisTotal = count.querySelector('strong:last-child')?.textContent || '0';
 
     input.addEventListener('input', () => {
       const q = input.value.toLowerCase().trim();

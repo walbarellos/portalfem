@@ -106,7 +106,7 @@ export interface EspacoCultural {
   id: number;
   nome: string;
   slug?: string;
-  categoria: 'museu' | 'teatro' | 'biblioteca' | 'espaco_memoria' | 'centro_cultural';
+  categoria: 'museu' | 'teatro' | 'biblioteca' | 'espaco_memoria' | 'centro_cultural' | 'casa_de_cultura';
   descricao: string;
   endereco: string;
   latitude?: number;

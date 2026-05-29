@@ -3,22 +3,7 @@ import type { APIRoute } from 'astro';
 export const prerender = false;
 
 const DIRECTUS_URL = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
-
-let cachedToken: { token: string; expires: number } | null = null;
-
-async function getToken(): Promise<string> {
-  if (cachedToken && cachedToken.expires > Date.now()) {
-    return cachedToken.token;
-  }
-  const res = await fetch(`${DIRECTUS_URL}/auth/login`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ email: 'admin@femcultura.ac.gov.br', password: 'F3m_Adm1n_2025_S3gur0' }),
-  });
-  const data = await res.json();
-  cachedToken = { token: data.data.access_token, expires: Date.now() + 15 * 60 * 1000 };
-  return data.data.access_token;
-}
+const DIRECTUS_TOKEN = import.meta.env.PUBLIC_DIRECTUS_TOKEN || '';
 
 export const GET: APIRoute = async ({ params }) => {
   const { id } = params;
@@ -27,8 +12,9 @@ export const GET: APIRoute = async ({ params }) => {
   }
 
   try {
-    const token = await getToken();
-    const directusRes = await fetch(`${DIRECTUS_URL}/assets/${id}?access_token=${token}`);
+    const directusRes = await fetch(`${DIRECTUS_URL}/assets/${id}`, {
+      headers: { 'Authorization': `Bearer ${DIRECTUS_TOKEN}` },
+    });
 
     if (!directusRes.ok) {
       return new Response('Arquivo não encontrado', { status: 404 });

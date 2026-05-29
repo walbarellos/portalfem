@@ -2,7 +2,7 @@ import type { APIRoute } from 'astro';
 
 export const prerender = false;
 
-const REBUILD_SECRET = import.meta.env.REBUILD_SECRET || 'fem-rebuild-secret';
+const REBUILD_SECRET = import.meta.env.REBUILD_SECRET;
 const REBUILD_URL = import.meta.env.REBUILD_URL || '';
 
 export const POST: APIRoute = async ({ request }) => {
