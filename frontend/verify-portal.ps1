@@ -76,7 +76,7 @@ else { Write-Host "[Hero] Mesh gradient na Home: FALTA" -ForegroundColor Red }
 
 # 10. API CATEGORIAS
 try {
-    $api = Invoke-RestMethod -Uri "http://localhost:8055/items/noticias?fields=categoria&filter[status][_eq]=published&limit=100" -Headers @{ Authorization = "Bearer fem-public-token-a1b2c3d4e5f6" } -ErrorAction Stop
+    $api = Invoke-RestMethod -Uri "http://localhost:8055/items/noticias?fields=categoria&filter[status][_eq]=published&limit=100" -Headers @{ Authorization = "Bearer $env:DIRECTUS_TOKEN" } -ErrorAction Stop
     $semCat = $api.data | Where-Object { -not $_.categoria }
     if ($semCat.Count -eq 0) {
         Write-Host "[API] Todas as noticias tem categoria" -ForegroundColor Green

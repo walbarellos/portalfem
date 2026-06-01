@@ -5,8 +5,32 @@ export const prerender = false;
 const REBUILD_SECRET = import.meta.env.REBUILD_SECRET;
 const REBUILD_URL = import.meta.env.REBUILD_URL || '';
 
+const WINDOW_MS = 60_000;
+const MAX_REQUESTS = 10;
+const rateMap = new Map<string, { count: number; resetAt: number }>();
+
+function checkRateLimit(ip: string): { allowed: boolean; remaining: number } {
+  const now = Date.now();
+  const entry = rateMap.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateMap.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    return { allowed: true, remaining: MAX_REQUESTS - 1 };
+  }
+  entry.count++;
+  return { allowed: entry.count <= MAX_REQUESTS, remaining: Math.max(0, MAX_REQUESTS - entry.count) };
+}
+
 export const POST: APIRoute = async ({ request }) => {
   try {
+    const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
+    const { allowed, remaining } = checkRateLimit(ip);
+    if (!allowed) {
+      return new Response(JSON.stringify({ error: 'Muitas requisições. Tente novamente em breve.' }), {
+        status: 429,
+        headers: { 'Content-Type': 'application/json', 'Retry-After': '60' },
+      });
+    }
+
     const authHeader = request.headers.get('authorization') || '';
     const webhookToken = request.headers.get('x-webhook-token') || '';
     const token = authHeader.replace('Bearer ', '') || webhookToken;

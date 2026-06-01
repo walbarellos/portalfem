@@ -1,6 +1,7 @@
 # Build
 dist/
 .astro/
+.env
 .env.local
 
 # Dependencies

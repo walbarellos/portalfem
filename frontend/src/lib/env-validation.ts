@@ -21,7 +21,9 @@ export function validateEnvironment(): EnvValidationResult {
   // Required environment variables
   const requiredVars = [
     { name: 'PUBLIC_DIRECTUS_URL', description: 'Directus API URL' },
-    { name: 'PUBLIC_SITE_URL', description: 'Site URL for SEO and canonical links' }
+    { name: 'DIRECTUS_TOKEN', description: 'Directus API token (server-side only)' },
+    { name: 'PUBLIC_SITE_URL', description: 'Site URL for SEO and canonical links' },
+    { name: 'REBUILD_SECRET', description: 'Webhook rebuild secret (server-side only)' },
   ];
 
   // Check required variables

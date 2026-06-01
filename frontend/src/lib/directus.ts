@@ -2,7 +2,7 @@ import { createDirectus, rest, readItems, readItem, staticToken } from '@directu
 import type { Schema, Noticia, Evento, Edital, ServicoSistema, EspacoCultural, Resultado } from '../schemas/directus';
 
 const DIRECTUS_URL = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
-const DIRECTUS_TOKEN = import.meta.env.PUBLIC_DIRECTUS_TOKEN || '';
+const DIRECTUS_TOKEN = import.meta.env.DIRECTUS_TOKEN || '';
 
 export const directus = createDirectus<Schema>(DIRECTUS_URL)
   .with(staticToken(DIRECTUS_TOKEN))
@@ -20,28 +20,28 @@ export async function safeRequest<T>(promise: Promise<T>, fallback: T): Promise<
 }
 
 export async function obterUltimasNoticias(limit = 6): Promise<Noticia[]> {
-  return safeRequest(
+  return safeRequest<Noticia[]>(
     directus.request(readItems('noticias', {
       filter: { status: { _eq: 'published' } },
       sort: ['-data_publicacao'],
       limit,
       fields: ['id', 'titulo', 'resumo', 'data_publicacao', 'imagem_destaque', 'autor', 'categoria'],
-    })),
+    })) as Promise<Noticia[]>,
     []
   );
 }
 
 export async function obterNoticia(id: number): Promise<Noticia | null> {
-  return safeRequest(
+  return safeRequest<Noticia | null>(
     directus.request(readItem('noticias', id, {
       fields: ['*', { autor: ['id', 'first_name', 'last_name'] }],
-    })),
+    })) as Promise<Noticia>,
     null
   );
 }
 
 export async function obterEditaisAbertos(): Promise<Edital[]> {
-  return safeRequest(
+  return safeRequest<Edital[]>(
     directus.request(readItems('editais', {
       filter: {
         status: { _eq: 'published' },
@@ -49,7 +49,7 @@ export async function obterEditaisAbertos(): Promise<Edital[]> {
       },
       sort: ['data_encerramento'],
       fields: ['id', 'titulo', 'numero', 'data_abertura', 'data_encerramento', 'resumo', 'link_pdf', 'status_label', { categoria: ['id', 'nome', 'slug'] }],
-    })),
+    })) as Promise<Edital[]>,
     []
   );
 }
@@ -74,17 +74,19 @@ export async function obterEdital(id: number): Promise<Edital | null> {
   );
 }
 
+const agora = new Date().toISOString();
+
 export async function obterProximosEventos(limit = 4): Promise<Evento[]> {
-  return safeRequest(
+  return safeRequest<Evento[]>(
     directus.request(readItems('eventos', {
       filter: {
         status: { _eq: 'published' },
-        data_inicio: { _gte: new Date().toISOString() },
-      },
+        data_inicio: { _gte: agora },
+      } as Record<string, unknown>,
       sort: ['data_inicio'],
       limit,
       fields: ['id', 'titulo', 'descricao', 'data_inicio', 'data_fim', 'local', 'categoria', 'destaque', 'horario', 'gratuito', 'imagem_capa'],
-    })),
+    })) as Promise<Evento[]>,
     []
   );
 }

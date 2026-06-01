@@ -1,7 +1,7 @@
-const DIRECTUS_URL = 'http://localhost:8055';
-const ADMIN_EMAIL = 'admin@femcultura.ac.gov.br';
-const ADMIN_PASSWORD = 'F3m_Adm1n_2025_S3gur0';
-const PUBLIC_TOKEN = 'fem-public-token-a1b2c3d4e5f6';
+const DIRECTUS_URL = process.env.DIRECTUS_URL || 'http://localhost:8055';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@femcultura.ac.gov.br';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
+const PUBLIC_TOKEN = process.env.PUBLIC_TOKEN || '';
 
 let token = '';
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));

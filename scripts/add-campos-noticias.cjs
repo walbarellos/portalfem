@@ -1,6 +1,6 @@
 const DIRECTUS_URL = process.env.DIRECTUS_URL || 'http://localhost:8055';
-const ADMIN_EMAIL = 'admin@femcultura.ac.gov.br';
-const ADMIN_PASSWORD = 'F3m_Adm1n_2025_S3gur0';
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL || 'admin@femcultura.ac.gov.br';
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || '';
 let token = '';
 
 async function api(endpoint, options = {}) {
