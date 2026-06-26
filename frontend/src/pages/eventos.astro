@@ -78,11 +78,13 @@ const categorias = [
 
     <!-- Busca -->
     <div class="relative w-full max-w-md mb-6">
-      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" aria-hidden="true">search</span>
       <input
+        id="evento-search"
+        aria-label="Filtrar eventos por palavra-chave"
         class="w-full pl-10 pr-4 py-3 rounded-lg border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary bg-surface font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 transition-all"
         placeholder="Buscar evento, local ou palavra-chave..."
-        type="text"
+        type="search"
       />
     </div>
 

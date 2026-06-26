@@ -37,7 +37,7 @@ const searchText = [edital.titulo, edital.numero, edital.resumo || '', catNome |
     )}
     <div class="flex flex-wrap items-center gap-6 mt-2 text-on-surface-variant font-label-md text-label-md">
       <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-xl">calendar_today</span>
+        <span class="material-symbols-outlined text-xl" aria-hidden="true">calendar_today</span>
         <span>Inscrições: {new Date(edital.data_abertura).toLocaleDateString('pt-BR')} a {new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}</span>
       </div>
     </div>
@@ -46,19 +46,19 @@ const searchText = [edital.titulo, edital.numero, edital.resumo || '', catNome |
     {edital.status_label === 'aberto' ? (
       <>
         <a href={`/editais/${edital.id}`} class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-primary text-on-primary px-6 py-3 rounded-xl font-label-md text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
-          <span class="material-symbols-outlined">edit_document</span>
+          <span class="material-symbols-outlined" aria-hidden="true">edit_document</span>
           Inscrever-se
         </a>
         {edital.pdf_edital && (
           <a href={`/api/file/${edital.pdf_edital}`} target="_blank" rel="noopener noreferrer" class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-surface text-secondary border border-secondary/30 px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
-            <span class="material-symbols-outlined">download</span>
+            <span class="material-symbols-outlined" aria-hidden="true">download</span>
             Edital PDF
           </a>
         )}
       </>
     ) : (
       <a href={`/editais/${edital.id}`} class="flex-1 md:flex-none flex items-center justify-center gap-2 bg-surface text-secondary border border-secondary/30 px-6 py-3 rounded-lg font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors">
-        <span class="material-symbols-outlined">visibility</span>
+        <span class="material-symbols-outlined" aria-hidden="true">visibility</span>
         Ver Resultados
       </a>
     )}

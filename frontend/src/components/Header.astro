@@ -37,11 +37,11 @@ function isActive(href: string): boolean {
     </nav>
 
     <div class="flex items-center gap-4">
-      <a href="/busca" aria-label="search" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
-        <span class="material-symbols-outlined">search</span>
+      <a href="/busca" aria-label="Buscar no portal" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
+        <span class="material-symbols-outlined" aria-hidden="true">search</span>
       </a>
-      <button id="menu-toggle" aria-label="Abrir menu" class="md:hidden text-on-surface-variant">
-        <span id="menu-icon" class="material-symbols-outlined">menu</span>
+      <button id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" class="md:hidden text-on-surface-variant">
+        <span id="menu-icon" class="material-symbols-outlined" aria-hidden="true">menu</span>
       </button>
     </div>
   </div>
@@ -65,11 +65,25 @@ function isActive(href: string): boolean {
 </header>
 
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  let scrollInitialized = false;
+  document.addEventListener('astro:page-load', () => {
     const header = document.getElementById('main-header');
     const toggle = document.getElementById('menu-toggle');
     const menu = document.getElementById('mobile-menu');
     const icon = document.getElementById('menu-icon');
+
+    if (!scrollInitialized && header) {
+      scrollInitialized = true;
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          header.classList.add('shadow-sm');
+          header.style.backgroundColor = 'rgba(247, 251, 241, 0.95)';
+        } else {
+          header.classList.remove('shadow-sm');
+          header.style.backgroundColor = '';
+        }
+      });
+    }
 
     function closeMenu() {
       if (menu && toggle && !menu.classList.contains('hidden')) {
@@ -81,16 +95,6 @@ function isActive(href: string): boolean {
       }
     }
 
-    window.addEventListener('scroll', () => {
-      if (window.scrollY > 50) {
-        header.classList.add('shadow-sm');
-        header.style.backgroundColor = 'rgba(247, 251, 241, 0.95)';
-      } else {
-        header.classList.remove('shadow-sm');
-        header.style.backgroundColor = '';
-      }
-    });
-
     if (toggle && menu && icon) {
       toggle.addEventListener('click', () => {
         const expanded = toggle.getAttribute('aria-expanded') === 'true';
@@ -99,6 +103,27 @@ function isActive(href: string): boolean {
         icon.textContent = expanded ? 'menu' : 'close';
         menu.classList.toggle('hidden');
         document.body.style.overflow = expanded ? '' : 'hidden';
+        if (!expanded) {
+          const firstLink = menu.querySelector('a');
+          if (firstLink) firstLink.focus();
+        } else {
+          toggle.focus();
+        }
+      });
+
+      menu.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') { closeMenu(); toggle.focus(); return; }
+        if (e.key === 'Tab') {
+          const focusable = menu.querySelectorAll('a, button, [tabindex]:not([tabindex="-1"])');
+          if (!focusable.length) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault(); last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault(); first.focus();
+          }
+        }
       });
 
       menu.querySelectorAll('a').forEach(link => {

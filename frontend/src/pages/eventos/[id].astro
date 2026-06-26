@@ -78,7 +78,7 @@ const outrosEventos = await safeRequest(
       <div class="lg:col-span-2">
         {imgCapa && (
           <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high img-shimmer">
-            <img src={imgCapa} alt="" class="w-full h-full object-cover" onLoad="this.parentElement.classList.remove('img-shimmer')" />
+            <img src={imgCapa} alt={evento.titulo} class="w-full h-full object-cover" onLoad="this.parentElement.classList.remove('img-shimmer')" />
           </div>
         )}
 
@@ -114,7 +114,7 @@ const outrosEventos = await safeRequest(
               {galeria.map((foto: string) => (
                 <a href={`/api/file/${foto}`} target="_blank" rel="noopener noreferrer"
                   class="aspect-square rounded-xl overflow-hidden bg-surface-container-high img-shimmer hover:scale-[1.02] transition-transform">
-                  <img src={`/api/file/${foto}`} alt="" class="w-full h-full object-cover" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
+                  <img src={`/api/file/${foto}`} alt="Foto do evento" class="w-full h-full object-cover" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
                 </a>
               ))}
             </div>

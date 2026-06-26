@@ -88,11 +88,13 @@ function statusConfig(label: string) {
       <div class="lg:col-span-9 flex flex-col gap-6">
         <div class="flex flex-col md:flex-row gap-4 items-center justify-between bg-surface-container-lowest p-4 rounded-xl border border-outline-variant/50">
           <div class="relative w-full md:w-96">
-            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" aria-hidden="true">search</span>
             <input
+              id="edital-search"
+              aria-label="Filtrar editais por palavra-chave"
               class="w-full pl-10 pr-4 py-3 rounded-lg border-outline-variant focus:border-primary focus:ring-1 focus:ring-primary bg-surface font-body-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 transition-all"
               placeholder="Buscar edital, número ou palavra-chave..."
-              type="text"
+              type="search"
             />
           </div>
           <div class="flex gap-2 overflow-x-auto w-full md:w-auto pb-2 md:pb-0">

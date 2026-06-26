@@ -23,17 +23,17 @@ for (let i = start; i <= end; i++) range.push(i);
   <nav class="flex justify-center items-center gap-2 font-label-md text-label-md" aria-label="Paginação">
     {currentPage > 1 ? (
       <a href={pageUrl(currentPage - 1)} class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-colors" aria-label="Página anterior">
-        <span class="material-symbols-outlined">chevron_left</span>
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
       </a>
     ) : (
-      <span class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant opacity-50 cursor-not-allowed">
-        <span class="material-symbols-outlined">chevron_left</span>
+      <span class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant opacity-50" aria-disabled="true" aria-hidden="true">
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_left</span>
       </span>
     )}
     {start > 1 && (
       <>
-        <a href={pageUrl(1)} class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-colors">1</a>
-        {start > 2 && <span class="text-on-surface-variant px-2">...</span>}
+        <a href={pageUrl(1)} class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-colors" aria-label="Página 1">1</a>
+        {start > 2 && <span class="text-on-surface-variant px-2" aria-hidden="true">...</span>}
       </>
     )}
     {range.map((page) => (
@@ -51,17 +51,17 @@ for (let i = start; i <= end; i++) range.push(i);
     ))}
     {end < totalPages && (
       <>
-        {end < totalPages - 1 && <span class="text-on-surface-variant px-2">...</span>}
-        <a href={pageUrl(totalPages)} class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-colors">{totalPages}</a>
+        {end < totalPages - 1 && <span class="text-on-surface-variant px-2" aria-hidden="true">...</span>}
+        <a href={pageUrl(totalPages)} class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-colors" aria-label={`Página ${totalPages}`}>{totalPages}</a>
       </>
     )}
     {currentPage < totalPages ? (
       <a href={pageUrl(currentPage + 1)} class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant hover:bg-surface-container-highest transition-colors" aria-label="Próxima página">
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
       </a>
     ) : (
-      <span class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant opacity-50 cursor-not-allowed">
-        <span class="material-symbols-outlined">chevron_right</span>
+      <span class="w-10 h-10 flex items-center justify-center rounded-full text-on-surface-variant opacity-50" aria-disabled="true" aria-hidden="true">
+        <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span>
       </span>
     )}
   </nav>

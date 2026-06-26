@@ -1,4 +1,4 @@
-<div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-inverse-surface text-inverse-on-surface p-4 z-50 hidden">
+<div id="cookie-consent" role="dialog" aria-label="Aviso de cookies" aria-modal="true" class="fixed bottom-0 left-0 right-0 bg-inverse-surface text-inverse-on-surface p-4 z-50 hidden">
   <div class="max-w-container-max-width mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
     <p class="font-sans text-body-md text-inverse-on-surface/80">
 Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa
@@ -17,18 +17,28 @@ Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando
   </div>
 </div>
 <script>
-  document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('astro:page-load', () => {
     const consent = document.getElementById('cookie-consent');
     if (!consent) return;
     if (localStorage.getItem('cookie-consent')) return;
     consent.classList.remove('hidden');
-    document.getElementById('cookie-accept')?.addEventListener('click', () => {
+    const acceptBtn = document.getElementById('cookie-accept');
+    const rejectBtn = document.getElementById('cookie-reject');
+    if (acceptBtn) acceptBtn.focus();
+    function closeConsent() {
+      consent.classList.add('hidden');
+    }
+    acceptBtn?.addEventListener('click', () => {
       localStorage.setItem('cookie-consent', 'accepted');
-      consent.classList.add('hidden');
+      closeConsent();
     });
-    document.getElementById('cookie-reject')?.addEventListener('click', () => {
+    rejectBtn?.addEventListener('click', () => {
       localStorage.setItem('cookie-consent', 'rejected');
-      consent.classList.add('hidden');
+      closeConsent();
     });
+    function handleKeydown(e) {
+      if (e.key === 'Escape') rejectBtn?.click();
+    }
+    consent.addEventListener('keydown', handleKeydown);
   });
 </script>

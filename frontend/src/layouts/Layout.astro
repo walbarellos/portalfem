@@ -117,13 +117,17 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
         box-shadow: 0 10px 40px -10px rgba(0, 69, 13, 0.08);
       }
       [data-reveal] {
-        opacity: 0;
-        transform: translateY(24px);
         transition: opacity 0.6s ease-out, transform 0.6s ease-out;
       }
-      [data-reveal].revealed {
-        opacity: 1;
-        transform: translateY(0);
+      @media (prefers-reduced-motion: no-preference) {
+        [data-reveal] {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+        [data-reveal].revealed {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
       @keyframes shimmer {
         0% { background-position: -200% 0; }
@@ -137,6 +141,9 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
     </style>
   </head>
   <body class="bg-background text-on-background font-sans antialiased min-h-screen flex flex-col">
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[9999] focus:px-4 focus:py-2 focus:bg-primary focus:text-on-primary focus:rounded-lg focus:outline-none focus:ring-2 focus:ring-white">
+      Pular para o conteudo principal
+    </a>
     <Header />
     <main id="main-content" class="flex-grow pt-[80px]">
       <slot />

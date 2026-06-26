@@ -9,7 +9,9 @@ const { evento } = Astro.props;
 const dataInicio = new Date(evento.data_inicio);
 const dia = dataInicio.getDate();
 const mes = dataInicio.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '');
-const isPast = dataInicio < new Date();
+const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
+const inicioData = new Date(dataInicio); inicioData.setHours(0, 0, 0, 0);
+const isPast = inicioData < hoje;
 
 const catLabels: Record<string, string> = {
   musica: 'Música',
@@ -43,12 +45,12 @@ const searchText = [evento.titulo, evento.descricao || '', evento.local || '', c
           )}
           {evento.destaque && (
             <span class="font-label-md text-label-md text-error flex items-center gap-1">
-              <span class="material-symbols-outlined text-[16px]">stars</span> Destaque
+              <span class="material-symbols-outlined text-[16px]" aria-hidden="true">stars</span> Destaque
             </span>
           )}
           {isPast && (
             <span class="font-label-md text-label-md text-outline flex items-center gap-1">
-              <span class="material-symbols-outlined text-[16px]">info</span> Inscrições Encerradas
+              <span class="material-symbols-outlined text-[16px]" aria-hidden="true">info</span> Inscrições Encerradas
             </span>
           )}
         </div>
@@ -61,23 +63,23 @@ const searchText = [evento.titulo, evento.descricao || '', evento.local || '', c
         <div class="flex flex-wrap gap-4 text-on-surface-variant font-body-md text-sm">
           {evento.horario && (
             <div class="flex items-center gap-1">
-              <span class="material-symbols-outlined text-[18px]">schedule</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">schedule</span>
               {evento.horario}
             </div>
           )}
           <div class="flex items-center gap-1">
-            <span class="material-symbols-outlined text-[18px]">location_on</span>
+            <span class="material-symbols-outlined text-[18px]" aria-hidden="true">location_on</span>
             {evento.local}
           </div>
           {evento.gratuito && (
             <div class="flex items-center gap-1">
-              <span class="material-symbols-outlined text-[18px]">confirmation_number</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">confirmation_number</span>
               Gratuito
             </div>
           )}
         </div>
         <span class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary font-label-md text-label-md group-hover:bg-primary group-hover:text-on-primary transition-all cursor-pointer">
-          <span class="material-symbols-outlined text-[18px]">event_available</span>
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">event_available</span>
           Adicionar ao Calendário
         </span>
       </div>

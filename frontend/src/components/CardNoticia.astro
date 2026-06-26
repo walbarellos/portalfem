@@ -33,22 +33,22 @@ const categoriaLabel = noticia.categoria ? (categoriaLabels[noticia.categoria] |
   <a href={`/noticias/${noticia.id}`} class="block">
     <div class="relative overflow-hidden aspect-[4/3] img-shimmer">
       {imgSrc ? (
-        <img src={imgSrc} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
+        <img src={imgSrc} alt={noticia.titulo} class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
       ) : (
         <div class="w-full h-full flex items-center justify-center bg-surface-container-high">
-          <span class="material-symbols-outlined text-4xl text-outline">image</span>
+          <span class="material-symbols-outlined text-4xl text-outline" aria-hidden="true">image</span>
         </div>
       )}
       {categoriaLabel && (
         <span class="absolute top-3 left-3 bg-surface/80 backdrop-blur-sm px-2.5 py-1 rounded-full font-label-md text-label-md text-primary flex items-center gap-1">
-          <span class="material-symbols-outlined text-[14px]">local_offer</span>
+          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">local_offer</span>
           {categoriaLabel}
         </span>
       )}
     </div>
     <div class="p-5">
       <time class="font-label-md text-label-md text-on-surface-variant flex items-center gap-1.5 mb-2" datetime={noticia.data_publicacao}>
-        <span class="material-symbols-outlined text-[16px]">calendar_today</span>
+        <span class="material-symbols-outlined text-[16px]" aria-hidden="true">calendar_today</span>
         {dateFormatted}
       </time>
       <h3 class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors line-clamp-2 mb-2">{noticia.titulo}</h3>
@@ -57,7 +57,7 @@ const categoriaLabel = noticia.categoria ? (categoriaLabels[noticia.categoria] |
       )}
       <span class="inline-flex items-center gap-1 text-primary font-label-md text-label-md group-hover:gap-2 transition-all">
         Leia mais
-        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">arrow_forward</span>
       </span>
     </div>
   </a>

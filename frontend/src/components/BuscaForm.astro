@@ -9,7 +9,7 @@ const { query } = Astro.props;
 <form action="/busca" method="GET" role="search" class="w-full">
   <div class="relative">
     <label for="busca-input" class="sr-only">Buscar no portal</label>
-    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+    <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant" aria-hidden="true">search</span>
     <input
       id="busca-input"
       type="search"
