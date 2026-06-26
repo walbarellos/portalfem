@@ -16,7 +16,7 @@ services:
     networks:
       - fem-network
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-fem_admin}"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-fem_admin} -d ${DB_DATABASE:-fem_directus}"]
       interval: 10s
       timeout: 5s
       retries: 5
