@@ -57,12 +57,13 @@ services:
       SECRET: ${DIRECTUS_SECRET}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
-      PUBLIC_URL: ${PUBLIC_URL:-https://femcultura.ac.gov.br}
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8055}
       CORS_ENABLED: "true"
-      CORS_ORIGIN: "${CORS_ORIGIN:-https://femcultura.ac.gov.br,http://localhost:4321,http://localhost:3000}"
+      CORS_ORIGIN: "${CORS_ORIGIN:-https://femcultura.ac.gov.br,http://localhost:4321,http://localhost:3000,http://localhost:8055}"
       STORAGE_LOCATIONS: local
       STORAGE_LOCAL_DRIVER: local
       STORAGE_LOCAL_ROOT: /directus/uploads
+      FILES_MAX_UPLOAD_SIZE: ${FILES_MAX_UPLOAD_SIZE:-100mb}
       RATE_LIMITER_ENABLED: "true"
       RATE_LIMITER_STORE: redis
       RATE_LIMITER_POINTS: 10000
