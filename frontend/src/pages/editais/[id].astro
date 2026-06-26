@@ -64,7 +64,7 @@ function formatDateRange(start: string, end: string) {
 
           {edital.numero && (
             <p class="font-sans text-label-md text-on-surface-variant mt-2">
-              <span class="material-symbols-outlined text-[16px] align-text-bottom">tag</span>
+              <span class="material-symbols-outlined text-[16px] align-text-bottom" aria-hidden="true">tag</span>
               Edital nº {edital.numero}
             </p>
           )}
@@ -74,7 +74,7 @@ function formatDateRange(start: string, end: string) {
         <div class="flex flex-wrap gap-6 mb-8 p-4 bg-surface-container-lowest rounded-xl border border-outline-variant/50">
           <div class="flex items-center gap-3">
             <span class="w-10 h-10 rounded-lg bg-primary-container flex items-center justify-center">
-              <span class="material-symbols-outlined text-primary text-xl">calendar_today</span>
+              <span class="material-symbols-outlined text-primary text-xl" aria-hidden="true">calendar_today</span>
             </span>
             <div>
               <span class="font-sans text-label-md text-on-surface-variant">Início</span>
@@ -84,7 +84,7 @@ function formatDateRange(start: string, end: string) {
           <div class="w-px bg-outline-variant/30 hidden md:block"></div>
           <div class="flex items-center gap-3">
             <span class="w-10 h-10 rounded-lg bg-surface-container-highest flex items-center justify-center">
-              <span class="material-symbols-outlined text-on-surface-variant text-xl">event_upcoming</span>
+              <span class="material-symbols-outlined text-on-surface-variant text-xl" aria-hidden="true">event_upcoming</span>
             </span>
             <div>
               <span class="font-sans text-label-md text-on-surface-variant">Encerramento</span>
@@ -94,7 +94,7 @@ function formatDateRange(start: string, end: string) {
           <div class="w-px bg-outline-variant/30 hidden md:block"></div>
           <div class="flex items-center gap-3">
             <span class="w-10 h-10 rounded-lg bg-tertiary-container flex items-center justify-center">
-              <span class="material-symbols-outlined text-tertiary text-xl">hourglass</span>
+              <span class="material-symbols-outlined text-tertiary text-xl" aria-hidden="true">hourglass</span>
             </span>
             <div>
               <span class="font-sans text-label-md text-on-surface-variant">Período</span>
@@ -120,7 +120,7 @@ function formatDateRange(start: string, end: string) {
           {edital.status_label === 'aberto' && edital.link_inscricao && (
             <a href={edital.link_inscricao} target="_blank" rel="noopener noreferrer"
               class="flex items-center justify-center gap-3 bg-primary text-on-primary px-6 py-4 rounded-xl font-label-md text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
-              <span class="material-symbols-outlined">edit_document</span>
+              <span class="material-symbols-outlined" aria-hidden="true">edit_document</span>
               Inscrever-se agora
             </a>
           )}
@@ -128,7 +128,7 @@ function formatDateRange(start: string, end: string) {
           <!-- Documentos -->
           <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
             <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary">description</span>
+              <span class="material-symbols-outlined text-primary" aria-hidden="true">description</span>
               Documentos
             </h3>
             <div class="flex flex-col gap-2">
@@ -136,39 +136,39 @@ function formatDateRange(start: string, end: string) {
                 <a href={`/api/file/${edital.pdf_edital}`} target="_blank" rel="noopener noreferrer"
                   class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
                   <span class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-primary text-lg">picture_as_pdf</span>
+                    <span class="material-symbols-outlined text-primary text-lg" aria-hidden="true">picture_as_pdf</span>
                   </span>
                   <div class="flex-1 min-w-0">
                     <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Edital completo</p>
                     <p class="font-body-sm text-body-sm text-on-surface-variant">PDF</p>
                   </div>
-                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">download</span>
                 </a>
               )}
               {edital.pdf_diario_oficial && (
                 <a href={`/api/file/${edital.pdf_diario_oficial}`} target="_blank" rel="noopener noreferrer"
                   class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
                   <span class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-on-surface-variant text-lg">gavel</span>
+                    <span class="material-symbols-outlined text-on-surface-variant text-lg" aria-hidden="true">gavel</span>
                   </span>
                   <div class="flex-1 min-w-0">
                     <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Diário Oficial</p>
                     <p class="font-body-sm text-body-sm text-on-surface-variant">PDF</p>
                   </div>
-                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">download</span>
                 </a>
               )}
               {edital.link_pdf && (
                 <a href={edital.link_pdf} target="_blank" rel="noopener noreferrer"
                   class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
                   <span class="w-9 h-9 rounded-lg bg-surface-container-highest flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-on-surface-variant text-lg">link</span>
+                    <span class="material-symbols-outlined text-on-surface-variant text-lg" aria-hidden="true">link</span>
                   </span>
                   <div class="flex-1 min-w-0">
                     <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Link externo</p>
                     <p class="font-body-sm text-body-sm text-on-surface-variant">Abrir site</p>
                   </div>
-                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">open_in_new</span>
+                  <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">open_in_new</span>
                 </a>
               )}
               {!edital.pdf_edital && !edital.pdf_diario_oficial && !edital.link_pdf && (
@@ -181,7 +181,7 @@ function formatDateRange(start: string, end: string) {
           {edital.anexos && Array.isArray(edital.anexos) && edital.anexos.length > 0 && (
             <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
               <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary">attachment</span>
+                <span class="material-symbols-outlined text-primary" aria-hidden="true">attachment</span>
                 Anexos
               </h3>
               <div class="flex flex-col gap-2">
@@ -189,12 +189,12 @@ function formatDateRange(start: string, end: string) {
                   <a href={`/api/file/${anexo.arquivo}`} target="_blank" rel="noopener noreferrer"
                     class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
                     <span class="w-9 h-9 rounded-lg bg-tertiary-container flex items-center justify-center shrink-0">
-                      <span class="material-symbols-outlined text-tertiary text-lg">description</span>
+                      <span class="material-symbols-outlined text-tertiary text-lg" aria-hidden="true">description</span>
                     </span>
                     <div class="flex-1 min-w-0">
                       <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">{anexo.nome}</p>
                     </div>
-                    <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+                    <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">download</span>
                   </a>
                 ))}
               </div>

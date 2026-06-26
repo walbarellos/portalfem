@@ -43,7 +43,7 @@ const imgSrc = null;
       <div class="mt-8 space-y-4 bg-surface-container-low rounded-xl p-6">
         {item.endereco && (
           <div class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-on-surface-variant">location_on</span>
+            <span class="material-symbols-outlined text-on-surface-variant" aria-hidden="true">location_on</span>
             <div>
               <span class="font-sans text-label-md text-on-surface">Endereço</span>
               <p class="font-sans text-body-md text-on-surface-variant">{item.endereco}</p>
@@ -52,7 +52,7 @@ const imgSrc = null;
         )}
         {item.horario_funcionamento && (
           <div class="flex items-start gap-3">
-            <span class="material-symbols-outlined text-on-surface-variant">schedule</span>
+            <span class="material-symbols-outlined text-on-surface-variant" aria-hidden="true">schedule</span>
             <div>
               <span class="font-sans text-label-md text-on-surface">Horário de Funcionamento</span>
               <p class="font-sans text-body-md text-on-surface-variant">{item.horario_funcionamento}</p>

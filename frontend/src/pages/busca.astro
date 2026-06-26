@@ -68,7 +68,7 @@ if (query.trim()) {
 
         {total === 0 ? (
           <div class="text-center py-16">
-            <span class="material-symbols-outlined text-4xl text-outline">search_off</span>
+            <span class="material-symbols-outlined text-4xl text-outline" aria-hidden="true">search_off</span>
             <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum resultado encontrado.</p>
             <p class="font-sans text-body-md text-on-surface-variant mt-1">Tente termos diferentes ou mais genéricos.</p>
           </div>
@@ -103,7 +103,7 @@ if (query.trim()) {
       </div>
     ) : (
       <div class="text-center py-16 text-on-surface-variant">
-        <span class="material-symbols-outlined text-5xl mb-4">search</span>
+        <span class="material-symbols-outlined text-5xl mb-4" aria-hidden="true">search</span>
         <p class="font-sans text-body-lg">Digite um termo para buscar no portal</p>
       </div>
     )}

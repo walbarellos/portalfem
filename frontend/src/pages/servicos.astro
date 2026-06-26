@@ -85,7 +85,7 @@ const sistemasInternos = [
     <!-- Sistemas Externos -->
     <section class="mb-16">
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
-        <span class="material-symbols-outlined text-3xl text-primary">public</span>
+        <span class="material-symbols-outlined text-3xl text-primary" aria-hidden="true">public</span>
         Sistemas Externos
         <span class="font-label-md text-label-md text-outline font-normal">({sistemasExternos.length})</span>
       </h2>
@@ -95,11 +95,12 @@ const sistemasInternos = [
             href={s.url}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Abrir ${s.nome} em nova aba`}
             class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
             style={`--card-cor: ${s.cor}`}
           >
             <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
-              <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px">{s.icone}</span>
+              <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px" aria-hidden="true">{s.icone}</span>
             </div>
             <div class="flex-1 min-w-0">
               <span class="font-label-md text-label-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
@@ -109,7 +110,7 @@ const sistemasInternos = [
             </div>
             <div class="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg font-label-md text-label-md text-sm transition-all" style="background: color-mix(in srgb, var(--card-cor) 10%, transparent); color: var(--card-cor)">
               <span>Acessar</span>
-              <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+              <span class="material-symbols-outlined text-[16px]" aria-hidden="true">open_in_new</span>
             </div>
           </a>
         ))}
@@ -119,7 +120,7 @@ const sistemasInternos = [
     <!-- Sistemas Internos -->
     <section class="mb-16">
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
-        <span class="material-symbols-outlined text-3xl">dns</span>
+        <span class="material-symbols-outlined text-3xl" aria-hidden="true">dns</span>
         Sistemas Internos
         <span class="font-label-md text-label-md text-outline font-normal">({sistemasInternos.length})</span>
       </h2>
@@ -128,12 +129,13 @@ const sistemasInternos = [
           <a
             href={s.url}
             target="_self"
+            aria-label={`Acessar sistema interno ${s.nome}`}
             class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
             style={`--card-cor: ${s.cor}`}
             onclick="if(!confirm('Você está acessando um sistema interno da FEM. Certifique-se de estar na rede do governo.'))event.preventDefault()"
           >
             <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110" style="background: color-mix(in srgb, var(--card-cor) 12%, transparent)">
-              <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px">{s.icone}</span>
+              <span class="material-symbols-outlined" style="color: var(--card-cor); font-size: 24px" aria-hidden="true">{s.icone}</span>
             </div>
             <div class="flex-1 min-w-0">
               <span class="font-label-md text-label-md text-on-surface group-hover:text-[var(--card-cor)] transition-colors">
@@ -143,7 +145,7 @@ const sistemasInternos = [
             </div>
             <div class="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg font-label-md text-label-md text-sm transition-all" style="background: color-mix(in srgb, var(--card-cor) 10%, transparent); color: var(--card-cor)">
               <span>Acessar</span>
-              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+              <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span>
             </div>
           </a>
         ))}
@@ -153,7 +155,7 @@ const sistemasInternos = [
     <!-- Documentações e Portarias -->
     <section class="mb-16">
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
-        <span class="material-symbols-outlined text-3xl" style="color:#1565C0">description</span>
+        <span class="material-symbols-outlined text-3xl" style="color:#1565C0" aria-hidden="true">description</span>
         Documentações e Portarias
         <span class="font-label-md text-label-md text-outline font-normal">(1)</span>
       </h2>
@@ -162,10 +164,11 @@ const sistemasInternos = [
           href="https://drive.google.com/file/d/1SwwgZcb4UmDh0cYNtIdw-K404mFwuzP2/view"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Abrir Portaria n. 169/2023 em nova aba"
           class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 bg-[#1565C0]/10">
-            <span class="material-symbols-outlined" style="color:#1565C0; font-size: 24px">description</span>
+            <span class="material-symbols-outlined" style="color:#1565C0; font-size: 24px" aria-hidden="true">description</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1565C0] transition-colors">
@@ -177,7 +180,7 @@ const sistemasInternos = [
           </div>
           <div class="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-lg font-label-md text-label-md text-sm bg-[#1565C0]/10 text-[#1565C0] group-hover:bg-[#1565C0] group-hover:text-white transition-all">
             <span>Abrir</span>
-            <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">open_in_new</span>
           </div>
         </a>
       </div>
@@ -186,7 +189,7 @@ const sistemasInternos = [
     <!-- Certidões -->
     <section class="mb-16">
       <h2 class="font-headline-md text-headline-md text-on-surface mb-8 flex items-center gap-3">
-        <span class="material-symbols-outlined text-3xl" style="color:#2E7D32">verified</span>
+        <span class="material-symbols-outlined text-3xl" style="color:#2E7D32" aria-hidden="true">verified</span>
         Certidões
         <span class="font-label-md text-label-md text-outline font-normal">(6)</span>
       </h2>
@@ -198,10 +201,11 @@ const sistemasInternos = [
           href="https://servicos.receitafederal.gov.br/servico/certidoes/#/home"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Emitir Certidão da Receita Federal em nova aba"
           class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1A237E]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-            <span class="material-symbols-outlined text-[#1A237E]" style="font-size: 24px">receipt_long</span>
+            <span class="material-symbols-outlined text-[#1A237E]" style="font-size: 24px" aria-hidden="true">receipt_long</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1A237E] transition-colors">
@@ -218,10 +222,11 @@ const sistemasInternos = [
           href="http://sefaznet.ac.gov.br/sefazonline/servlet/wemcnd"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Emitir Certidão SEFAZ em nova aba"
           class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#E65100]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-            <span class="material-symbols-outlined text-[#E65100]" style="font-size: 24px">account_balance</span>
+            <span class="material-symbols-outlined text-[#E65100]" style="font-size: 24px" aria-hidden="true">account_balance</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#E65100] transition-colors">
@@ -238,10 +243,11 @@ const sistemasInternos = [
           href="https://www.tst.jus.br/certidao"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Emitir Certidão do Ministério do Trabalho em nova aba"
           class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#C62828]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-            <span class="material-symbols-outlined text-[#C62828]" style="font-size: 24px">gavel</span>
+            <span class="material-symbols-outlined text-[#C62828]" style="font-size: 24px" aria-hidden="true">gavel</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#C62828] transition-colors">
@@ -258,10 +264,11 @@ const sistemasInternos = [
           href="https://receita.riobranco.ac.gov.br/"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Emitir Certidão da Prefeitura de Rio Branco em nova aba"
           class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#00695C]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-            <span class="material-symbols-outlined text-[#00695C]" style="font-size: 24px">location_city</span>
+            <span class="material-symbols-outlined text-[#00695C]" style="font-size: 24px" aria-hidden="true">location_city</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#00695C] transition-colors">
@@ -278,10 +285,11 @@ const sistemasInternos = [
           href="https://consulta-crf.caixa.gov.br/"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Emitir Certidão da Caixa Econômica em nova aba"
           class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#1565C0]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-            <span class="material-symbols-outlined text-[#1565C0]" style="font-size: 24px">real_estate_agent</span>
+            <span class="material-symbols-outlined text-[#1565C0]" style="font-size: 24px" aria-hidden="true">real_estate_agent</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#1565C0] transition-colors">
@@ -298,10 +306,11 @@ const sistemasInternos = [
           href="http://www.sitad.ac.gov.br/certidao.aspx"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Emitir Certidão PGE em nova aba"
           class="card-enter group flex items-center gap-4 p-5 bg-surface-container-lowest rounded-xl border border-outline-variant/20 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
         >
           <div class="shrink-0 w-12 h-12 rounded-xl bg-[#4A148C]/10 flex items-center justify-center transition-transform duration-300 group-hover:scale-110">
-            <span class="material-symbols-outlined text-[#4A148C]" style="font-size: 24px">balance</span>
+            <span class="material-symbols-outlined text-[#4A148C]" style="font-size: 24px" aria-hidden="true">balance</span>
           </div>
           <div class="flex-1 min-w-0">
             <span class="font-label-md text-label-md text-on-surface group-hover:text-[#4A148C] transition-colors">

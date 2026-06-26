@@ -107,7 +107,7 @@ const categoriaLabels: Record<string, string> = {
             <img src={featuredImg} alt={featured.titulo} class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onLoad="this.parentElement.classList.remove('img-shimmer')" />
           ) : (
             <div class="w-full h-full flex items-center justify-center">
-              <span class="material-symbols-outlined text-5xl text-outline">image</span>
+              <span class="material-symbols-outlined text-5xl text-outline" aria-hidden="true">image</span>
             </div>
           )}
           <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent flex flex-col justify-end p-8 md:p-12">
@@ -126,7 +126,7 @@ const categoriaLabels: Record<string, string> = {
               <p class="hidden md:block font-body-lg text-body-lg text-surface-container-high max-w-3xl mb-6">{featured.resumo}</p>
             )}
             <div class="flex items-center text-primary-fixed font-label-md text-label-md group-hover:translate-x-2 transition-transform">
-              Leia a matéria completa <span class="material-symbols-outlined ml-2 text-[20px]">arrow_forward</span>
+              Leia a matéria completa <span class="material-symbols-outlined ml-2 text-[20px]" aria-hidden="true">arrow_forward</span>
             </div>
           </div>
         </a>
@@ -159,7 +159,7 @@ const categoriaLabels: Record<string, string> = {
     ) : (
       <section class="max-w-container-max-width mx-auto px-gutter mb-16">
         <div class="text-center py-16">
-          <span class="material-symbols-outlined text-4xl text-outline">newspaper</span>
+          <span class="material-symbols-outlined text-4xl text-outline" aria-hidden="true">newspaper</span>
           <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhuma notícia encontrada nesta categoria.</p>
         </div>
       </section>

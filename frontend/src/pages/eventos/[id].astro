@@ -86,12 +86,12 @@ const outrosEventos = await safeRequest(
           <h1 class="font-display text-display-sm md:text-display-lg text-on-surface leading-tight">{evento.titulo}</h1>
           <div class="flex flex-wrap gap-4 mt-4">
             <div class="flex items-center gap-2 text-on-surface-variant">
-              <span class="material-symbols-outlined text-[18px]">schedule</span>
+              <span class="material-symbols-outlined text-[18px]" aria-hidden="true">schedule</span>
               <span class="font-sans text-body-md">{dataInicioStr}{dataFimStr ? ` — ${dataFimStr}` : ''}</span>
             </div>
             {evento.local && (
               <div class="flex items-center gap-2 text-on-surface-variant">
-                <span class="material-symbols-outlined text-[18px]">location_on</span>
+                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">location_on</span>
                 <span class="font-sans text-body-md">{evento.local}</span>
               </div>
             )}
@@ -130,7 +130,7 @@ const outrosEventos = await safeRequest(
           {evento.link_inscricao && (
             <a href={evento.link_inscricao} target="_blank" rel="noopener noreferrer"
               class="flex items-center justify-center gap-3 bg-primary text-on-primary px-6 py-4 rounded-xl font-label-md text-label-md hover:scale-[1.02] hover:bg-primary-container transition-all shadow-sm">
-              <span class="material-symbols-outlined">edit_document</span>
+              <span class="material-symbols-outlined" aria-hidden="true">edit_document</span>
               Inscreva-se
             </a>
           )}
@@ -138,7 +138,7 @@ const outrosEventos = await safeRequest(
           {/* <!-- Adicionar ao Calendário --> */}
           <a href={googleCalendarUrl()} target="_blank" rel="noopener noreferrer"
             class="flex items-center justify-center gap-3 bg-surface text-secondary border border-secondary/30 px-6 py-4 rounded-xl font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-all">
-            <span class="material-symbols-outlined">calendar_month</span>
+            <span class="material-symbols-outlined" aria-hidden="true">calendar_month</span>
             Adicionar ao Calendário
           </a>
 
@@ -146,19 +146,19 @@ const outrosEventos = await safeRequest(
           {evento.pdf_programacao && (
             <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
               <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
-                <span class="material-symbols-outlined text-primary">description</span>
+                <span class="material-symbols-outlined text-primary" aria-hidden="true">description</span>
                 Documentos
               </h3>
               <a href={`/api/file/${evento.pdf_programacao}`} target="_blank" rel="noopener noreferrer"
                 class="flex items-center gap-3 p-3 rounded-lg bg-surface hover:bg-primary-container/20 transition-colors group">
                 <span class="w-9 h-9 rounded-lg bg-primary-container flex items-center justify-center shrink-0">
-                  <span class="material-symbols-outlined text-primary text-lg">picture_as_pdf</span>
+                  <span class="material-symbols-outlined text-primary text-lg" aria-hidden="true">picture_as_pdf</span>
                 </span>
                 <div class="flex-1 min-w-0">
                   <p class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">Programação</p>
                   <p class="font-body-sm text-body-sm text-on-surface-variant">PDF</p>
                 </div>
-                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">download</span>
+                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">download</span>
               </a>
             </div>
           )}
@@ -166,25 +166,25 @@ const outrosEventos = await safeRequest(
           {/* <!-- Info extra --> */}
           <div class="bg-surface-container-lowest border border-outline-variant/50 rounded-xl p-5">
             <h3 class="font-headline-sm text-headline-sm text-on-surface mb-4 flex items-center gap-2">
-              <span class="material-symbols-outlined text-primary">info</span>
+              <span class="material-symbols-outlined text-primary" aria-hidden="true">info</span>
               Informações
             </h3>
             <div class="flex flex-col gap-3">
               {evento.horario && (
                 <div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
-                  <span class="material-symbols-outlined text-[18px]">schedule</span>
+                  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">schedule</span>
                   {evento.horario}
                 </div>
               )}
               {evento.local && (
                 <div class="flex items-center gap-2 text-on-surface-variant font-body-md text-body-md">
-                  <span class="material-symbols-outlined text-[18px]">location_on</span>
+                  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">location_on</span>
                   {evento.local}
                 </div>
               )}
               {evento.gratuito && (
                 <div class="flex items-center gap-2 text-primary font-body-md text-body-md">
-                  <span class="material-symbols-outlined text-[18px]">confirmation_number</span>
+                  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">confirmation_number</span>
                   Gratuito
                 </div>
               )}

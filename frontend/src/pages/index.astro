@@ -47,7 +47,7 @@ const programasIcons: Record<string, string> = {
       {featuredNews ? (
         <>
           <span class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-surface/15 backdrop-blur-sm border border-surface/25 text-on-primary font-sans text-label-md mb-2">
-            <span class="material-symbols-outlined text-[16px]">newspaper</span>
+            <span class="material-symbols-outlined text-[16px]" aria-hidden="true">newspaper</span>
             Notícia em Destaque
           </span>
           <p class="font-sans text-body-sm text-surface-container/80">
@@ -60,7 +60,7 @@ const programasIcons: Record<string, string> = {
           <a href={`/noticias/${featuredNews.id}`}
             class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
             Ler Matéria
-            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_forward</span>
           </a>
         </>
       ) : (
@@ -73,7 +73,7 @@ const programasIcons: Record<string, string> = {
           <a href="/editais"
             class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
             Explorar
-            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+            <span class="material-symbols-outlined text-[20px]" aria-hidden="true">arrow_forward</span>
           </a>
         </>
       )}
@@ -99,7 +99,7 @@ const programasIcons: Record<string, string> = {
             <a href={href}
               class="group relative bg-surface rounded-2xl border border-outline-variant/20 p-6 text-center hover:border-primary/30 hover:shadow-sm transition-all duration-200">
               <div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
-                <span class="material-symbols-outlined text-primary text-2xl">{icon}</span>
+                <span class="material-symbols-outlined text-primary text-2xl" aria-hidden="true">{icon}</span>
               </div>
               <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">{prog.nome}</h3>
               <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Acessar</p>
@@ -148,7 +148,7 @@ const programasIcons: Record<string, string> = {
             <p class="font-sans text-body-md text-on-surface-variant mt-1">Oportunidades com inscrições abertas</p>
           </div>
           <a href="/editais" class="text-primary font-label-md text-label-md hover:underline hidden md:block">
-            Ver todos <span class="material-symbols-outlined text-[16px] align-text-bottom">arrow_forward</span>
+            Ver todos <span class="material-symbols-outlined text-[16px] align-text-bottom" aria-hidden="true">arrow_forward</span>
           </a>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -170,7 +170,7 @@ const programasIcons: Record<string, string> = {
                   <span class="font-body-sm text-body-sm text-on-surface-variant">Encerra {dataEncerra}</span>
                   {diasRestantes <= 7 && (
                     <span class="font-label-md text-label-md text-error flex items-center gap-1">
-                      <span class="material-symbols-outlined text-[14px]">schedule</span>
+                      <span class="material-symbols-outlined text-[14px]" aria-hidden="true">schedule</span>
                       {diasRestantes}d
                     </span>
                   )}
@@ -202,14 +202,14 @@ const programasIcons: Record<string, string> = {
               <a href={res.arquivo ? `/api/file/${res.arquivo}` : '#'} target={res.arquivo ? '_blank' : undefined} rel={res.arquivo ? 'noopener noreferrer' : undefined}
                 class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 hover:border-primary/30 hover:shadow-sm transition-all duration-200 flex items-center gap-4">
                 <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
-                  <span class="material-symbols-outlined text-on-surface-variant">fact_check</span>
+                  <span class="material-symbols-outlined text-on-surface-variant" aria-hidden="true">fact_check</span>
                 </div>
                 <div class="flex-1 min-w-0">
                   <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">{res.titulo}</h3>
                   {editalRel && <p class="font-body-sm text-body-sm text-on-surface-variant truncate">{editalRel.titulo}</p>}
                   <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{new Date(res.data_publicacao).toLocaleDateString('pt-BR')}</p>
                 </div>
-                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">arrow_forward</span>
+                <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">arrow_forward</span>
               </a>
             );
           })}
@@ -234,7 +234,7 @@ const programasIcons: Record<string, string> = {
           </div>
           <a href="/noticias" class="text-primary font-sans text-label-md hover:underline items-center gap-1 group hidden md:flex">
             Ver todas as notícias
-            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+            <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
           </a>
         </div>
 
@@ -247,7 +247,7 @@ const programasIcons: Record<string, string> = {
                     <img src={`/api/file/${featuredNews.imagem_destaque}`} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
                   ) : (
                     <div class="w-full h-full flex items-center justify-center">
-                      <span class="material-symbols-outlined text-5xl text-outline">image</span>
+                      <span class="material-symbols-outlined text-5xl text-outline" aria-hidden="true">image</span>
                     </div>
                   )}
                 </div>
@@ -274,14 +274,14 @@ const programasIcons: Record<string, string> = {
                           <img src={`/api/file/${noticia.imagem_destaque}`} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
                         ) : (
                           <div class="w-full h-full flex items-center justify-center">
-                            <span class="material-symbols-outlined text-2xl text-outline">image</span>
+                            <span class="material-symbols-outlined text-2xl text-outline" aria-hidden="true">image</span>
                           </div>
                         )}
                       </div>
                       <div class="flex flex-col justify-center h-full min-h-0">
                         <h3 class="font-display text-[18px] font-semibold text-on-background leading-snug group-hover:text-primary transition-colors mb-2 line-clamp-3">{noticia.titulo}</h3>
                         <time class="font-sans text-[13px] text-on-surface-variant flex items-center gap-1">
-                          <span class="material-symbols-outlined text-[14px]">schedule</span>
+                          <span class="material-symbols-outlined text-[14px]" aria-hidden="true">schedule</span>
                           {sideDate}
                         </time>
                       </div>
@@ -310,7 +310,7 @@ const programasIcons: Record<string, string> = {
       </div>
       <a href="/servicos" class="text-primary font-sans text-label-md hover:underline items-center gap-1 group hidden md:flex">
         Ver todos
-        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
+        <span class="material-symbols-outlined text-[18px] group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
       </a>
     </div>
 
@@ -341,7 +341,7 @@ const programasIcons: Record<string, string> = {
                 {isLarge ? (
                   <>
                     <div class={`${c.iconBg} backdrop-blur-md w-12 h-12 rounded-full flex items-center justify-center mb-4`}>
-                      <span class={`material-symbols-outlined ${c.iconColor}`}>{c.icon}</span>
+                      <span class={`material-symbols-outlined ${c.iconColor}`} aria-hidden="true">{c.icon}</span>
                     </div>
                     <h3 class="font-display text-headline-md text-on-surface mb-2">{servico.titulo}</h3>
                     {servico.descricao && <p class="font-sans text-body-md text-on-surface-variant max-w-md">{servico.descricao}</p>}
@@ -349,14 +349,14 @@ const programasIcons: Record<string, string> = {
                 ) : (
                   <>
                     <div class={`w-10 h-10 rounded-full ${c.iconBg} flex items-center justify-center mb-auto ${c.iconColor}`}>
-                      <span class="material-symbols-outlined">{c.icon}</span>
+                      <span class="material-symbols-outlined" aria-hidden="true">{c.icon}</span>
                     </div>
                     <div>
                       <h3 class={`font-display text-[22px] ${isPrimary ? 'text-on-primary' : 'text-on-background'} mb-1`}>{servico.titulo}</h3>
                       {servico.descricao && <p class={`font-sans text-body-md ${isPrimary ? 'text-primary-fixed' : 'text-on-surface-variant'} text-sm`}>{servico.descricao}</p>}
                     </div>
                     <div class={`absolute top-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity ${isPrimary ? 'text-on-primary' : 'text-primary'}`}>
-                      <span class="material-symbols-outlined">arrow_outward</span>
+                      <span class="material-symbols-outlined" aria-hidden="true">arrow_outward</span>
                     </div>
                   </>
                 )}

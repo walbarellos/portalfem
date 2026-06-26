@@ -106,18 +106,18 @@ const categorias = [
       </div>
       <div class="flex bg-surface-container-high rounded-full p-1">
         <a href={activeCategoria === 'todas' ? '?view=lista' : `?categoria=${activeCategoria}&view=lista`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'lista' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
-          <span class="material-symbols-outlined text-[18px]">view_list</span>
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">view_list</span>
           Lista
         </a>
         <a href={activeCategoria === 'todas' ? '?view=mes' : `?categoria=${activeCategoria}&view=mes`} class={`px-6 py-2 rounded-full font-label-md text-label-md transition-all flex items-center gap-2 ${activeView === 'mes' ? 'bg-primary text-on-primary' : 'text-on-surface-variant'}`}>
-          <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+          <span class="material-symbols-outlined text-[18px]" aria-hidden="true">calendar_month</span>
           Mês
         </a>
       </div>
     </div>
 
     <!-- Contador -->
-    <p class="font-body-md text-body-md text-on-surface-variant mb-6" id="result-count">Mostrando <strong>{total}</strong> {total === 1 ? 'evento' : 'eventos'}</p>
+    <p class="font-body-md text-body-md text-on-surface-variant mb-6" id="result-count" aria-live="polite" aria-atomic="true">Mostrando <strong>{total}</strong> {total === 1 ? 'evento' : 'eventos'}</p>
 
     {eventos.length > 0 ? (
       activeView === 'mes' ? (
@@ -132,13 +132,16 @@ const categorias = [
           ))}
         </div>
       ) : (
-        <div class="flex flex-col gap-6" id="eventos-list">
-          {eventos.map((evento) => <CardEvento evento={evento} />)}
-        </div>
+        <section>
+          <h2 class="sr-only">Lista de Eventos</h2>
+          <div class="flex flex-col gap-6" id="eventos-list">
+            {eventos.map((evento) => <CardEvento evento={evento} />)}
+          </div>
+        </section>
       )
     ) : (
       <div class="text-center py-16">
-        <span class="material-symbols-outlined text-4xl text-outline">event_busy</span>
+        <span class="material-symbols-outlined text-4xl text-outline" aria-hidden="true">event_busy</span>
         <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum evento encontrado.</p>
       </div>
     )}

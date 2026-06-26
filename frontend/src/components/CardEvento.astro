@@ -78,10 +78,10 @@ const searchText = [evento.titulo, evento.descricao || '', evento.local || '', c
             </div>
           )}
         </div>
-        <span class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary font-label-md text-label-md group-hover:bg-primary group-hover:text-on-primary transition-all cursor-pointer">
+        <button type="button" class="shrink-0 flex items-center gap-2 px-4 py-2 rounded-lg bg-primary/10 text-primary font-label-md text-label-md hover:bg-primary hover:text-on-primary transition-all cursor-pointer">
           <span class="material-symbols-outlined text-[18px]" aria-hidden="true">event_available</span>
           Adicionar ao Calendário
-        </span>
+        </button>
       </div>
     </div>
     {imgSrc && (

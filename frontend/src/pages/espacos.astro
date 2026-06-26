@@ -62,7 +62,7 @@ function categoriaLabel(value: string): string {
         return (
           <a href={`/espacos/${espaco.id}`} data-categoria={espaco.categoria} class="espaco-card group relative rounded-xl overflow-hidden aspect-[4/3] md:aspect-[3/4] lg:aspect-square bg-surface-container-lowest border border-outline-variant/20 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 img-shimmer">
             <div class="absolute inset-0 bg-surface-container-high flex items-center justify-center">
-              <span class="material-symbols-outlined text-5xl text-outline">location_city</span>
+              <span class="material-symbols-outlined text-5xl text-outline" aria-hidden="true">location_city</span>
             </div>
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
             <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
@@ -72,7 +72,7 @@ function categoriaLabel(value: string): string {
               <h2 class="font-headline-md text-headline-md text-on-primary mb-2 leading-tight">{espaco.nome}</h2>
               {espaco.endereco && (
                 <div class="flex items-center gap-2 text-surface-container-lowest/80 font-body-md text-body-md">
-                  <span class="material-symbols-outlined text-[18px]">location_on</span>
+                  <span class="material-symbols-outlined text-[18px]" aria-hidden="true">location_on</span>
                   <span>{espaco.endereco}</span>
                 </div>
               )}
@@ -83,7 +83,7 @@ function categoriaLabel(value: string): string {
     </section>
 
     <div id="espacos-empty" class="text-center py-16" style="display:none">
-      <span class="material-symbols-outlined text-4xl text-outline">location_city</span>
+      <span class="material-symbols-outlined text-4xl text-outline" aria-hidden="true">location_city</span>
       <p class="font-sans text-body-md text-on-surface-variant mt-2">Nenhum espaço cultural encontrado.</p>
     </div>
   </div>

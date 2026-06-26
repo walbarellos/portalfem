@@ -1,0 +1,88 @@
+<div class="hidden md:flex items-center gap-1" role="toolbar" aria-label="Ferramentas de acessibilidade">
+  <button
+    id="btn-contrast"
+    class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all"
+    aria-label="Ativar alto contraste"
+    title="Alto Contraste"
+    type="button"
+  >
+    <span class="material-symbols-outlined text-xl" aria-hidden="true">contrast</span>
+  </button>
+  <button
+    id="btn-font-increase"
+    class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all"
+    aria-label="Aumentar tamanho da fonte"
+    title="Aumentar Fonte"
+    type="button"
+  >
+    <span class="material-symbols-outlined text-xl" aria-hidden="true">text_increase</span>
+  </button>
+  <button
+    id="btn-font-decrease"
+    class="p-2 rounded-lg text-on-surface-variant hover:bg-surface-container-high hover:text-primary transition-all"
+    aria-label="Diminuir tamanho da fonte"
+    title="Diminuir Fonte"
+    type="button"
+  >
+    <span class="material-symbols-outlined text-xl" aria-hidden="true">text_decrease</span>
+  </button>
+</div>
+
+<script>
+  function getCookie(name: string): string | null {
+    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
+
+  function setCookie(name: string, value: string, days = 365) {
+    const d = new Date();
+    d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+  }
+
+  function toggleContrast() {
+    const html = document.documentElement;
+    const isHigh = html.classList.toggle('high-contrast');
+    setCookie('fem-contrast', isHigh ? '1' : '0');
+    const btn = document.getElementById('btn-contrast');
+    if (btn) {
+      btn.setAttribute('aria-label', isHigh ? 'Desativar alto contraste' : 'Ativar alto contraste');
+      btn.setAttribute('aria-pressed', String(isHigh));
+    }
+  }
+
+  function changeFontSize(delta: number) {
+    const html = document.documentElement;
+    const current = parseFloat(getCookie('fem-font-size') || '100');
+    const next = Math.min(Math.max(current + delta, 80), 200);
+    html.style.fontSize = `${next}%`;
+    setCookie('fem-font-size', String(next));
+  }
+
+  function applySavedSettings() {
+    const contrast = getCookie('fem-contrast');
+    if (contrast === '1') {
+      document.documentElement.classList.add('high-contrast');
+      const btn = document.getElementById('btn-contrast');
+      if (btn) {
+        btn.setAttribute('aria-label', 'Desativar alto contraste');
+        btn.setAttribute('aria-pressed', 'true');
+      }
+    }
+    const fontSize = getCookie('fem-font-size');
+    if (fontSize) {
+      document.documentElement.style.fontSize = `${fontSize}%`;
+    }
+  }
+
+  document.addEventListener('astro:page-load', () => {
+    applySavedSettings();
+    const btnContrast = document.getElementById('btn-contrast');
+    const btnIncrease = document.getElementById('btn-font-increase');
+    const btnDecrease = document.getElementById('btn-font-decrease');
+
+    btnContrast?.addEventListener('click', toggleContrast);
+    btnIncrease?.addEventListener('click', () => changeFontSize(10));
+    btnDecrease?.addEventListener('click', () => changeFontSize(-10));
+  });
+</script>

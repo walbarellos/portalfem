@@ -4,6 +4,14 @@ import type { Schema, Noticia, Evento, Edital, ServicoSistema, EspacoCultural, R
 const DIRECTUS_URL = import.meta.env.PUBLIC_DIRECTUS_URL || 'http://localhost:8055';
 const DIRECTUS_TOKEN = import.meta.env.DIRECTUS_TOKEN || '';
 
+if (!DIRECTUS_TOKEN) {
+  console.warn('[directus] DIRECTUS_TOKEN não configurado — requisições serão anônimas');
+}
+
+if (!DIRECTUS_URL || !DIRECTUS_URL.startsWith('http')) {
+  console.error('[directus] PUBLIC_DIRECTUS_URL inválido ou não configurado');
+}
+
 export const directus = createDirectus<Schema>(DIRECTUS_URL)
   .with(staticToken(DIRECTUS_TOKEN))
   .with(rest());

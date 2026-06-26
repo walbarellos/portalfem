@@ -24,7 +24,7 @@ const { title, description, breadcrumbLabel } = Astro.props
     </svg>
   </div>
   <div class="relative z-10 w-full px-8 md:px-12 py-8 md:py-10">
-    <nav class="flex items-center gap-2 text-on-primary/70 font-sans text-label-md mb-4">
+    <nav aria-label="Breadcrumb" class="flex items-center gap-2 text-on-primary/70 font-sans text-label-md mb-4">
       <a href="/" class="hover:text-on-primary transition-colors">Início</a>
       <span class="material-symbols-outlined text-[16px]" aria-hidden="true">chevron_right</span>
       <span class="text-on-primary/90">{breadcrumbLabel}</span>

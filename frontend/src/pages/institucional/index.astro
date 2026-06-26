@@ -29,7 +29,7 @@ const areas = [
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6 mb-section-gap">
       {stats.map((s) => (
         <div class="bg-surface-container-lowest rounded-2xl p-6 text-center shadow-sm border border-outline-variant/20">
-          <span class="material-symbols-outlined text-3xl text-primary mb-2">{s.icon}</span>
+          <span class="material-symbols-outlined text-3xl text-primary mb-2" aria-hidden="true">{s.icon}</span>
           <div class="font-display text-display-md text-primary">{s.value}</div>
           <div class="font-label-md text-label-md text-on-surface-variant mt-1">{s.label}</div>
         </div>
@@ -50,7 +50,7 @@ const areas = [
         {areas.map((a) => (
           <div class="bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-outline-variant/20 hover:-translate-y-1 transition-all duration-300">
             <div class={`w-14 h-14 rounded-2xl flex items-center justify-center mb-5 ${a.color}`}>
-              <span class="material-symbols-outlined text-2xl">{a.icon}</span>
+              <span class="material-symbols-outlined text-2xl" aria-hidden="true">{a.icon}</span>
             </div>
             <h3 class="font-label-lg text-label-lg text-on-surface mb-2">{a.title}</h3>
             <p class="text-body-md text-on-surface-variant leading-relaxed">{a.desc}</p>
@@ -68,12 +68,12 @@ const areas = [
           return (
             <a href={`/institucional/${p.slug}`} class="group bg-surface-container-lowest rounded-2xl p-8 shadow-sm border border-outline-variant/20 hover:-translate-y-1 hover:shadow-md transition-all duration-300">
               <div class="w-12 h-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                <span class="material-symbols-outlined text-2xl">{icon}</span>
+                <span class="material-symbols-outlined text-2xl" aria-hidden="true">{icon}</span>
               </div>
               <h3 class="font-label-lg text-label-lg text-on-surface mb-2">{p.titulo}</h3>
               <p class="text-body-md text-on-surface-variant line-clamp-2 leading-relaxed">Saiba mais sobre {p.titulo.toLowerCase()} da Fundação de Cultura Elias Mansour.</p>
               <span class="inline-flex items-center gap-1 mt-4 text-label-md text-primary font-medium">
-                Acessar <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                Acessar <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_forward</span>
               </span>
             </a>
           );

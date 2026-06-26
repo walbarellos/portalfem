@@ -48,7 +48,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
           </div>
         ) : slug !== 'presidencia' ? (
           <div class="text-center py-20">
-            <span class="material-symbols-outlined text-5xl text-outline mb-4">description</span>
+            <span class="material-symbols-outlined text-5xl text-outline mb-4" aria-hidden="true">description</span>
             <p class="text-body-lg text-on-surface-variant">Conteúdo em atualização.</p>
           </div>
         ) : null}
@@ -59,16 +59,16 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
               <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
                   <div class="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-5">
-                    <span class="material-symbols-outlined text-2xl text-primary">visibility</span>
+                    <span class="material-symbols-outlined text-2xl text-primary" aria-hidden="true">visibility</span>
                   </div>
-                  <h3 class="font-headline-md text-headline-md text-primary mb-3">Missão</h3>
+                  <h2 class="font-headline-md text-headline-md text-primary mb-3">Missão</h2>
                   <p class="text-body-md text-on-surface-variant leading-relaxed">Fomentar, proteger e difundir as manifestações culturais, promovendo a cidadania, a inclusão social e o desenvolvimento sustentável por meio da arte e do patrimônio cultural acreano.</p>
                 </div>
                 <div class="bg-surface-container-low rounded-2xl p-8 border border-outline-variant/20 hover:shadow-md transition-shadow duration-300">
                   <div class="w-14 h-14 rounded-2xl bg-secondary/10 flex items-center justify-center mb-5">
-                    <span class="material-symbols-outlined text-2xl text-secondary">flag</span>
+                    <span class="material-symbols-outlined text-2xl text-secondary" aria-hidden="true">flag</span>
                   </div>
-                  <h3 class="font-headline-md text-headline-md text-primary mb-3">Visão</h3>
+                  <h2 class="font-headline-md text-headline-md text-primary mb-3">Visão</h2>
                   <p class="text-body-md text-on-surface-variant leading-relaxed">Ser referência nacional na gestão de políticas culturais, reconhecida pela excelência na valorização da diversidade, na preservação da memória e no estímulo à economia criativa da Amazônia.</p>
                 </div>
               </div>
@@ -120,7 +120,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <div>
                     <div class="flex items-center gap-3 mb-4">
-                      <span class="material-symbols-outlined text-2xl text-primary">location_on</span>
+                      <span class="material-symbols-outlined text-2xl text-primary" aria-hidden="true">location_on</span>
                       <h3 class="font-display text-headline-md text-primary">Nova Sede</h3>
                     </div>
                     <p class="text-body-md text-on-surface-variant leading-relaxed">
@@ -129,14 +129,14 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
                   </div>
                   <div>
                     <div class="flex items-center gap-3 mb-4">
-                      <span class="material-symbols-outlined text-2xl text-primary">event</span>
+                      <span class="material-symbols-outlined text-2xl text-primary" aria-hidden="true">event</span>
                       <h3 class="font-display text-headline-md text-primary">Reuniões</h3>
                     </div>
                     <p class="text-body-md text-on-surface-variant leading-relaxed mb-3">
                       <strong>Últimas quartas-feiras de cada mês, a partir das 15h.</strong>
                     </p>
                     <p class="text-body-md text-primary italic flex items-center gap-2">
-                      <span class="material-symbols-outlined">celebration</span>
+                      <span class="material-symbols-outlined" aria-hidden="true">celebration</span>
                       Você é nosso convidado. Venha nos fazer uma visita!
                     </p>
                   </div>
@@ -182,7 +182,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
                           <span class="font-display text-headline-md text-on-surface-variant">{iniciais}</span>
                         )}
                       </div>
-                      <h4 class="font-label-md text-label-md text-on-surface mb-1">{ep.nome}</h4>
+                      <h3 class="font-label-md text-label-md text-on-surface mb-1">{ep.nome}</h3>
                       <p class="text-label-sm text-outline whitespace-nowrap">{ep.periodo}</p>
                     </div>
                   );
@@ -198,7 +198,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
         <div class="flex items-center justify-between mt-16 pt-8 border-t border-outline-variant/20">
           {prev ? (
             <a href={`/institucional/${prev.slug}`} class="group flex items-center gap-3 text-on-surface-variant hover:text-primary transition-colors">
-              <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform">arrow_back</span>
+              <span class="material-symbols-outlined group-hover:-translate-x-1 transition-transform" aria-hidden="true">arrow_back</span>
               <div class="text-left">
                 <div class="text-label-sm text-outline">Anterior</div>
                 <div class="font-label-md text-label-md">{prev.titulo}</div>
@@ -211,7 +211,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
                 <div class="text-label-sm text-outline">Próximo</div>
                 <div class="font-label-md text-label-md">{next.titulo}</div>
               </div>
-              <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" aria-hidden="true">arrow_forward</span>
             </a>
           ) : <div />}
         </div>
@@ -242,7 +242,7 @@ const next = currentIndex < allPaginas.length - 1 ? allPaginas[currentIndex + 1]
             </ul>
             <div class="mt-6 pt-5 border-t border-outline-variant/20">
               <a href="/institucional" class="flex items-center gap-2 text-label-md text-primary hover:underline">
-                <span class="material-symbols-outlined text-[16px]">arrow_back</span>
+                <span class="material-symbols-outlined text-[16px]" aria-hidden="true">arrow_back</span>
                 Visão geral
               </a>
             </div>

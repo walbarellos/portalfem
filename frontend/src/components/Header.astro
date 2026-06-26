@@ -1,4 +1,5 @@
 ---
+import AccessibilityBar from './AccessibilityBar.astro';
 const currentPath = Astro.url.pathname;
 const navItems = [
   { href: '/institucional', label: 'A FEM' },
@@ -36,6 +37,8 @@ function isActive(href: string): boolean {
       ))}
     </nav>
 
+    <AccessibilityBar />
+
     <div class="flex items-center gap-4">
       <a href="/busca" aria-label="Buscar no portal" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
         <span class="material-symbols-outlined" aria-hidden="true">search</span>
@@ -47,7 +50,7 @@ function isActive(href: string): boolean {
   </div>
 
   <div id="mobile-menu" class="md:hidden hidden border-t border-outline-variant/30 px-gutter py-4 bg-surface">
-    <nav class="flex flex-col gap-3">
+    <nav aria-label="Navegação mobile" class="flex flex-col gap-3">
       <a href="/" class="text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md">Início</a>
       {navItems.map((item) => (
         <a

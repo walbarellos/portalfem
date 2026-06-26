@@ -86,7 +86,7 @@ const faq = [
           >
             <div class="flex items-start gap-4">
               <div class={`shrink-0 w-12 h-12 rounded-xl flex items-center justify-center ${canal.cor}`}>
-                <span class="material-symbols-outlined">{canal.icone}</span>
+                <span class="material-symbols-outlined" aria-hidden="true">{canal.icone}</span>
               </div>
               <div class="flex-1 min-w-0">
                 <h3 class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors mb-1">{canal.titulo}</h3>
@@ -94,7 +94,7 @@ const faq = [
                 <p class="font-sans text-label-md text-primary">{canal.info}</p>
                 <p class="font-sans text-body-md text-on-surface-variant text-sm mt-1">{canal.horario}</p>
               </div>
-              <span class="shrink-0 material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">
+              <span class="shrink-0 material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">
                 {canal.href.startsWith('http') ? 'open_in_new' : 'arrow_forward'}
               </span>
             </div>
@@ -114,7 +114,7 @@ const faq = [
           <details class="group bg-surface-container-lowest rounded-xl border border-outline-variant/20 overflow-hidden">
             <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer font-display text-headline-md text-on-surface hover:bg-surface-container transition-colors list-none">
               {item.pergunta}
-              <span class="shrink-0 material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform">expand_more</span>
+              <span class="shrink-0 material-symbols-outlined text-on-surface-variant group-open:rotate-180 transition-transform" aria-hidden="true">expand_more</span>
             </summary>
             <div class="px-6 pb-5 border-t border-outline-variant/20 pt-4">
               <p class="font-sans text-body-md text-on-surface-variant">{item.resposta}</p>
@@ -127,7 +127,7 @@ const faq = [
     <!-- Base Legal -->
     <section class="bg-surface-container-low rounded-xl p-8 border border-outline-variant/20">
       <div class="flex items-center gap-3 mb-4">
-        <span class="material-symbols-outlined text-primary">gavel</span>
+        <span class="material-symbols-outlined text-primary" aria-hidden="true">gavel</span>
         <h3 class="font-display text-headline-md text-on-surface">Base Legal</h3>
       </div>
       <div class="font-sans text-body-md text-on-surface-variant space-y-2">
