@@ -3,7 +3,7 @@ export const prerender = false;
 
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { directus, safeRequest, readItem } from '../../lib/directus';
+import { directus, safeRequest, readItem, readItems } from '../../lib/directus';
 
 const { id } = Astro.params;
 const edital = await safeRequest(
@@ -11,6 +11,18 @@ const edital = await safeRequest(
     fields: ['*', { categoria: ['id', 'nome', 'slug'] }],
   })),
   null
+);
+
+const resultados = await safeRequest(
+  directus.request(readItems('resultados', {
+    filter: {
+      edital_relacionado: { _eq: Number(id) },
+      status: { _eq: 'published' }
+    },
+    sort: ['-data_publicacao', '-id'],
+    fields: ['id', 'titulo', 'descricao', 'data_publicacao', 'arquivo']
+  })),
+  []
 );
 
 if (!edital) return Astro.redirect('/404');
@@ -108,6 +120,47 @@ function formatDateRange(start: string, end: string) {
           <div class="prose prose-green max-w-none mb-8">
             <h2 class="font-headline-md text-headline-md text-on-surface !mb-4">Sobre o Edital</h2>
             <p class="font-body-md text-body-md text-on-surface leading-relaxed">{edital.resumo}</p>
+          </div>
+        )}
+
+        <!-- Resultados e Retificações -->
+        {resultados && resultados.length > 0 && (
+          <div class="mt-12 border-t border-outline-variant/30 pt-8">
+            <h2 class="font-display text-headline-md text-on-surface mb-6 flex items-center gap-2">
+              <span class="material-symbols-outlined text-primary" aria-hidden="true">assignment_turned_in</span>
+              Resultados, Portarias e Retificações
+            </h2>
+            <div class="flex flex-col gap-4">
+              {resultados.map((res: any) => {
+                const dataPub = res.data_publicacao 
+                  ? new Date(res.data_publicacao).toLocaleDateString('pt-BR') 
+                  : '';
+                return (
+                  <div class="p-5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl hover:border-primary/30 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex-1 min-w-0">
+                      <div class="flex items-center gap-2 mb-2">
+                        <span class="inline-block px-2.5 py-0.5 rounded bg-secondary-container/20 text-secondary font-sans text-[11px] uppercase tracking-wider font-semibold">Documento</span>
+                        {dataPub && (
+                          <time class="font-sans text-body-sm text-on-surface-variant" datetime={res.data_publicacao}>{dataPub}</time>
+                        )}
+                      </div>
+                      <h3 class="font-label-lg text-label-lg text-on-surface leading-snug">{res.titulo}</h3>
+                      {res.descricao && (
+                        <p class="font-sans text-body-sm text-on-surface-variant mt-1">{res.descricao}</p>
+                      )}
+                    </div>
+                    {res.arquivo && (
+                      <a href={`/api/file/${res.arquivo}`} target="_blank" rel="noopener noreferrer"
+                        class="flex items-center justify-center gap-2 px-5 py-3 rounded-lg bg-surface text-secondary border border-secondary/30 font-label-md text-label-md hover:bg-secondary-container hover:text-on-secondary-container transition-colors shrink-0"
+                        aria-label={`Baixar resultado: ${res.titulo}`}>
+                        <span class="material-symbols-outlined text-[18px]" aria-hidden="true">download</span>
+                        Baixar PDF
+                      </a>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

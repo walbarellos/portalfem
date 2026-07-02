@@ -253,12 +253,15 @@ async function createWebhookFlow() {
     : 'http://localhost:4321/api/webhook/rebuild';
 
   try {
-    // Verifica se o Flow já existe
+    // Deleta o Flow se já existe para recriar com a operação correta
     const existingFlows = await api('/flows?filter[name][_eq]=Rebuild Frontend');
     if (existingFlows.length > 0) {
-      console.log(`  ⚠️ Flow "Rebuild Frontend" já existe (ID: ${existingFlows[0].id}).`);
-      console.log(`  📡 Webhook aponta para: ${webhookUrl}`);
-      return;
+      try {
+        await api(`/flows/${existingFlows[0].id}`, { method: 'DELETE' });
+        console.log(`  🗑️ Flow antigo deletado para recriação.`);
+      } catch (_) {
+        // Ignora erros ao deletar
+      }
     }
 
     // Cria o Flow
@@ -300,7 +303,7 @@ async function createWebhookFlow() {
             keys: '{{$trigger.keys}}',
           }),
         },
-        resolve: '$last',
+        resolve: null,
       }),
     });
     console.log(`  ✅ Operation criada (ID: ${operation.id})`);

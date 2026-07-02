@@ -1,6 +1,15 @@
 import { defineMiddleware } from 'astro:middleware';
 
 export const onRequest = defineMiddleware(async (context, next) => {
+  const url = new URL(context.request.url);
+
+  // Redireciona requisições com barra no final (trailing slash) para sem barra (301)
+  if (url.pathname.length > 1 && url.pathname.endsWith('/')) {
+    const cleanPath = url.pathname.slice(0, -1);
+    const redirectUrl = new URL(cleanPath + url.search, context.request.url);
+    return Response.redirect(redirectUrl.toString(), 301);
+  }
+
   const response = await next();
 
   response.headers.set(
