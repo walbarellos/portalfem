@@ -93,7 +93,10 @@ ANEXO_PATTERNS = [
     r"^EDITAL$",  # o proprio PDF do edital, quando e' filho de um no' "EDITAL N.../..."
 ]
 
-NUMERO_RE = re.compile(r"N[ºO°]?\.?\s*(\d{2,4}\s*/\s*\d{4}|\d{2,4}[\-\.]?\d{4}|\d{2,4})")
+NUMERO_RE = re.compile(
+    r"(?:N[ºO°]?\.?\s*)?(\d{1,4}\s*/\s*\d{4}|\d{1,4}[\-\.]\d{4})|"
+    r"N[ºO°]?\.?\s*(\d{1,4})"
+)
 ANO_RE = re.compile(r"(20\d{2})")
 
 
@@ -120,7 +123,10 @@ def classify(label: str) -> str:
 
 def extract_numero(label: str) -> str:
     m = NUMERO_RE.search(norm(label))
-    return m.group(1).replace(" ", "") if m else ""
+    if m:
+        val = m.group(1) or m.group(2) or ""
+        return val.replace(" ", "")
+    return ""
 
 
 def flatten_documents(node: dict, out: list):
@@ -155,6 +161,7 @@ def build_edital(node: dict, categoria_slug: str) -> dict:
                     "data_publicacao": "",
                     "arquivo": d["href"],
                     "numero_edital_relacionado": numero,  # resolvido p/ id no Ciclo 01 (import)
+                    "titulo_edital_relacionado": label,   # vinculo resiliente por titulo
                     "status": "draft",
                 }
             )

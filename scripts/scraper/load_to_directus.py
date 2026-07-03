@@ -150,13 +150,14 @@ def load_categories() -> dict:
     return slug_to_id
 
 
-def load_editais(cat_map: dict) -> dict:
-    """Carrega os editais no Directus e retorna um mapa de número -> ID."""
+def load_editais(cat_map: dict) -> tuple:
+    """Carrega os editais no Directus e retorna mapas de (número -> ID, título -> ID)."""
     print("\n📦 Processando editais...")
     with open("out/editais.json", "r", encoding="utf-8") as f:
         editais = json.load(f)
         
     num_to_id = {}
+    title_to_id = {}
     
     for ed in editais:
         titulo = ed["titulo"]
@@ -203,11 +204,12 @@ def load_editais(cat_map: dict) -> dict:
         
         if numero:
             num_to_id[numero] = edital_id
+        title_to_id[titulo] = edital_id
             
-    return num_to_id
+    return num_to_id, title_to_id
 
 
-def load_resultados(edital_map: dict):
+def load_resultados(num_to_id: dict, title_to_id: dict):
     """Carrega os resultados e os associa aos seus respectivos editais."""
     print("\n📦 Processando resultados...")
     with open("out/resultados.json", "r", encoding="utf-8") as f:
@@ -216,13 +218,20 @@ def load_resultados(edital_map: dict):
     for res in resultados:
         titulo = res["titulo"]
         num_edital = res["numero_edital_relacionado"]
-        edital_id = edital_map.get(num_edital)
+        titulo_edital = res.get("titulo_edital_relacionado", "")
+        
+        # Busca ID do edital usando o número ou o título para maior resiliência
+        edital_id = None
+        if num_edital:
+            edital_id = num_to_id.get(num_edital)
+        if not edital_id and titulo_edital:
+            edital_id = title_to_id.get(titulo_edital)
         
         if not edital_id:
-            print(f"  ⚠️ Ignorando resultado '{titulo}' (Edital '{num_edital}' não localizado)")
+            print(f"  ⚠️ Ignorando resultado '{titulo}' (Edital '{num_edital or titulo_edital}' não localizado)")
             continue
             
-        print(f"\n👉 Importando Resultado: {titulo} (Para Edital {num_edital})")
+        print(f"\n👉 Importando Resultado: {titulo} (Para Edital {num_edital or titulo_edital})")
         
         file_id = get_or_create_file(res["arquivo"], titulo)
         if not file_id:
@@ -249,10 +258,10 @@ def main():
         cat_map = load_categories()
         
         # 2. Carregar Editais
-        edital_map = load_editais(cat_map)
+        num_to_id, title_to_id = load_editais(cat_map)
         
         # 3. Carregar Resultados relacionados
-        load_resultados(edital_map)
+        load_resultados(num_to_id, title_to_id)
         
         print("\n🎉 Importação concluída com sucesso!")
         
