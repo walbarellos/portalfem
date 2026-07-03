@@ -168,14 +168,13 @@ def extract_post(article: Tag, base_url: str, post_index: int):
     destaque = "especial" in categorias_brutas
 
     conteudo = ""
-    # Só baixa o conteúdo completo para os primeiros 5 posts para otimização de rede
-    if href and post_index < 5:
-        print(f"  📥 Baixando conteudo completo ({post_index+1}/5): {href}")
+    if href:
+        print(f"  📥 Baixando conteudo completo ({post_index+1}): {href}")
         conteudo = fetch_full_content(href)
         # Delay de cortesia
-        time.sleep(0.3)
+        time.sleep(0.1)
 
-    incompleto = not titulo or not resumo or (post_index < 5 and not conteudo)
+    incompleto = not titulo or not resumo or not conteudo
 
     return {
         "titulo": titulo,

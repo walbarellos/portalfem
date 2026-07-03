@@ -89,6 +89,17 @@ def migrate_embedded_images(html_content: str, post_title: str) -> str:
 def main():
     print("🚀 Iniciando importação de Notícias para o Directus...")
     
+    # 0. Limpa todas as notícias existentes para evitar duplicações
+    print("🧹 Limpando notícias existentes no Directus...")
+    try:
+        r = requests.get(f"{DIRECTUS_URL}/items/noticias?limit=500", headers=HEADERS)
+        existing_ids = [x["id"] for x in r.json().get("data", [])]
+        if existing_ids:
+            requests.delete(f"{DIRECTUS_URL}/items/noticias", headers=HEADERS, json=existing_ids)
+            print(f"  ✅ Deletadas {len(existing_ids)} notícias antigas.")
+    except Exception as e:
+        print(f"  ⚠️ Falha ao limpar notícias antigas: {e}")
+        
     json_path = "noticias.json"
     if not os.path.exists(json_path):
         json_path = "out/noticias.json"
