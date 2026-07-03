@@ -69,6 +69,17 @@ def get_or_create_file(url: str, label: str) -> str:
 def main():
     print("🚀 Iniciando importação de Espaços Culturais para o Directus...")
     
+    # 0. Limpa todos os espaços existentes para evitar duplicações
+    print("🧹 Limpando espaços existentes no Directus...")
+    try:
+        r = requests.get(f"{DIRECTUS_URL}/items/espacos_culturais?limit=100", headers=HEADERS)
+        existing_ids = [x["id"] for x in r.json().get("data", [])]
+        if existing_ids:
+            requests.delete(f"{DIRECTUS_URL}/items/espacos_culturais", headers=HEADERS, json=existing_ids)
+            print(f"  ✅ Deletados {len(existing_ids)} espaços antigos.")
+    except Exception as e:
+        print(f"  ⚠️ Falha ao limpar espaços antigos: {e}")
+        
     # Verifica se o arquivo de dados existe
     json_path = "espacos_culturais.json"
     if not os.path.exists(json_path):

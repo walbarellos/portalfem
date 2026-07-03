@@ -1,21 +1,32 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import { espacosEstaticos } from '../../lib/espacos-data';
+import { safeRequest, directus, readItems, readItem } from '../../lib/directus';
+import type { EspacoCultural } from '../../schemas/directus';
 
 export async function getStaticPaths() {
-  return espacosEstaticos.map((e) => ({
+  const espacos = await safeRequest<EspacoCultural[]>(
+    directus.request(readItems('espacos_culturais', {
+      filter: { status: { _eq: 'published' } },
+      fields: ['id', 'nome', 'descricao'],
+    })) as Promise<EspacoCultural[]>,
+    []
+  );
+  return espacos.map((e) => ({
     params: { id: String(e.id) },
     props: { nome: e.nome, descricao: e.descricao },
   }));
 }
 
 const { id } = Astro.params;
-const item = espacosEstaticos.find((e) => e.id === Number(id)) ?? null;
+const item = await safeRequest<EspacoCultural | null>(
+  directus.request(readItem('espacos_culturais', Number(id))) as Promise<EspacoCultural>,
+  null
+);
 
-if (!item) return Astro.redirect('/404');
+if (!item || item.status !== 'published') return Astro.redirect('/404');
 
-const imgSrc = null;
+const imgSrc = item.imagem ? `/api/file/${item.imagem}` : null;
 ---
 
 <Layout title={item.nome} description={item.descricao?.slice(0, 160)} image={imgSrc || undefined}>

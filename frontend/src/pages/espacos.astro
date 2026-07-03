@@ -3,10 +3,16 @@ export const prerender = true;
 
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import { espacosEstaticos } from '../lib/espacos-data';
+import { safeRequest, directus, readItems } from '../lib/directus';
 import type { EspacoCultural } from '../schemas/directus';
 
-const espacos = espacosEstaticos as EspacoCultural[];
+const espacos = await safeRequest<EspacoCultural[]>(
+  directus.request(readItems('espacos_culturais', {
+    filter: { status: { _eq: 'published' } },
+    fields: ['*'],
+  })) as Promise<EspacoCultural[]>,
+  []
+);
 
 const ordemCategorias: Record<string, number> = {
   museu: 1, teatro: 2, biblioteca: 3,
@@ -59,11 +65,15 @@ function categoriaLabel(value: string): string {
 
     <section id="espacos-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
       {espacos.map((espaco) => {
+        const imgSrc = espaco.imagem ? `/api/file/${espaco.imagem}` : null;
         return (
           <a href={`/espacos/${espaco.id}`} data-categoria={espaco.categoria} class="espaco-card group relative rounded-xl overflow-hidden aspect-[4/3] md:aspect-[3/4] lg:aspect-square bg-surface-container-lowest border border-outline-variant/20 shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 img-shimmer">
             <div class="absolute inset-0 bg-surface-container-high flex items-center justify-center">
               <span class="material-symbols-outlined text-5xl text-outline" aria-hidden="true">location_city</span>
             </div>
+            {imgSrc && (
+              <img src={imgSrc} alt={espaco.nome} class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onLoad="this.closest('.espaco-card').classList.remove('img-shimmer')" />
+            )}
             <div class="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent"></div>
             <div class="absolute bottom-0 left-0 right-0 p-6 flex flex-col justify-end">
               <span class={`${categoriaColors[espaco.categoria] || 'bg-primary/90'} text-on-primary px-3 py-1 rounded-full text-label-md font-label-md w-max mb-3 backdrop-blur-sm`}>
