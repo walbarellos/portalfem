@@ -50,7 +50,7 @@
   {
     "nome": "O CASARÃO",
     "slug": "o-casarao",
-    "categoria": null,
+    "categoria": "centro_cultural",
     "descricao": "",
     "endereco": "Centro – Pedro Roseno, Rio Branco – AC, CEP: 69914-220",
     "latitude": null,
@@ -86,7 +86,7 @@
   {
     "nome": "USINA DE ARTE JOÃO DONATO",
     "slug": "usina-de-arte-joao-donato",
-    "categoria": null,
+    "categoria": "centro_cultural",
     "descricao": "",
     "endereco": "R. das Acácias, 1155 – Distrito Industrial, Rio Branco – AC, CEP: 69918-330 h às 18h",
     "latitude": null,
@@ -110,7 +110,7 @@
   {
     "nome": "Salão Cultural Cordélia Lima",
     "slug": "salao-cultural-cordelia-lima",
-    "categoria": null,
+    "categoria": "centro_cultural",
     "descricao": "",
     "endereco": "R. do Purus, Bairro João Alves, Cruzeiro do Sul- AC CEP:69914-220",
     "latitude": null,
@@ -134,7 +134,7 @@
   {
     "nome": "Casa dos Povos da Floresta",
     "slug": "casa-dos-povos-da-floresta",
-    "categoria": null,
+    "categoria": "espaco_memoria",
     "descricao": "",
     "endereco": "Endereço: Via Parque da Maternidade, Setor B, Rio Branco – AC CEP 69908-320",
     "latitude": null,
