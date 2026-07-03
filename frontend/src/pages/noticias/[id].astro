@@ -5,7 +5,7 @@ import CardNoticia from '../../components/CardNoticia.astro';
 import { directus, safeRequest, readItem, readItems, obterUltimasNoticias } from '../../lib/directus';
 
 export async function getStaticPaths() {
-  const noticias = await obterUltimasNoticias(100);
+  const noticias = await obterUltimasNoticias(500);
   return noticias.map((n: Noticia) => ({
     params: { id: String(n.id) },
     props: { noticia: n },
