@@ -137,7 +137,7 @@ def fetch_full_content(post_url: str) -> str:
         return ""
 
 
-def extract_post(article: Tag, base_url: str):
+def extract_post(article: Tag, base_url: str, post_index: int):
     link_tag = article.select_one(".elementor-post__title a")
     href = urljoin(base_url, link_tag.get("href")) if link_tag and link_tag.get("href") else None
     titulo = link_tag.get_text(strip=True) if link_tag else ""
@@ -168,13 +168,14 @@ def extract_post(article: Tag, base_url: str):
     destaque = "especial" in categorias_brutas
 
     conteudo = ""
-    if href:
-        print(f"  📥 Baixando conteudo completo: {href}")
+    # Só baixa o conteúdo completo para os primeiros 5 posts para otimização de rede
+    if href and post_index < 5:
+        print(f"  📥 Baixando conteudo completo ({post_index+1}/5): {href}")
         conteudo = fetch_full_content(href)
         # Delay de cortesia
         time.sleep(0.3)
 
-    incompleto = not titulo or not resumo or not conteudo
+    incompleto = not titulo or not resumo or (post_index < 5 and not conteudo)
 
     return {
         "titulo": titulo,
@@ -225,7 +226,8 @@ def scrape(base_url: str, max_pages: int, delay: float) -> list:
             break
 
         for art in articles:
-            posts.append(extract_post(art, url))
+            post_index = len(posts)
+            posts.append(extract_post(art, url, post_index))
 
         page += 1
         if page <= total_pages:
