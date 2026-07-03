@@ -35,13 +35,17 @@ const programasIcons: Record<string, string> = {
   <!-- ═══════════════════════════════════════════════════════════
        HERO — NOTÍCIA EM DESTAQUE
   ═══════════════════════════════════════════════════════════ -->
-  <section class="relative h-[600px] md:h-[819px] min-h-[600px] w-full flex items-end pb-section-gap px-margin-mobile md:px-gutter overflow-hidden">
+  <section class="relative h-[600px] md:h-[819px] min-h-[600px] w-full flex items-end pb-section-gap px-margin-mobile md:px-gutter overflow-hidden bg-[#191d17]">
     {featuredNews?.imagem_destaque ? (
-      <img src={`/api/file/${featuredNews.imagem_destaque}`} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      <img src={`/api/file/${featuredNews.imagem_destaque}`} alt="" class="absolute top-0 left-1/2 -translate-x-1/2 h-full w-auto max-w-none object-cover" />
     ) : (
       <div class="absolute inset-0 bg-gradient-to-br from-primary via-primary-container to-surface-container-high"></div>
     )}
-    <div class="absolute inset-0 bg-gradient-to-t from-[#191d17] via-[#191d17]/60 to-[#191d17]/20"></div>
+    <!-- Gradientes horizontais para misturar as laterais com o fundo escuro -->
+    <div class="absolute inset-0 bg-gradient-to-r from-[#191d17] via-[#191d17]/40 to-transparent"></div>
+    <div class="absolute inset-0 bg-gradient-to-l from-[#191d17] via-[#191d17]/40 to-transparent"></div>
+    <!-- Gradiente vertical para contraste do texto -->
+    <div class="absolute inset-0 bg-gradient-to-t from-[#191d17] via-[#191d17]/60 to-transparent"></div>
     <div class="absolute inset-0 hero-overlay"></div>
     <div class="relative z-10 max-w-container-max-width mx-auto w-full flex flex-col items-start gap-unit">
       {featuredNews ? (
