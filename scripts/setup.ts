@@ -93,6 +93,26 @@ async function createPermission(policy: string, collection: string, action: stri
   }
 }
 
+async function createRelation(relation: Record<string, any>) {
+  try {
+    const existing = await api('/relations');
+    const hasRel = Array.isArray(existing) && existing.some(
+      (r: any) => r.collection === relation.collection && r.field === relation.field
+    );
+    if (!hasRel) {
+      await api('/relations', {
+        method: 'POST',
+        body: JSON.stringify(relation),
+      });
+      console.log(`  ✅ Relação criada: ${relation.collection}.${relation.field}`);
+    } else {
+      console.log(`  ⚠️ Relação já existe: ${relation.collection}.${relation.field}`);
+    }
+  } catch (err: any) {
+    console.warn(`  ⚠️ Erro ao criar relação ${relation.collection}.${relation.field}: ${err.message}`);
+  }
+}
+
 async function seedContent() {
   // Categorias de Editais
   const categorias = [
@@ -558,6 +578,26 @@ async function main() {
     }
     await createPermission(leitorId, 'servicos_sistemas', 'read', { permissions: { ativo: { _eq: true } } });
   }
+
+  // 2.5 Criar relações necessárias
+  console.log('\n🔗 Configurando relações...');
+  await createRelation({
+    collection: 'editais',
+    field: 'categoria',
+    related_collection: 'categorias_editais',
+    schema: {
+      table: 'editais',
+      column: 'categoria',
+      foreign_key_table: 'categorias_editais',
+      foreign_key_column: 'id'
+    },
+    meta: {
+      many_collection: 'editais',
+      many_field: 'categoria',
+      one_collection: 'categorias_editais',
+      one_field: null
+    }
+  });
 
   // 3. Seed de conteúdo
   console.log('\n📝 Populando dados de exemplo...');
