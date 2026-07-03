@@ -47,12 +47,6 @@ const recentes = await obterUltimasNoticias(4);
     ]} />
 
     <article class="max-w-3xl mx-auto">
-      {imgSrc && (
-        <div class="aspect-video rounded-xl overflow-hidden mb-8 bg-surface-container-high img-shimmer">
-          <img src={imgSrc} alt={noticia.titulo} class="w-full h-full object-cover" onLoad="this.parentElement.classList.remove('img-shimmer')" />
-        </div>
-      )}
-
       <header class="mb-8">
         <time class="font-sans text-label-md text-on-surface-variant" datetime={noticia.data_publicacao}>{data}</time>
         <h1 class="font-display text-display-sm md:text-display-lg text-on-surface mt-2 leading-tight">{noticia.titulo}</h1>
