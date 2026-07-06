@@ -28,6 +28,15 @@ const programasIcons: Record<string, string> = {
   'fundo-estadual': 'account_balance',
   '': 'campaign',
 };
+
+const isHistorico = (nome: string) => {
+  if (nome.toUpperCase().includes('PAULO GUSTAVO')) return false;
+  const match = nome.match(/\b(2021|2022|2023|2024)\b/);
+  return !!match;
+};
+
+const programasAtivos = programasFomento.filter(p => !isHistorico(p.nome));
+const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
 ---
 
 <Layout title="Início" description="Portal oficial da Fundação de Cultura Elias Mansour - FEM, Governo do Estado do Acre">
@@ -107,24 +116,54 @@ const programasIcons: Record<string, string> = {
         <h2 class="font-display text-headline-lg-mobile md:text-headline-lg text-on-surface">Programas de Fomento</h2>
         <p class="font-sans text-body-md text-on-surface-variant mt-2">Conheça as linhas de incentivo à cultura acreana</p>
       </div>
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
-        {programasFomento.map((prog) => {
+      <!-- Programas Ativos -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {programasAtivos.map((prog) => {
           const isChamamento = !prog.slug;
           const progSlug = isChamamento ? '' : prog.slug;
           const href = isChamamento ? '/editais' : `/editais?categoria=${progSlug}`;
           const icon = programasIcons[progSlug] || 'description';
           return (
             <a href={href}
-              class="group relative bg-surface rounded-2xl border border-outline-variant/20 p-6 text-center hover:border-primary/30 hover:shadow-sm transition-all duration-200">
-              <div class="w-12 h-12 rounded-xl bg-primary-container/20 flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-200">
+              aria-label={`Acessar editais de ${prog.nome}`}
+              class="group relative bg-surface rounded-2xl border border-outline-variant/25 p-6 hover:border-primary/40 hover:shadow-md transition-all duration-200 flex items-start gap-4 text-left">
+              <div class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:scale-105 transition-transform duration-200">
                 <span class="material-symbols-outlined text-primary text-2xl" aria-hidden="true">{icon}</span>
               </div>
-              <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors">{prog.nome}</h3>
-              <p class="font-body-sm text-body-sm text-on-surface-variant mt-1 group-hover:text-primary transition-colors">Acessar</p>
+              <div class="flex-1 min-w-0">
+                <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors leading-snug">{prog.nome}</h3>
+                <p class="font-body-sm text-body-sm text-primary mt-1.5 flex items-center gap-1">
+                  Ver editais ativos
+                  <span class="material-symbols-outlined text-[16px] group-hover:translate-x-0.5 transition-transform">arrow_forward</span>
+                </p>
+              </div>
             </a>
           );
         })}
       </div>
+
+      <!-- Programas Históricos / Arquivos -->
+      {programasHistoricos.length > 0 && (
+        <div class="mt-12 pt-10 border-t border-outline-variant/20">
+          <div class="flex items-center gap-2 mb-6 justify-center">
+            <span class="material-symbols-outlined text-on-surface-variant text-[20px]">history</span>
+            <h3 class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider text-xs">Acervo e Editais Anteriores</h3>
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3">
+            {programasHistoricos.map((prog) => {
+              const href = `/editais?categoria=${prog.slug}`;
+              return (
+                <a href={href}
+                  aria-label={`Acessar histórico de ${prog.nome}`}
+                  class="group bg-surface-container-lowest/50 rounded-xl border border-outline-variant/15 p-4 hover:border-on-surface-variant/30 hover:bg-surface-container-lowest transition-all duration-150 flex items-center justify-between text-left">
+                  <span class="font-sans text-body-sm text-on-surface-variant group-hover:text-primary transition-colors truncate pr-2">{prog.nome}</span>
+                  <span class="material-symbols-outlined text-on-surface-variant text-[18px] shrink-0 group-hover:translate-x-0.5 transition-transform">chevron_right</span>
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      )}
     </div>
   </section>
 
@@ -218,14 +257,19 @@ const programasIcons: Record<string, string> = {
             const editalRel = res.edital_relacionado && typeof res.edital_relacionado === 'object' ? res.edital_relacionado as { id: number; titulo: string; numero: string } : null;
             return (
               <a href={res.arquivo ? `/api/file/${res.arquivo}` : '#'} target={res.arquivo ? '_blank' : undefined} rel={res.arquivo ? 'noopener noreferrer' : undefined}
+                aria-label={`Visualizar PDF de ${res.titulo}`}
                 class="group bg-surface-container-lowest rounded-2xl border border-outline-variant/20 p-5 hover:border-primary/30 hover:shadow-sm transition-all duration-200 flex items-center gap-4">
-                <div class="w-12 h-12 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
-                  <span class="material-symbols-outlined text-on-surface-variant" aria-hidden="true">fact_check</span>
+                <div class="w-12 h-12 rounded-xl bg-red-500/10 border border-red-500/20 flex items-center justify-center shrink-0">
+                  <span class="material-symbols-outlined text-red-600 text-2xl" aria-hidden="true">picture_as_pdf</span>
                 </div>
                 <div class="flex-1 min-w-0">
                   <h3 class="font-label-md text-label-md text-on-surface group-hover:text-primary transition-colors truncate">{res.titulo}</h3>
                   {editalRel && <p class="font-body-sm text-body-sm text-on-surface-variant truncate">{editalRel.titulo}</p>}
-                  <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">{new Date(res.data_publicacao).toLocaleDateString('pt-BR')}</p>
+                  {res.data_publicacao && (
+                    <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
+                      {new Date(res.data_publicacao).toLocaleDateString('pt-BR')}
+                    </p>
+                  )}
                 </div>
                 <span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors" aria-hidden="true">arrow_forward</span>
               </a>
@@ -260,7 +304,7 @@ const programasIcons: Record<string, string> = {
           {featuredNews && (
             <article class="md:col-span-7 group cursor-pointer">
               <a href={`/noticias/${featuredNews.id}`}>
-                <div class="relative w-full aspect-[4/3] rounded-2xl overflow-hidden mb-6 shadow-md group-hover:shadow-xl transition-shadow duration-300 bg-surface-container-high img-shimmer">
+                <div class="relative w-full aspect-[16/10] rounded-2xl overflow-hidden mb-6 shadow-md group-hover:shadow-xl transition-shadow duration-300 bg-surface-container-high img-shimmer">
                   {featuredNews.imagem_destaque ? (
                     <img src={`/api/file/${featuredNews.imagem_destaque}`} alt="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
                   ) : (
@@ -287,7 +331,7 @@ const programasIcons: Record<string, string> = {
                 return (
                   <article class="group cursor-pointer flex gap-4 items-center md:items-start border-b border-outline-variant/20 pb-6 last:border-b-0 last:pb-0">
                     <a href={`/noticias/${noticia.id}`} class="flex gap-4 w-full">
-                      <div class="relative w-28 md:w-36 aspect-[4/3] flex-shrink-0 rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow bg-surface-container-high img-shimmer">
+                      <div class="relative w-28 md:w-36 aspect-[16/10] flex-shrink-0 rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow bg-surface-container-high img-shimmer">
                         {noticia.imagem_destaque ? (
                           <img src={`/api/file/${noticia.imagem_destaque}`} alt="" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" loading="lazy" onLoad="this.parentElement.classList.remove('img-shimmer')" />
                         ) : (
