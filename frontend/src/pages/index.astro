@@ -396,10 +396,21 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
               rel={servico.url ? 'noopener noreferrer' : undefined}
               class={`group relative rounded-2xl overflow-hidden soft-elevation ${isLarge ? 'md:col-span-2 md:row-span-2' : ''} ${c.bg} ${isPrimary ? '' : 'border border-outline-variant/30 hover:bg-surface-container transition-colors'} block`}
             >
-              {isLarge && (
+              {servico.imagem && (
+                <>
+                  <img 
+                    src={`/api/file/${servico.imagem}?width=600&quality=80&format=webp`} 
+                    alt="" 
+                    class="absolute inset-0 w-full h-full object-cover opacity-15 dark:opacity-25 group-hover:scale-105 transition-transform duration-700 pointer-events-none" 
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-t from-surface-container-low via-surface-container-low/70 to-transparent pointer-events-none"></div>
+                </>
+              )}
+              {isLarge && !servico.imagem && (
                 <div class={`absolute inset-0 ${servico.url ? '' : 'bg-gradient-to-br from-primary/5 to-primary/10'}`}></div>
               )}
-              <div class={`relative ${isLarge ? 'h-full flex flex-col justify-end p-8' : 'flex flex-col p-6 h-full'}`}>
+              <div class={`relative z-10 ${isLarge ? 'h-full flex flex-col justify-end p-8' : 'flex flex-col p-6 h-full'}`}>
                 {isLarge ? (
                   <>
                     <div class={`${c.iconBg} backdrop-blur-md w-12 h-12 rounded-full flex items-center justify-center mb-4`}>

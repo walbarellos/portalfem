@@ -100,6 +100,7 @@ export interface ServicoSistema {
   url: string;
   ordem: number;
   ativo: boolean;
+  imagem?: string;
 }
 
 export interface EspacoCultural {
