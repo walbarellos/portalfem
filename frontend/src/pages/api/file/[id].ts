@@ -24,7 +24,7 @@ const MAX_FILE_SIZE = 50 * 1024 * 1024;
 
 const ID_REGEX = /^[a-zA-Z0-9_-]+$/;
 
-export const GET: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params, url }) => {
   const { id } = params;
   if (!id || !ID_REGEX.test(id)) {
     return new Response('ID inválido', { status: 400 });
@@ -39,7 +39,12 @@ export const GET: APIRoute = async ({ params }) => {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 15000);
 
-    const directusRes = await fetch(`${DIRECTUS_URL}/assets/${id}`, {
+    const searchParams = url.searchParams.toString();
+    const fetchUrl = searchParams 
+      ? `${DIRECTUS_URL}/assets/${id}?${searchParams}`
+      : `${DIRECTUS_URL}/assets/${id}`;
+
+    const directusRes = await fetch(fetchUrl, {
       headers: { 'Authorization': `Bearer ${DIRECTUS_TOKEN}` },
       signal: controller.signal,
     });
