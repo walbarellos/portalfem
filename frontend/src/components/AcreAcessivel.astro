@@ -16,12 +16,11 @@
   // @ts-ignore
   window.AcreAcessivelConfig = { backendUrl: 'http://localhost:8001' };
 
-  document.addEventListener('astro:page-load', () => {
+  // O script do Astro (type="module") roda após o DOM estar pronto.
+  // @ts-ignore
+  if (window.AcreAcessivel) {
+    // Inicializa o widget desativando a injeção duplicada de libras (já tratada no VLibras.astro)
     // @ts-ignore
-    if (window.AcreAcessivel) {
-      // Inicializa o widget desativando a injeção duplicada de libras (já tratada no VLibras.astro)
-      // @ts-ignore
-      window.AcreAcessivel.init({ libras: false });
-    }
-  });
+    window.AcreAcessivel.init({ libras: false });
+  }
 </script>

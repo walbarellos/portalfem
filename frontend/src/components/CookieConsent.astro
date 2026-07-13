@@ -17,7 +17,6 @@ Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando
   </div>
 </div>
 <script>
-  document.addEventListener('astro:page-load', () => {
     const consent = document.getElementById('cookie-consent');
     if (!consent) return;
     if (localStorage.getItem('cookie-consent')) return;
@@ -40,5 +39,4 @@ Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando
       if (e.key === 'Escape') rejectBtn?.click();
     }
     consent.addEventListener('keydown', handleKeydown);
-  });
 </script>

@@ -151,7 +151,7 @@
 </dialog>
 
 <script>
-  document.addEventListener('astro:page-load', () => {
+  // Setup dos Skip Links e atalhos de acessibilidade (Astro executa módulos após o DOM estar pronto)
     // --- Lógica do Mapa de Atalhos ---
     const dialog = document.getElementById('shortcuts-dialog') as HTMLDialogElement | null;
     const btnOpen = document.getElementById('btn-show-shortcuts');
@@ -222,5 +222,5 @@
         }
       });
     });
-  });
+
 </script>

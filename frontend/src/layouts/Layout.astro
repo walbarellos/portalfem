@@ -199,9 +199,7 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
           if (e.isIntersecting) e.target.classList.add('revealed');
         });
       }, { threshold: 0.1 });
-      document.addEventListener('astro:page-load', () => {
-        document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
-      });
+      document.querySelectorAll('[data-reveal]').forEach(el => observer.observe(el));
     </script>
   </body>
 </html>
