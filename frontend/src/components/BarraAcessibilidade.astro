@@ -18,14 +18,14 @@
       <a href="#main-content" accesskey="j" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity">
         Ir para o conteúdo <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+J</kbd>
       </a>
-      <a href="#main-nav" accesskey="f" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden sm:inline">
-        Ir para o menu <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+F</kbd>
+      <a href="#main-nav" accesskey="g" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden sm:inline">
+        Ir para o menu <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+G</kbd>
       </a>
-      <a href="#site-search" accesskey="m" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden md:inline">
-        Ir para a busca <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+M</kbd>
+      <a href="#site-search" accesskey="h" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden md:inline">
+        Ir para a busca <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+H</kbd>
       </a>
-      <a href="#site-footer" accesskey="r" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden lg:inline">
-        Ir para o rodapé <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+R</kbd>
+      <a href="#site-footer" accesskey="k" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden lg:inline">
+        Ir para o rodapé <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+K</kbd>
       </a>
     </nav>
 
@@ -71,15 +71,15 @@
         </div>
         <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
           <span class="text-body-md text-on-surface">Ir para o menu</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + F</kbd>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + G</kbd>
         </div>
         <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
           <span class="text-body-md text-on-surface">Ir para a busca</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + M</kbd>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + H</kbd>
         </div>
         <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
           <span class="text-body-md text-on-surface">Ir para o rodapé</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + R</kbd>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + K</kbd>
         </div>
       </div>
     </section>
@@ -182,9 +182,9 @@
           const key = e.key.toLowerCase();
           const targetMap: Record<string, string> = {
             'j': 'main-content',
-            'f': 'main-nav',
-            'm': 'site-search',
-            'r': 'site-footer'
+            'g': 'main-nav',
+            'h': 'site-search',
+            'k': 'site-footer'
           };
 
           if (targetMap[key]) {
