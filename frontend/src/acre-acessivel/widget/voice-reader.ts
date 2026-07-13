@@ -181,11 +181,16 @@ export class VoiceReader {
     const ariaLabel = element.getAttribute('aria-label');
     if (ariaLabel) return ariaLabel.trim();
 
+    // Remove text from elements that shouldn't be read out loud (icons, aria-hidden)
+    const clone = element.cloneNode(true) as HTMLElement;
+    const hideSelectors = '[aria-hidden="true"], .material-symbols-outlined, .material-icons, i, svg';
+    clone.querySelectorAll(hideSelectors).forEach(el => el.remove());
+
     const title = element.getAttribute('title');
-    if (title && !(element.textContent || '').trim()) return title.trim();
+    if (title && !(clone.textContent || '').trim()) return title.trim();
 
     // textContent colapsa whitespace melhor que innerText para leitura
-    const raw = (element.textContent || '').replace(/\s+/g, ' ').trim();
+    const raw = (clone.textContent || '').replace(/\s+/g, ' ').trim();
     return raw;
   }
 
