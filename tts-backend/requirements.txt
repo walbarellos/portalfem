@@ -1,0 +1,7 @@
+fastapi
+uvicorn[standard]
+pdfplumber
+pydantic
+python-multipart
+httpx
+edge-tts

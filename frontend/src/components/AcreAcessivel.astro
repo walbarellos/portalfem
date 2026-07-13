@@ -8,9 +8,20 @@
  */
 ---
 
-<script
-  is:inline
-  src="/assets/js/acre-acessivel.js"
-  data-acre-libras="false"
-  data-acre-auto="true"
-></script>
+<script>
+  // Importação e integração nativa do widget ao bundler do Astro (Vite)
+  import '../acre-acessivel/widget/index.ts';
+
+  // Configuração global para o backend do leitor de voz
+  // @ts-ignore
+  window.AcreAcessivelConfig = { backendUrl: 'http://localhost:8001' };
+
+  document.addEventListener('astro:page-load', () => {
+    // @ts-ignore
+    if (window.AcreAcessivel) {
+      // Inicializa o widget desativando a injeção duplicada de libras (já tratada no VLibras.astro)
+      // @ts-ignore
+      window.AcreAcessivel.init({ libras: false });
+    }
+  });
+</script>
