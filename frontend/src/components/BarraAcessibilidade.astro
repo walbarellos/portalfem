@@ -189,8 +189,22 @@
 
           if (targetMap[key]) {
             e.preventDefault();
-            const link = document.querySelector(`nav[aria-label="Links de salto"] a[href="#${targetMap[key]}"]`) as HTMLAnchorElement;
-            if (link) link.click(); // Dispara o evento de clique que já trata o foco e rolagem
+            const targetEl = document.getElementById(targetMap[key]);
+            if (targetEl) {
+              targetEl.focus();
+              const isFixed = window.getComputedStyle(targetEl).position === 'fixed' || 
+                              window.getComputedStyle(targetEl.parentElement || targetEl).position === 'fixed';
+              if (!isFixed) {
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+              
+              // Se o leitor de voz estiver ativo em modo hover, vamos ler o elemento destino para o cego saber onde está
+              // @ts-ignore
+              if (window.AcreAcessivel && window.AcreAcessivel.panel && window.AcreAcessivel.panel.isHoverActive) {
+                // @ts-ignore
+                window.AcreAcessivel.panel.reader.readElement(targetEl);
+              }
+            }
           }
         }
       });
@@ -208,6 +222,7 @@
         const targetEl = document.getElementById(targetId);
         if (targetEl) {
           e.preventDefault();
+          e.stopPropagation();
           // Remove a âncora visual da URL para evitar salto brusco repetido,
           // mas move o foco para o elemento.
           targetEl.focus();
@@ -218,6 +233,13 @@
           
           if (!isFixed) {
             targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+
+          // Lê o elemento destino se o leitor estiver ativo
+          // @ts-ignore
+          if (window.AcreAcessivel && window.AcreAcessivel.panel && window.AcreAcessivel.panel.isHoverActive) {
+            // @ts-ignore
+            window.AcreAcessivel.panel.reader.readElement(targetEl);
           }
         }
       });
