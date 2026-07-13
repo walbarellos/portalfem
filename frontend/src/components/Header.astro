@@ -16,13 +16,13 @@ function isActive(href: string): boolean {
 }
 ---
 
-<header id="main-header" class="bg-surface/80 backdrop-blur-md fixed top-0 w-full z-50 border-b border-outline-variant/30 transition-transform duration-300">
+<header id="main-header" class="bg-surface/80 backdrop-blur-md fixed top-8 w-full z-50 border-b border-outline-variant/30 transition-transform duration-300">
   <div class="flex items-center justify-between px-gutter py-4 max-w-container-max-width mx-auto">
     <a href="/" class="hover:opacity-80 transition-opacity">
       <img src="/assets/logos/fem-horizontal.png" alt="FEM - Fundação de Cultura Elias Mansour" class="h-10 w-auto object-contain" />
     </a>
 
-    <nav aria-label="Main navigation" class="hidden md:flex gap-8 items-center">
+    <nav id="main-nav" aria-label="Main navigation" class="hidden md:flex gap-8 items-center">
       {navItems.map((item) => (
         <a
           href={item.href}
@@ -40,7 +40,7 @@ function isActive(href: string): boolean {
 
 
     <div class="flex items-center gap-4">
-      <a href="/busca" aria-label="Buscar no portal" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
+      <a id="site-search" href="/busca" aria-label="Buscar no portal" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
         <span class="material-symbols-outlined" aria-hidden="true">search</span>
       </a>
       <button id="menu-toggle" aria-label="Abrir menu" aria-expanded="false" class="md:hidden text-on-surface-variant">

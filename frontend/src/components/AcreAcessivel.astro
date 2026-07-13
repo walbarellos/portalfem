@@ -2,16 +2,15 @@
 /**
  * Acre Acessível — Widget de Acessibilidade
  * 
- * Substitui o VLibras standalone e o AccessibilityBar por um widget unificado
- * com mascote Capi, leitor de voz, controles visuais e integração VLibras.
- * 
- * O script embedável (IIFE) roda em Shadow DOM — não conflita com os estilos do portal.
+ * Carrega o widget com mascote Capi, leitor de voz, controles visuais.
+ * VLibras é gerenciado separadamente pelo componente VLibras.astro
+ * para garantir visibilidade direta do botão de Libras na tela.
  */
 ---
 
 <script
   is:inline
   src="/assets/js/acre-acessivel.js"
-  data-acre-libras="true"
+  data-acre-libras="false"
   data-acre-auto="true"
 ></script>

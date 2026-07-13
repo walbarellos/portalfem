@@ -1,0 +1,181 @@
+---
+/**
+ * Barra de Acessibilidade — Padrão Gov.br
+ * 
+ * Barra fixa no topo da página com:
+ * - Links de salto (skip links) para navegação por teclado
+ * - Botão de mapa de atalhos (?)
+ * - Indicadores visuais de VLibras e Acre Acessível
+ * 
+ * Segue o padrão de acessibilidade do e-Gov e WCAG 2.1 AA.
+ */
+---
+
+<div id="barra-acessibilidade" class="bg-[#191d17] text-white text-xs h-8 flex items-center px-gutter fixed top-0 w-full z-[60] border-b border-white/10" role="navigation" aria-label="Atalhos de acessibilidade">
+  <div class="max-w-container-max-width mx-auto w-full flex items-center justify-between">
+    <!-- Skip Links -->
+    <nav aria-label="Links de salto" class="flex items-center gap-4">
+      <a href="#main-content" accesskey="1" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity">
+        Ir para o conteúdo <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+1</kbd>
+      </a>
+      <a href="#main-nav" accesskey="2" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden sm:inline">
+        Ir para o menu <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+2</kbd>
+      </a>
+      <a href="#site-search" accesskey="3" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden md:inline">
+        Ir para a busca <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+3</kbd>
+      </a>
+      <a href="#site-footer" accesskey="4" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden lg:inline">
+        Ir para o rodapé <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+4</kbd>
+      </a>
+    </nav>
+
+    <!-- Ações -->
+    <div class="flex items-center gap-3">
+      <button
+        id="btn-show-shortcuts"
+        type="button"
+        aria-label="Ver todos os atalhos de teclado"
+        title="Mapa de atalhos de teclado"
+        class="flex items-center gap-1 px-2 py-1 rounded hover:bg-white/15 transition-colors opacity-80 hover:opacity-100"
+      >
+        <span class="material-symbols-outlined text-sm" aria-hidden="true">keyboard</span>
+        <span class="hidden sm:inline">Atalhos</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Atalhos de Teclado -->
+<dialog id="shortcuts-dialog" class="fixed inset-0 z-[9999] m-auto w-[95vw] max-w-2xl max-h-[85vh] rounded-2xl border border-outline-variant/30 bg-surface text-on-surface shadow-2xl p-0 backdrop:bg-black/60" aria-label="Mapa de atalhos de teclado">
+  <div class="sticky top-0 bg-surface border-b border-outline-variant/20 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
+    <h2 class="font-display text-headline-md text-on-surface flex items-center gap-2">
+      <span class="material-symbols-outlined text-primary" aria-hidden="true">keyboard</span>
+      Atalhos de Teclado
+    </h2>
+    <button id="btn-close-shortcuts" type="button" aria-label="Fechar" class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center transition-colors">
+      <span class="material-symbols-outlined" aria-hidden="true">close</span>
+    </button>
+  </div>
+  <div class="px-6 py-5 overflow-y-auto max-h-[calc(85vh-72px)] space-y-6">
+
+    <!-- Navegação do Site -->
+    <section>
+      <h3 class="font-label-lg text-label-lg text-primary mb-3 uppercase tracking-wider text-xs flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm" aria-hidden="true">explore</span>
+        Navegação do Portal
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Ir para o conteúdo</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + 1</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Ir para o menu</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + 2</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Ir para a busca</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + 3</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Ir para o rodapé</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + 4</kbd>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leitor de Voz (Acre Acessível) -->
+    <section>
+      <h3 class="font-label-lg text-label-lg text-primary mb-3 uppercase tracking-wider text-xs flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm" aria-hidden="true">record_voice_over</span>
+        Leitor de Voz (Acre Acessível)
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Abrir painel de acessibilidade</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + A</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Ler / Pausar leitura</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + P</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Parar leitura</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + S</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Próximo trecho</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + N</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Trecho anterior</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + B</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Alternar alto contraste</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + C</kbd>
+        </div>
+      </div>
+    </section>
+
+    <!-- Navegação Geral -->
+    <section>
+      <h3 class="font-label-lg text-label-lg text-primary mb-3 uppercase tracking-wider text-xs flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm" aria-hidden="true">tab</span>
+        Navegação Geral
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Navegar entre elementos</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Tab</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Voltar para o anterior</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Shift + Tab</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Ativar link / botão</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Enter</kbd>
+        </div>
+        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
+          <span class="text-body-md text-on-surface">Mapa de atalhos</span>
+          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + /</kbd>
+        </div>
+      </div>
+    </section>
+
+    <p class="text-body-sm text-on-surface-variant text-center pt-2 border-t border-outline-variant/15">
+      No macOS, substitua <kbd class="px-1 py-0.5 rounded bg-surface-container text-[10px] font-mono">Alt</kbd> por <kbd class="px-1 py-0.5 rounded bg-surface-container text-[10px] font-mono">Ctrl + Option</kbd> no Firefox, ou <kbd class="px-1 py-0.5 rounded bg-surface-container text-[10px] font-mono">Ctrl + Alt</kbd> no Chrome/Edge.
+    </p>
+  </div>
+</dialog>
+
+<script>
+  document.addEventListener('astro:page-load', () => {
+    const dialog = document.getElementById('shortcuts-dialog') as HTMLDialogElement | null;
+    const btnOpen = document.getElementById('btn-show-shortcuts');
+    const btnClose = document.getElementById('btn-close-shortcuts');
+
+    if (!dialog) return;
+
+    btnOpen?.addEventListener('click', () => dialog.showModal());
+    btnClose?.addEventListener('click', () => dialog.close());
+
+    // Fechar ao clicar no backdrop
+    dialog.addEventListener('click', (e) => {
+      const rect = dialog.getBoundingClientRect();
+      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+        dialog.close();
+      }
+    });
+
+    // Alt + / para abrir o mapa de atalhos
+    window.addEventListener('keydown', (e) => {
+      if (e.altKey && (e.key === '/' || e.key === '?')) {
+        e.preventDefault();
+        if (dialog.open) dialog.close();
+        else dialog.showModal();
+      }
+    });
+  });
+</script>
