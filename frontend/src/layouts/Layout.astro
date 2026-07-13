@@ -2,7 +2,7 @@
 import '@fontsource-variable/space-grotesk';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import VLibras from '../components/VLibras.astro';
+import AcreAcessivel from '../components/AcreAcessivel.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import { validateEnvironment } from '../lib/env-validation';
 
@@ -187,7 +187,7 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
       <slot />
     </main>
     <Footer />
-    <VLibras />
+    <AcreAcessivel />
     <CookieConsent />
     <script>
       const observer = new IntersectionObserver((entries) => {

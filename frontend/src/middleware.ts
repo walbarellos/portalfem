@@ -21,6 +21,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
       "img-src 'self' data: https: blob:",
       "font-src 'self' https://fonts.gstatic.com https://vlibras.gov.br https://*.vlibras.gov.br https://cdn.jsdelivr.net data:",
       "connect-src 'self' https://femcultura.ac.gov.br https://vlibras.gov.br https://*.vlibras.gov.br https://cdn.jsdelivr.net",
+      "media-src 'self' blob: data:",
       "worker-src 'self' blob:",
       "frame-ancestors 'none'",
       "base-uri 'self'",

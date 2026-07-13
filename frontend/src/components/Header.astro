@@ -1,5 +1,5 @@
 ---
-import AccessibilityBar from './AccessibilityBar.astro';
+
 const currentPath = Astro.url.pathname;
 const navItems = [
   { href: '/institucional', label: 'A FEM' },
@@ -37,7 +37,7 @@ function isActive(href: string): boolean {
       ))}
     </nav>
 
-    <AccessibilityBar />
+
 
     <div class="flex items-center gap-4">
       <a href="/busca" aria-label="Buscar no portal" class="text-on-surface-variant hover:text-primary transition-all hover:scale-[1.05]">
