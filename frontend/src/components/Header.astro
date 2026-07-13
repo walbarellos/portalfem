@@ -22,7 +22,7 @@ function isActive(href: string): boolean {
       <img src="/assets/logos/fem-horizontal.png" alt="FEM - Fundação de Cultura Elias Mansour" class="h-10 w-auto object-contain" />
     </a>
 
-    <nav id="main-nav" aria-label="Main navigation" class="hidden md:flex gap-8 items-center">
+    <nav id="main-nav" tabindex="-1" aria-label="Main navigation" class="hidden md:flex gap-8 items-center focus:outline-none">
       {navItems.map((item) => (
         <a
           href={item.href}

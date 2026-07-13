@@ -186,7 +186,7 @@ const ogImage = image || `${siteUrl}/og-default.jpg`;
       Pular para o conteudo principal
     </a>
     <Header />
-    <main id="main-content" class="flex-grow pt-[108px]">
+    <main id="main-content" tabindex="-1" class="flex-grow pt-[108px] focus:outline-none">
       <slot />
     </main>
     <Footer />

@@ -152,30 +152,58 @@
 
 <script>
   document.addEventListener('astro:page-load', () => {
+    // --- Lógica do Mapa de Atalhos ---
     const dialog = document.getElementById('shortcuts-dialog') as HTMLDialogElement | null;
     const btnOpen = document.getElementById('btn-show-shortcuts');
     const btnClose = document.getElementById('btn-close-shortcuts');
 
-    if (!dialog) return;
+    if (dialog) {
+      btnOpen?.addEventListener('click', () => dialog.showModal());
+      btnClose?.addEventListener('click', () => dialog.close());
 
-    btnOpen?.addEventListener('click', () => dialog.showModal());
-    btnClose?.addEventListener('click', () => dialog.close());
+      // Fechar ao clicar no backdrop
+      dialog.addEventListener('click', (e) => {
+        const rect = dialog.getBoundingClientRect();
+        if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
+          dialog.close();
+        }
+      });
 
-    // Fechar ao clicar no backdrop
-    dialog.addEventListener('click', (e) => {
-      const rect = dialog.getBoundingClientRect();
-      if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
-        dialog.close();
-      }
-    });
+      // Alt + / para abrir o mapa de atalhos
+      window.addEventListener('keydown', (e) => {
+        if (e.altKey && (e.key === '/' || e.key === '?')) {
+          e.preventDefault();
+          if (dialog.open) dialog.close();
+          else dialog.showModal();
+        }
+      });
+    }
 
-    // Alt + / para abrir o mapa de atalhos
-    window.addEventListener('keydown', (e) => {
-      if (e.altKey && (e.key === '/' || e.key === '?')) {
-        e.preventDefault();
-        if (dialog.open) dialog.close();
-        else dialog.showModal();
-      }
+    // --- Lógica dos Skip Links (Links de salto) ---
+    // Garante que o foco seja movido programaticamente para os alvos,
+    // essencial para leitores de tela e navegação por teclado.
+    const skipLinks = document.querySelectorAll('nav[aria-label="Links de salto"] a');
+    skipLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        const targetId = link.getAttribute('href')?.substring(1);
+        if (!targetId) return;
+        
+        const targetEl = document.getElementById(targetId);
+        if (targetEl) {
+          e.preventDefault();
+          // Remove a âncora visual da URL para evitar salto brusco repetido,
+          // mas move o foco para o elemento.
+          targetEl.focus();
+          
+          // Se não for um elemento fixo (como o header/nav/search), rola a página suavemente
+          const isFixed = window.getComputedStyle(targetEl).position === 'fixed' || 
+                          window.getComputedStyle(targetEl.parentElement || targetEl).position === 'fixed';
+          
+          if (!isFixed) {
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
     });
   });
 </script>
