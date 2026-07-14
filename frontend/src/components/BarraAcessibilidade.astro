@@ -224,38 +224,40 @@
               e.preventDefault();
               const selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
               
-              // Determinar o escopo de navegação: se o foco está no body/html/main
-              // (ou seja, o usuário acabou de chegar na página ou usou um skip link),
-              // navegamos apenas dentro do <main> para evitar repetir o header.
+              // Sempre navega o documento inteiro — o cego pode ir para qualquer lugar.
+              // A diferença é o PONTO DE PARTIDA: quando o foco está no body/html/main
+              // (página acabou de carregar com smart focus), começamos do primeiro
+              // elemento dentro do <main> ao invés do topo.
               const mainContent = document.getElementById('main-content');
-              const isInHeader = active && (
-                active.closest('#barra-acessibilidade') ||
-                active.closest('#main-header') ||
-                active.closest('acre-accessibility-panel') ||
-                active.closest('capi-mascot')
-              );
               const isOnBody = !active || active === document.body || active === document.documentElement || active === mainContent;
               
-              // Se está no body/main ou dentro do main, escopo = main. Se está no header, escopo = tudo.
-              const scope = (isOnBody || (active && mainContent?.contains(active) && !isInHeader)) ? mainContent || document : document;
-              
-              const focusable = Array.from(scope.querySelectorAll(selector))
+              const focusable = Array.from(document.querySelectorAll(selector))
                 .map(el => el as HTMLElement)
                 .filter(el => {
-                  // Excluir elementos do widget de acessibilidade e da barra
                   if (el.closest('acre-accessibility-panel') || el.closest('capi-mascot')) return false;
-                  // Só incluir elementos visíveis
                   return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
                 });
 
               if (focusable.length > 0) {
-                let currentIndex = isOnBody ? -1 : focusable.indexOf(active);
-                if (key === 'j') {
-                  // Avançar
-                  currentIndex = currentIndex >= 0 ? (currentIndex + 1) % focusable.length : 0;
-                } else if (key === 'f') {
-                  // Voltar
-                  currentIndex = currentIndex > 0 ? currentIndex - 1 : focusable.length - 1;
+                let currentIndex: number;
+                
+                if (isOnBody && mainContent) {
+                  // Ponto de partida inteligente: encontra o primeiro elemento focável dentro do <main>
+                  const firstInMain = focusable.findIndex(el => mainContent.contains(el));
+                  if (key === 'j') {
+                    currentIndex = firstInMain >= 0 ? firstInMain : 0;
+                  } else {
+                    // F (voltar): começa do último elemento antes do main (header)
+                    currentIndex = firstInMain > 0 ? firstInMain - 1 : focusable.length - 1;
+                  }
+                } else {
+                  // Navegação normal a partir do elemento atual
+                  currentIndex = focusable.indexOf(active);
+                  if (key === 'j') {
+                    currentIndex = currentIndex >= 0 ? (currentIndex + 1) % focusable.length : 0;
+                  } else {
+                    currentIndex = currentIndex > 0 ? currentIndex - 1 : focusable.length - 1;
+                  }
                 }
                 
                 const target = focusable[currentIndex];
