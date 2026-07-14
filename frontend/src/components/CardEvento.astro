@@ -1,6 +1,7 @@
 ---
 import type { Evento } from '../schemas/directus';
 import { safeFormatDate } from '../lib/date-utils';
+import { stripHtml } from '../lib/string-utils';
 
 export interface Props {
   evento: Evento;
@@ -57,7 +58,7 @@ const searchText = [evento.titulo, evento.descricao || '', evento.local || '', c
         </div>
         <h3 class="font-headline-md text-headline-md text-on-surface mb-2 group-hover:text-primary transition-colors">{evento.titulo}</h3>
         {evento.descricao && (
-          <p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">{evento.descricao}</p>
+          <p class="font-body-md text-body-md text-on-surface-variant mb-4 line-clamp-2">{stripHtml(evento.descricao)}</p>
         )}
       </div>
       <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mt-4 pt-4 border-t border-outline-variant/20">

@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { obterUltimasNoticias, obterServicos, obterEditaisAbertos, obterTodasNoticias, obterTodosEventos, obterTodosEditais, obterCategoriasEditais, obterResultadosRecentes } from '../lib/directus';
 import { safeFormatDate } from '../lib/date-utils';
+import { stripHtml } from '../lib/string-utils';
 
 const servicos = await obterServicos();
 const editaisAbertos = await obterEditaisAbertos();
@@ -63,7 +64,7 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
             </p>
             <h1 class="font-display text-headline-xl md:text-display-md text-white leading-tight">{featuredNews.titulo}</h1>
             {featuredNews.resumo && (
-              <p class="font-sans text-body-md md:text-body-lg text-white/80 max-w-2xl mt-2 mb-6">{featuredNews.resumo}</p>
+              <p class="font-sans text-body-md md:text-body-lg text-white/80 max-w-2xl mt-2 mb-6">{stripHtml(featuredNews.resumo)}</p>
             )}
             <a href={`/noticias/${featuredNews.id}`}
               class="inline-flex items-center justify-center gap-2 bg-primary hover:bg-primary-container text-on-primary font-sans text-label-md px-8 py-4 rounded-xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg">
@@ -319,7 +320,7 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
                 </time>
                 <h3 class="font-display text-headline-md text-on-background group-hover:text-primary transition-colors mb-3">{featuredNews.titulo}</h3>
                 {featuredNews.resumo && (
-                  <p class="font-sans text-body-md text-on-surface-variant line-clamp-2">{featuredNews.resumo}</p>
+                  <p class="font-sans text-body-md text-on-surface-variant line-clamp-2">{stripHtml(featuredNews.resumo)}</p>
                 )}
               </a>
             </article>

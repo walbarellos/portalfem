@@ -1,6 +1,7 @@
 ---
 import type { Noticia } from '../schemas/directus';
 import { safeFormatDate } from '../lib/date-utils';
+import { stripHtml } from '../lib/string-utils';
 
 export interface Props {
   noticia: Noticia;
@@ -54,7 +55,7 @@ const categoriaLabel = noticia.categoria ? (categoriaLabels[noticia.categoria] |
       </time>
       <h3 class="font-display text-headline-md text-on-surface group-hover:text-primary transition-colors line-clamp-2 mb-2">{noticia.titulo}</h3>
       {noticia.resumo && (
-        <p class="font-sans text-body-md text-on-surface-variant line-clamp-3 mb-4">{noticia.resumo}</p>
+        <p class="font-sans text-body-md text-on-surface-variant line-clamp-3 mb-4">{stripHtml(noticia.resumo)}</p>
       )}
       <span class="inline-flex items-center gap-1 text-primary font-label-md text-label-md group-hover:gap-2 transition-all">
         Leia mais
