@@ -732,12 +732,16 @@ export class AcreAccessibilityPanel extends HTMLElement {
             target.closest('acre-accessibility-panel') ||
             target.closest('capi-mascot') ||
             target.closest('.audio-player-wrapper') ||
-            target.closest('audio')
+            target.closest('audio') ||
+            target.closest('[vw]') ||
+            target.closest('#vlibras-div')
           ) return;
 
           const selector = 'h1,h2,h3,h4,h5,h6,p,li,blockquote,article span,label,figcaption,a,button,img[alt],[role="button"]';
           const readable = target.closest(selector) as HTMLElement;
-          if (readable) this.reader.readSpecificElement(readable, false);
+          if (readable) {
+            this.reader.readSpecificElement(readable, false);
+          }
         });
 
           // Seleção de texto — bloqueada durante leitura sequencial
@@ -770,7 +774,9 @@ export class AcreAccessibilityPanel extends HTMLElement {
               target.closest('acre-accessibility-panel') ||
               target.closest('capi-mascot') ||
               target.closest('.audio-player-wrapper') ||
-              target.closest('audio')
+              target.closest('audio') ||
+              target.closest('[vw]') ||
+              target.closest('#vlibras-div')
             ) return;
             const selector = 'h1,h2,h3,h4,h5,h6,p,li,blockquote,article span,label,figcaption,a,button,img[alt],[role="button"]';
             const readable = target.closest(selector) as HTMLElement;
@@ -979,10 +985,11 @@ export class AcreAccessibilityPanel extends HTMLElement {
     btnLibras?.setAttribute('aria-pressed', String(this.isLibrasActive));
 
     if (this.isLibrasActive) {
-      if (!document.getElementById('vlibras-div')) this.injectVLibras();
-      else document.getElementById('vlibras-div')!.style.display = 'block';
+      const vd = document.querySelector('[vw]') as HTMLElement;
+      if (!vd) this.injectVLibras();
+      else vd.style.display = 'block';
     } else {
-      const vd = document.getElementById('vlibras-div');
+      const vd = document.querySelector('[vw]') as HTMLElement;
       if (vd) vd.style.display = 'none';
     }
   }
@@ -1049,7 +1056,7 @@ export class AcreAccessibilityPanel extends HTMLElement {
   }
 
   private injectVLibras() {
-    if (document.getElementById('vlibras-div')) return;
+    if (document.querySelector('[vw]')) return;
     const div = document.createElement('div');
     div.id = 'vlibras-div';
     div.setAttribute('vw', '');
