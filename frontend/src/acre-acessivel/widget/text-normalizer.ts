@@ -31,7 +31,7 @@ export interface VoiceProfile {
 // quando o motor tentaria ler como palavra (ex: "IFAC" virando "ifáqui")
 const KNOWN_ACRONYMS: Record<string, string> = {
   'IFAC': 'I F A C',
-  'FEM': 'F E M',
+  'FEM': 'FÊM',
   'CPF': 'C P F',
   'CNPJ': 'C N P J',
   'CEP': 'C E P',

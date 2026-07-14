@@ -1,4 +1,7 @@
 ---
+import type { Edital } from '../schemas/directus';
+import { safeFormatDate } from '../lib/date-utils';
+
 export interface Props {
   edital: any;
 }
@@ -42,7 +45,7 @@ const searchText = [edital.titulo, edital.numero, edital.resumo || '', catNome |
       <div class="flex flex-wrap items-center gap-6 mt-2 text-on-surface-variant font-label-md text-label-md">
         <div class="flex items-center gap-2">
           <span class="material-symbols-outlined text-xl" aria-hidden="true">calendar_today</span>
-          <span>Inscrições: {new Date(edital.data_abertura).toLocaleDateString('pt-BR')} a {new Date(edital.data_encerramento).toLocaleDateString('pt-BR')}</span>
+          <span>Inscrições: {safeFormatDate(edital.data_abertura)} a {safeFormatDate(edital.data_encerramento)}</span>
         </div>
       </div>
     )}
