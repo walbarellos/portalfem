@@ -547,12 +547,14 @@ export class AcreAccessibilityPanel extends HTMLElement {
     <!-- Rodapé atalhos -->
     <div class="panel-footer">
     <div class="shortcut-item"><span>Ativar / Desativar Painel</span><span class="shortcut-key">Alt + A</span></div>
+    <div class="shortcut-item"><span>Ir para o conteúdo principal</span><span class="shortcut-key">Alt + J</span></div>
+    <div class="shortcut-item"><span>Ir para o menu principal</span><span class="shortcut-key">Alt + G</span></div>
+    <div class="shortcut-item"><span>Navegar nos itens da página</span><span class="shortcut-key">J / F</span></div>
     <div class="shortcut-item"><span>Play / Pause na Leitura</span><span class="shortcut-key">Alt + P</span></div>
     <div class="shortcut-item"><span>Parar Leitura</span><span class="shortcut-key">Alt + S</span></div>
     <div class="shortcut-item"><span>Próximo elemento</span><span class="shortcut-key">Alt + N</span></div>
     <div class="shortcut-item"><span>Elemento anterior</span><span class="shortcut-key">Alt + B</span></div>
     <div class="shortcut-item"><span>Alto contraste</span><span class="shortcut-key">Alt + C</span></div>
-    <div class="shortcut-item"><span>Navegar abas</span><span class="shortcut-key">← →</span></div>
     <div class="shortcut-item"><span>Fechar painel</span><span class="shortcut-key">Esc</span></div>
     </div>
     </div><!-- /panel-drawer -->
@@ -568,11 +570,18 @@ export class AcreAccessibilityPanel extends HTMLElement {
 
     const togglePanel = () => {
       this.isOpen = !this.isOpen;
+      const mascotTrigger = shadow.getElementById('mascotTrigger');
+      const altTriggerContainer = shadow.getElementById('altTriggerContainer');
+
       if (this.isOpen) {
         drawer.classList.add('open');
         drawer.setAttribute('aria-hidden', 'false');
         this.reader.stop();
         capiBubble.classList.remove('visible');
+        
+        if (mascotTrigger) mascotTrigger.classList.add('hidden');
+        if (altTriggerContainer) altTriggerContainer.classList.add('hidden');
+
         const altBtn = shadow.getElementById('altTriggerBtn');
         if (altBtn) altBtn.setAttribute('aria-expanded', 'true');
         setTimeout(() => {
@@ -584,6 +593,13 @@ export class AcreAccessibilityPanel extends HTMLElement {
       } else {
         drawer.classList.remove('open');
         drawer.setAttribute('aria-hidden', 'true');
+        
+        if (this.showMascot) {
+          if (mascotTrigger) mascotTrigger.classList.remove('hidden');
+        } else {
+          if (altTriggerContainer) altTriggerContainer.classList.remove('hidden');
+        }
+
         const altBtn = shadow.getElementById('altTriggerBtn');
         if (altBtn) altBtn.setAttribute('aria-expanded', 'false');
       }

@@ -3,6 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CardEvento from '../../components/CardEvento.astro';
 import { directus, safeRequest, readItem, readItems, obterTodosEventos } from '../../lib/directus';
+import { safeFormatDate } from '../../lib/date-utils';
+import { stripHtml } from '../../lib/string-utils';
 
 export async function getStaticPaths() {
   const eventos = await obterTodosEventos();
@@ -25,11 +27,11 @@ if (!evento) return Astro.redirect('/404');
 const dataInicio = new Date(evento.data_inicio);
 const dataFim = evento.data_fim ? new Date(evento.data_fim) : null;
 
-const dataInicioStr = dataInicio.toLocaleDateString('pt-BR', {
+const dataInicioStr = safeFormatDate(dataInicio, {
   day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
 });
 const dataFimStr = dataFim
-  ? dataFim.toLocaleDateString('pt-BR', {
+  ? safeFormatDate(dataFim, {
     day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit',
   })
   : null;
@@ -48,7 +50,7 @@ function googleCalendarUrl() {
     action: 'TEMPLATE',
     text: evento.titulo,
     dates: `${start}/${end}`,
-    details: evento.descricao?.replace(/<[^>]*>/g, '') || '',
+    details: stripHtml(evento.descricao),
     location: evento.local || '',
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
@@ -65,7 +67,7 @@ const outrosEventos = await safeRequest(
 );
 ---
 
-<Layout title={evento.titulo} description={evento.descricao?.slice(0, 160)} image={imgCapa || undefined}>
+<Layout title={evento.titulo} description={stripHtml(evento.descricao)?.slice(0, 160)} image={imgCapa || undefined}>
   <div class="max-w-container-max-width mx-auto px-gutter py-8">
     <Breadcrumbs items={[
       { label: 'Eventos', href: '/eventos' },
