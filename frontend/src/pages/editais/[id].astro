@@ -3,6 +3,7 @@ export const prerender = false;
 
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import { safeFormatDate } from '../../lib/date-utils';
 import { directus, safeRequest, readItem, readItems } from '../../lib/directus';
 
 const { id } = Astro.params;
@@ -39,8 +40,8 @@ function statusConfig(label: string) {
 const sc = statusConfig(edital.status_label);
 const categoria = edital.categoria && typeof edital.categoria === 'object' ? edital.categoria : null;
 
-const abertasEm = edital.data_abertura ? new Date(edital.data_abertura).toLocaleDateString('pt-BR') : '';
-const encerraEm = edital.data_encerramento ? new Date(edital.data_encerramento).toLocaleDateString('pt-BR') : '';
+const abertasEm = safeFormatDate(edital.data_abertura);
+const encerraEm = safeFormatDate(edital.data_encerramento);
 
 function formatDateRange(start: string, end: string) {
   const s = new Date(start);
@@ -133,7 +134,7 @@ function formatDateRange(start: string, end: string) {
             <div class="flex flex-col gap-4">
               {resultados.map((res: any) => {
                 const dataPub = res.data_publicacao 
-                  ? new Date(res.data_publicacao).toLocaleDateString('pt-BR') 
+                  ? safeFormatDate(res.data_publicacao) 
                   : '';
                 return (
                   <div class="p-5 bg-surface-container-lowest border border-outline-variant/30 rounded-xl hover:border-primary/30 transition-colors flex flex-col md:flex-row md:items-center justify-between gap-4">

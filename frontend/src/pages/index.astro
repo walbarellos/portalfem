@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { obterUltimasNoticias, obterServicos, obterEditaisAbertos, obterTodasNoticias, obterTodosEventos, obterTodosEditais, obterCategoriasEditais, obterResultadosRecentes } from '../lib/directus';
+import { safeFormatDate } from '../lib/date-utils';
 
 const servicos = await obterServicos();
 const editaisAbertos = await obterEditaisAbertos();
@@ -58,7 +59,7 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
               Notícia em Destaque
             </span>
             <p class="font-sans text-body-sm text-white/70">
-              {new Date(featuredNews.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
+              {safeFormatDate(featuredNews.data_publicacao, { day: 'numeric', month: 'long', year: 'numeric' })}
             </p>
             <h1 class="font-display text-headline-xl md:text-display-md text-white leading-tight">{featuredNews.titulo}</h1>
             {featuredNews.resumo && (
@@ -211,7 +212,7 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {editaisAbertos.slice(0, 3).map((edital) => {
             const catObj = typeof edital.categoria === 'object' && edital.categoria ? edital.categoria as { nome: string } : null;
-            const dataEncerra = new Date(edital.data_encerramento).toLocaleDateString('pt-BR');
+            const dataEncerra = safeFormatDate(edital.data_encerramento);
             const diasRestantes = Math.ceil((new Date(edital.data_encerramento).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
             return (
               <a href={`/editais/${edital.id}`}
@@ -267,7 +268,7 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
                   {editalRel && <p class="font-body-sm text-body-sm text-on-surface-variant truncate">{editalRel.titulo}</p>}
                   {res.data_publicacao && (
                     <p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">
-                      {new Date(res.data_publicacao).toLocaleDateString('pt-BR')}
+                      {safeFormatDate(res.data_publicacao)}
                     </p>
                   )}
                 </div>
@@ -314,7 +315,7 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
                   )}
                 </div>
                 <time class="font-sans text-[14px] text-on-surface-variant mb-2 block">
-                  {new Date(featuredNews.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' }).replace('.', '')}
+                  {safeFormatDate(featuredNews.data_publicacao, { day: 'numeric', month: 'short', year: 'numeric' }).replace('.', '')}
                 </time>
                 <h3 class="font-display text-headline-md text-on-background group-hover:text-primary transition-colors mb-3">{featuredNews.titulo}</h3>
                 {featuredNews.resumo && (
@@ -327,7 +328,7 @@ const programasHistoricos = programasFomento.filter(p => isHistorico(p.nome));
           {sideNews.length > 0 && (
             <div class="md:col-span-5 flex flex-col gap-8">
               {sideNews.map((noticia) => {
-                const sideDate = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', { day: 'numeric', month: 'short', year: 'numeric' }).replace('.', '');
+                const sideDate = safeFormatDate(noticia.data_publicacao, { day: 'numeric', month: 'short', year: 'numeric' }).replace('.', '');
                 return (
                   <article class="group cursor-pointer flex gap-4 items-center md:items-start border-b border-outline-variant/20 pb-6 last:border-b-0 last:pb-0">
                     <a href={`/noticias/${noticia.id}`} class="flex gap-4 w-full">

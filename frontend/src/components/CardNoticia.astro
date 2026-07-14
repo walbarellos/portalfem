@@ -1,5 +1,6 @@
 ---
 import type { Noticia } from '../schemas/directus';
+import { safeFormatDate } from '../lib/date-utils';
 
 export interface Props {
   noticia: Noticia;
@@ -10,7 +11,7 @@ const imgSrc = noticia.imagem_destaque
   ? `/api/file/${noticia.imagem_destaque}`
   : null;
 
-const dateFormatted = new Date(noticia.data_publicacao).toLocaleDateString('pt-BR', {
+const dateFormatted = safeFormatDate(noticia.data_publicacao, {
   day: 'numeric',
   month: 'short',
   year: 'numeric',

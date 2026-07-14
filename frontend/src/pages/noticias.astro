@@ -7,6 +7,7 @@ import CardNoticia from '../components/CardNoticia.astro';
 
 import Pagination from '../components/Pagination.astro';
 import { safeRequest, directus, readItems } from '../lib/directus';
+import { safeFormatDate } from '../lib/date-utils';
 
 const pageSize = 9;
 const currentPage = Math.max(1, Number(Astro.url.searchParams.get('page')) || 1);
@@ -76,7 +77,7 @@ const categorias: { value: string; label: string }[] = [
 ];
 
 const featuredDate = featured
-  ? new Date(featured.data_publicacao).toLocaleDateString('pt-BR', {
+  ? safeFormatDate(featured.data_publicacao, {
       day: 'numeric',
       month: 'long',
       year: 'numeric',

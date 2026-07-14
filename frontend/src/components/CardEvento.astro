@@ -1,5 +1,6 @@
 ---
 import type { Evento } from '../schemas/directus';
+import { safeFormatDate } from '../lib/date-utils';
 
 export interface Props {
   evento: Evento;
@@ -8,7 +9,7 @@ export interface Props {
 const { evento } = Astro.props;
 const dataInicio = new Date(evento.data_inicio);
 const dia = dataInicio.getDate();
-const mes = dataInicio.toLocaleDateString('pt-BR', { month: 'short' }).replace('.', '');
+const mes = safeFormatDate(dataInicio, { month: 'short' }).replace('.', '');
 const hoje = new Date(); hoje.setHours(0, 0, 0, 0);
 const inicioData = new Date(dataInicio); inicioData.setHours(0, 0, 0, 0);
 const isPast = inicioData < hoje;
