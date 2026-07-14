@@ -3,7 +3,7 @@ import './capi-mascot';
 
 export class AcreAccessibilityPanel extends HTMLElement {
   private shadow: ShadowRoot;
-  private reader: VoiceReader;
+  public reader: VoiceReader;
   private isOpen: boolean = false;
 
   private fontScale: number = 1.0;
@@ -35,19 +35,52 @@ export class AcreAccessibilityPanel extends HTMLElement {
     this.loadSettings();
     this.applySettingsToPage();
 
-    // Feedback auditivo de boas-vindas após o browser permitir autoplay
-    // (requer interação do usuário — dispara no primeiro evento de input)
-    const welcomeHandler = () => {
-      document.removeEventListener('click', welcomeHandler, true);
-      document.removeEventListener('keydown', welcomeHandler, true);
-      setTimeout(() => {
-        this.reader.readTextDirectly(
-          'Acre Acessível pronto. Pressione Alt P para ouvir a página, ou Alt A para abrir o menu.'
-        );
-      }, 400);
-    };
-    document.addEventListener('click', welcomeHandler, true);
-    document.addEventListener('keydown', welcomeHandler, true);
+    // Detectar se é a primeira interação da sessão ou uma navegação subsequente
+    const hasInteracted = sessionStorage.getItem('acre_user_interacted');
+
+    if (!hasInteracted) {
+      // Primeira visita na sessão: mostra boas-vindas no primeiro input do usuário
+      const welcomeHandler = () => {
+        document.removeEventListener('click', welcomeHandler, true);
+        document.removeEventListener('keydown', welcomeHandler, true);
+        sessionStorage.setItem('acre_user_interacted', '1');
+        setTimeout(() => {
+          this.reader.readTextDirectly(
+            'Acre Acessível pronto. Pressione Alt P para ouvir a página, ou Alt A para abrir o menu.'
+          );
+        }, 400);
+      };
+      document.addEventListener('click', welcomeHandler, true);
+      document.addEventListener('keydown', welcomeHandler, true);
+    } else {
+      // Navegação subsequente: foco inteligente direto no conteúdo
+      this.smartPageFocus();
+    }
+  }
+
+  /**
+   * Foco inteligente ao carregar uma página subsequente.
+   * Move o foco direto para o <main> e anuncia o título da página,
+   * para que o cego não precise percorrer o header inteiro de novo.
+   */
+  private smartPageFocus() {
+    // Pequeno delay para garantir que o DOM está renderizado
+    setTimeout(() => {
+      const main = document.getElementById('main-content');
+      if (!main) return;
+
+      // Move o foco para o conteúdo principal
+      main.focus();
+
+      // Monta o anúncio contextual
+      const pageTitle = document.querySelector('h1')?.textContent?.trim()
+        || document.title.split('|')[0]?.trim()
+        || 'página';
+
+      this.reader.readTextDirectly(
+        `Página ${pageTitle}. Use J para navegar o conteúdo, F para voltar, Alt G para o menu.`
+      );
+    }, 300);
   }
 
   /** Seta o estado do mascote com segurança, aguardando o custom element estar pronto */

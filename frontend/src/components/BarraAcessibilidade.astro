@@ -223,27 +223,50 @@
             if (!isInput) {
               e.preventDefault();
               const selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-              const focusable = Array.from(document.querySelectorAll(selector))
+              
+              // Determinar o escopo de navegação: se o foco está no body/html/main
+              // (ou seja, o usuário acabou de chegar na página ou usou um skip link),
+              // navegamos apenas dentro do <main> para evitar repetir o header.
+              const mainContent = document.getElementById('main-content');
+              const isInHeader = active && (
+                active.closest('#barra-acessibilidade') ||
+                active.closest('#main-header') ||
+                active.closest('acre-accessibility-panel') ||
+                active.closest('capi-mascot')
+              );
+              const isOnBody = !active || active === document.body || active === document.documentElement || active === mainContent;
+              
+              // Se está no body/main ou dentro do main, escopo = main. Se está no header, escopo = tudo.
+              const scope = (isOnBody || (active && mainContent?.contains(active) && !isInHeader)) ? mainContent || document : document;
+              
+              const focusable = Array.from(scope.querySelectorAll(selector))
                 .map(el => el as HTMLElement)
-                .filter(el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length));
+                .filter(el => {
+                  // Excluir elementos do widget de acessibilidade e da barra
+                  if (el.closest('acre-accessibility-panel') || el.closest('capi-mascot')) return false;
+                  // Só incluir elementos visíveis
+                  return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+                });
 
               if (focusable.length > 0) {
-                let currentIndex = focusable.indexOf(active);
+                let currentIndex = isOnBody ? -1 : focusable.indexOf(active);
                 if (key === 'j') {
-                  // Avançar (simular Tab)
+                  // Avançar
                   currentIndex = currentIndex >= 0 ? (currentIndex + 1) % focusable.length : 0;
                 } else if (key === 'f') {
-                  // Voltar (simular Shift+Tab)
+                  // Voltar
                   currentIndex = currentIndex > 0 ? currentIndex - 1 : focusable.length - 1;
                 }
                 
                 const target = focusable[currentIndex];
                 target.focus();
+                target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 
+                // Lê o elemento para o cego saber onde está
                 // @ts-ignore
-                if (window.AcreAcessivel && window.AcreAcessivel.panel && window.AcreAcessivel.panel.isHoverActive) {
+                if (window.AcreAcessivel && window.AcreAcessivel.panel) {
                   // @ts-ignore
-                  window.AcreAcessivel.panel.reader.readElement(target);
+                  window.AcreAcessivel.panel.reader.readSpecificElement(target, false);
                 }
               }
             }

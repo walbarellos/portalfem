@@ -12,6 +12,11 @@ export interface AcreAcessivelConfig {
 class AcreAcessivelInitializer {
   private panelInstance: HTMLElement | null = null;
 
+  /** Referência pública ao painel para integração com scripts externos (BarraAcessibilidade, etc.) */
+  public get panel(): any {
+    return this.panelInstance;
+  }
+
   public init(config: AcreAcessivelConfig = {}) {
     // Garante que o inicializador rode no navegador
     if (typeof window === 'undefined') return;
