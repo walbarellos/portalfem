@@ -87,6 +87,16 @@ services:
     networks:
       - fem-network
 
+  tts:
+    build:
+      context: ../tts-backend
+    container_name: fem-tts
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    networks:
+      - fem-network
+
 networks:
   fem-network:
     driver: bridge

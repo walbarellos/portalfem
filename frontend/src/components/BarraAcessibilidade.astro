@@ -1,315 +1,137 @@
 ---
 /**
- * Barra de Acessibilidade — Padrão Gov.br
+ * Links de Salto e Atalhos Globais de Acessibilidade
  * 
- * Barra fixa no topo da página com:
- * - Links de salto (skip links) para navegação por teclado
- * - Botão de mapa de atalhos (?)
- * - Indicadores visuais de VLibras e Acre Acessível
- * 
- * Segue o padrão de acessibilidade do e-Gov e WCAG 2.1 AA.
+ * Este componente injeta links ocultos no topo da página (padrão WCAG)
+ * para pular diretamente para o conteúdo principal, menu ou rodapé,
+ * além de abrigar o script global de navegação por teclado (F e J).
  */
 ---
 
-<div id="barra-acessibilidade" class="bg-[#191d17] text-white text-xs h-8 flex items-center px-gutter fixed top-0 w-full z-[60] border-b border-white/10" role="navigation" aria-label="Atalhos de acessibilidade">
-  <div class="max-w-container-max-width mx-auto w-full flex items-center justify-between">
-    <!-- Skip Links -->
-    <nav aria-label="Links de salto" class="flex items-center gap-4">
-      <a href="#main-content" accesskey="j" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity">
-        Ir para o conteúdo <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+J</kbd>
-      </a>
-      <a href="#main-nav" accesskey="g" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden sm:inline">
-        Ir para o menu <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+G</kbd>
-      </a>
-      <a href="#site-search" accesskey="h" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden md:inline">
-        Ir para a busca <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+H</kbd>
-      </a>
-      <a href="#site-footer" accesskey="k" class="hover:underline focus:underline focus:outline-none opacity-80 hover:opacity-100 transition-opacity hidden lg:inline">
-        Ir para o rodapé <kbd class="ml-1 px-1 py-0.5 rounded bg-white/15 text-[10px] font-mono">Alt+K</kbd>
-      </a>
-    </nav>
-
-    <!-- Ações -->
-    <div class="flex items-center gap-3">
-      <button
-        id="btn-show-shortcuts"
-        type="button"
-        aria-label="Ver todos os atalhos de teclado"
-        title="Mapa de atalhos de teclado"
-        class="flex items-center gap-1 px-2 py-1 rounded hover:bg-white/15 transition-colors opacity-80 hover:opacity-100"
-      >
-        <span class="material-symbols-outlined text-sm" aria-hidden="true">keyboard</span>
-        <span class="hidden sm:inline">Atalhos</span>
-      </button>
-    </div>
+<nav aria-label="Links de salto" class="sr-only focus-within:not-sr-only focus-within:absolute focus-within:z-[9999] focus-within:bg-primary focus-within:text-white focus-within:p-4 focus-within:shadow-lg focus-within:rounded-br-lg">
+  <div class="flex flex-col gap-2">
+    <a href="#main-content" accesskey="j" class="hover:underline focus:underline focus:outline-none">
+      Ir para o conteúdo principal <kbd class="ml-1 px-1 py-0.5 rounded bg-white/20 text-[10px] font-mono">Alt+J</kbd>
+    </a>
+    <a href="#main-nav" accesskey="g" class="hover:underline focus:underline focus:outline-none">
+      Ir para o menu <kbd class="ml-1 px-1 py-0.5 rounded bg-white/20 text-[10px] font-mono">Alt+G</kbd>
+    </a>
+    <a href="#site-search" accesskey="h" class="hover:underline focus:underline focus:outline-none">
+      Ir para a busca <kbd class="ml-1 px-1 py-0.5 rounded bg-white/20 text-[10px] font-mono">Alt+H</kbd>
+    </a>
+    <a href="#site-footer" accesskey="k" class="hover:underline focus:underline focus:outline-none">
+      Ir para o rodapé <kbd class="ml-1 px-1 py-0.5 rounded bg-white/20 text-[10px] font-mono">Alt+K</kbd>
+    </a>
   </div>
-</div>
-
-<!-- Modal de Atalhos de Teclado -->
-<dialog id="shortcuts-dialog" class="fixed inset-0 z-[9999] m-auto w-[95vw] max-w-2xl max-h-[85vh] rounded-2xl border border-outline-variant/30 bg-surface text-on-surface shadow-2xl p-0 backdrop:bg-black/60" aria-label="Mapa de atalhos de teclado">
-  <div class="sticky top-0 bg-surface border-b border-outline-variant/20 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
-    <h2 class="font-display text-headline-md text-on-surface flex items-center gap-2">
-      <span class="material-symbols-outlined text-primary" aria-hidden="true">keyboard</span>
-      Atalhos de Teclado
-    </h2>
-    <button id="btn-close-shortcuts" type="button" aria-label="Fechar" class="w-10 h-10 rounded-full hover:bg-surface-container-high flex items-center justify-center transition-colors">
-      <span class="material-symbols-outlined" aria-hidden="true">close</span>
-    </button>
-  </div>
-  <div class="px-6 py-5 overflow-y-auto max-h-[calc(85vh-72px)] space-y-6">
-
-    <!-- Navegação do Site -->
-    <section>
-      <h3 class="font-label-lg text-label-lg text-primary mb-3 uppercase tracking-wider text-xs flex items-center gap-2">
-        <span class="material-symbols-outlined text-sm" aria-hidden="true">explore</span>
-        Navegação do Portal
-      </h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Ir para o conteúdo</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + J</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Ir para o menu</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + G</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Ir para a busca</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + H</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Ir para o rodapé</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + K</kbd>
-        </div>
-      </div>
-    </section>
-
-    <!-- Leitor de Voz (Acre Acessível) -->
-    <section>
-      <h3 class="font-label-lg text-label-lg text-primary mb-3 uppercase tracking-wider text-xs flex items-center gap-2">
-        <span class="material-symbols-outlined text-sm" aria-hidden="true">record_voice_over</span>
-        Leitor de Voz (Acre Acessível)
-      </h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Abrir painel de acessibilidade</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + A</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Ler / Pausar leitura</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + P</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Parar leitura</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + S</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Próximo trecho</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + N</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Trecho anterior</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + B</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Alternar alto contraste</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + C</kbd>
-        </div>
-      </div>
-    </section>
-
-    <!-- Navegação Geral -->
-    <section>
-      <h3 class="font-label-lg text-label-lg text-primary mb-3 uppercase tracking-wider text-xs flex items-center gap-2">
-        <span class="material-symbols-outlined text-sm" aria-hidden="true">tab</span>
-        Navegação Geral
-      </h3>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Navegar entre elementos</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Tab</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Voltar para o anterior</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Shift + Tab</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Ativar link / botão</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Enter</kbd>
-        </div>
-        <div class="flex items-center justify-between bg-surface-container-lowest rounded-lg px-4 py-2.5 border border-outline-variant/15">
-          <span class="text-body-md text-on-surface">Mapa de atalhos</span>
-          <kbd class="px-2 py-1 rounded bg-surface-container text-on-surface-variant text-xs font-mono border border-outline-variant/20">Alt + /</kbd>
-        </div>
-      </div>
-    </section>
-
-    <p class="text-body-sm text-on-surface-variant text-center pt-2 border-t border-outline-variant/15">
-      No macOS, substitua <kbd class="px-1 py-0.5 rounded bg-surface-container text-[10px] font-mono">Alt</kbd> por <kbd class="px-1 py-0.5 rounded bg-surface-container text-[10px] font-mono">Ctrl + Option</kbd> no Firefox, ou <kbd class="px-1 py-0.5 rounded bg-surface-container text-[10px] font-mono">Ctrl + Alt</kbd> no Chrome/Edge.
-    </p>
-  </div>
-</dialog>
+</nav>
 
 <script>
-  // Setup dos Skip Links e atalhos de acessibilidade (Astro executa módulos após o DOM estar pronto)
-    // --- Lógica do Mapa de Atalhos ---
-    const dialog = document.getElementById('shortcuts-dialog') as HTMLDialogElement | null;
-    const btnOpen = document.getElementById('btn-show-shortcuts');
-    const btnClose = document.getElementById('btn-close-shortcuts');
+  // Setup dos Skip Links e atalhos globais de acessibilidade
+  
+  // Navegação de salto (Skip links) via teclado global
+  window.addEventListener('keydown', (e) => {
+    if (e.altKey && !e.ctrlKey && !e.metaKey) {
+      const key = e.key.toLowerCase();
+      const targetMap: Record<string, string> = {
+        'j': 'main-content',
+        'g': 'main-nav',
+        'h': 'site-search',
+        'k': 'site-footer'
+      };
 
-    if (dialog) {
-      btnOpen?.addEventListener('click', () => dialog.showModal());
-      btnClose?.addEventListener('click', () => dialog.close());
-
-      // Fechar ao clicar no backdrop
-      dialog.addEventListener('click', (e) => {
-        const rect = dialog.getBoundingClientRect();
-        if (e.clientX < rect.left || e.clientX > rect.right || e.clientY < rect.top || e.clientY > rect.bottom) {
-          dialog.close();
-        }
-      });
-
-      // Alt + / para abrir o mapa de atalhos
-      window.addEventListener('keydown', (e) => {
-        if (e.altKey && (e.key === '/' || e.key === '?')) {
-          e.preventDefault();
-          if (dialog.open) dialog.close();
-          else dialog.showModal();
-        }
-
-        // Navegação de salto (Skip links)
-        if (e.altKey && !e.ctrlKey && !e.metaKey) {
-          const key = e.key.toLowerCase();
-          const targetMap: Record<string, string> = {
-            'j': 'main-content',
-            'g': 'main-nav',
-            'h': 'site-search',
-            'k': 'site-footer'
-          };
-
-          if (targetMap[key]) {
-            e.preventDefault();
-            const targetEl = document.getElementById(targetMap[key]);
-            if (targetEl) {
-              targetEl.focus();
-              const isFixed = window.getComputedStyle(targetEl).position === 'fixed' || 
-                              window.getComputedStyle(targetEl.parentElement || targetEl).position === 'fixed';
-              if (!isFixed) {
-                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
-              }
-              
-              // Se o leitor de voz estiver ativo em modo hover, vamos ler o elemento destino para o cego saber onde está
-              // @ts-ignore
-              if (window.AcreAcessivel && window.AcreAcessivel.panel && window.AcreAcessivel.panel.isHoverActive) {
-                // @ts-ignore
-                window.AcreAcessivel.panel.reader.readElement(targetEl);
-              }
-            }
-          }
-        }
-
-        // Navegação sequencial rápida (F e J) - Avança e retrocede o foco como Tab e Shift+Tab
-        if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
-          const key = e.key.toLowerCase();
-          if (key === 'f' || key === 'j') {
-            const active = document.activeElement as HTMLElement;
-            const isInput = active && (
-              active.tagName === 'INPUT' || 
-              active.tagName === 'TEXTAREA' || 
-              active.tagName === 'SELECT' || 
-              active.isContentEditable
-            );
-
-            if (!isInput) {
-              e.preventDefault();
-              const selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
-              
-              // Sempre navega o documento inteiro — o cego pode ir para qualquer lugar.
-              // A diferença é o PONTO DE PARTIDA: quando o foco está no body/html/main
-              // (página acabou de carregar com smart focus), começamos do primeiro
-              // elemento dentro do <main> ao invés do topo.
-              const mainContent = document.getElementById('main-content');
-              const isOnBody = !active || active === document.body || active === document.documentElement || active === mainContent;
-              
-              const focusable = Array.from(document.querySelectorAll(selector))
-                .map(el => el as HTMLElement)
-                .filter(el => {
-                  if (el.closest('acre-accessibility-panel') || el.closest('capi-mascot')) return false;
-                  return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
-                });
-
-              if (focusable.length > 0) {
-                let currentIndex: number;
-                
-                if (isOnBody && mainContent) {
-                  // Ponto de partida inteligente: encontra o primeiro elemento focável dentro do <main>
-                  const firstInMain = focusable.findIndex(el => mainContent.contains(el));
-                  if (key === 'j') {
-                    currentIndex = firstInMain >= 0 ? firstInMain : 0;
-                  } else {
-                    // F (voltar): começa do último elemento antes do main (header)
-                    currentIndex = firstInMain > 0 ? firstInMain - 1 : focusable.length - 1;
-                  }
-                } else {
-                  // Navegação normal a partir do elemento atual
-                  currentIndex = focusable.indexOf(active);
-                  if (key === 'j') {
-                    currentIndex = currentIndex >= 0 ? (currentIndex + 1) % focusable.length : 0;
-                  } else {
-                    currentIndex = currentIndex > 0 ? currentIndex - 1 : focusable.length - 1;
-                  }
-                }
-                
-                const target = focusable[currentIndex];
-                target.focus();
-                target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                
-                // Lê o elemento para o cego saber onde está
-                // @ts-ignore
-                if (window.AcreAcessivel && window.AcreAcessivel.panel) {
-                  // @ts-ignore
-                  window.AcreAcessivel.panel.reader.readSpecificElement(target, false);
-                }
-              }
-            }
-          }
-        }
-      });
-    }
-
-    // --- Lógica dos Skip Links (Links de salto) ---
-    // Garante que o foco seja movido programaticamente para os alvos,
-    // essencial para leitores de tela e navegação por teclado.
-    const skipLinks = document.querySelectorAll('nav[aria-label="Links de salto"] a');
-    skipLinks.forEach(link => {
-      link.addEventListener('click', (e) => {
-        const targetId = link.getAttribute('href')?.substring(1);
-        if (!targetId) return;
-        
-        const targetEl = document.getElementById(targetId);
+      if (targetMap[key]) {
+        e.preventDefault();
+        const targetEl = document.getElementById(targetMap[key]);
         if (targetEl) {
-          e.preventDefault();
-          e.stopPropagation();
-          // Remove a âncora visual da URL para evitar salto brusco repetido,
-          // mas move o foco para o elemento.
           targetEl.focus();
-          
-          // Se não for um elemento fixo (como o header/nav/search), rola a página suavemente
           const isFixed = window.getComputedStyle(targetEl).position === 'fixed' || 
                           window.getComputedStyle(targetEl.parentElement || targetEl).position === 'fixed';
-          
           if (!isFixed) {
             targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
           }
+          
+          // Se o leitor de voz estivesse ativo (removido)
+        }
+      }
+    }
 
-          // Lê o elemento destino se o leitor estiver ativo
-          // @ts-ignore
-          if (window.AcreAcessivel && window.AcreAcessivel.panel && window.AcreAcessivel.panel.isHoverActive) {
-            // @ts-ignore
-            window.AcreAcessivel.panel.reader.readElement(targetEl);
+    // Navegação sequencial rápida (F e J)
+    if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
+      const key = e.key.toLowerCase();
+      if (key === 'f' || key === 'j') {
+        const active = document.activeElement as HTMLElement;
+        const isInput = active && (
+          active.tagName === 'INPUT' || 
+          active.tagName === 'TEXTAREA' || 
+          active.tagName === 'SELECT' || 
+          active.isContentEditable
+        );
+
+        if (!isInput) {
+          e.preventDefault();
+          const selector = 'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+          
+          const mainContent = document.getElementById('main-content');
+          const isOnBody = !active || active === document.body || active === document.documentElement || active === mainContent;
+          
+          const focusable = Array.from(document.querySelectorAll(selector))
+            .map(el => el as HTMLElement)
+            .filter(el => {
+              return !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
+            });
+
+          if (focusable.length > 0) {
+            let currentIndex: number;
+            
+            if (isOnBody && mainContent) {
+              const firstInMain = focusable.findIndex(el => mainContent.contains(el));
+              if (key === 'j') {
+                currentIndex = firstInMain >= 0 ? firstInMain : 0;
+              } else {
+                currentIndex = firstInMain > 0 ? firstInMain - 1 : focusable.length - 1;
+              }
+            } else {
+              currentIndex = focusable.indexOf(active);
+              if (key === 'j') {
+                currentIndex = currentIndex >= 0 ? (currentIndex + 1) % focusable.length : 0;
+              } else {
+                currentIndex = currentIndex > 0 ? currentIndex - 1 : focusable.length - 1;
+              }
+            }
+            
+            const target = focusable[currentIndex];
+            target.focus();
+            target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            
+            // Leitor de voz removido
           }
         }
-      });
-    });
+      }
+    }
+  });
 
+  // Garante que o foco seja movido programaticamente ao clicar nos links de salto
+  const skipLinks = document.querySelectorAll('nav[aria-label="Links de salto"] a');
+  skipLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      const targetId = link.getAttribute('href')?.substring(1);
+      if (!targetId) return;
+      
+      const targetEl = document.getElementById(targetId);
+      if (targetEl) {
+        e.preventDefault();
+        e.stopPropagation();
+        targetEl.focus();
+        
+        const isFixed = window.getComputedStyle(targetEl).position === 'fixed' || 
+                        window.getComputedStyle(targetEl.parentElement || targetEl).position === 'fixed';
+        
+        if (!isFixed) {
+          targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Leitor de voz removido
+      }
+    });
+  });
 </script>

@@ -1,0 +1,1694 @@
+{
+  "source_url": "https://www.femcultura.ac.gov.br/editais/",
+  "scraped_at": "2026-07-02T11:54:48-0500",
+  "extraction_mode": "elementor-toggle-accurate",
+  "warning": "Parsed using Elementor heading + toggle selectors.",
+  "tree": [
+    {
+      "label": "Fundação de Cultura Elias Mansour",
+      "href": null,
+      "children": []
+    },
+    {
+      "label": "EDITAIS",
+      "href": null,
+      "children": []
+    },
+    {
+      "label": "POLÍTICA NACIONAL ALDIR BLANC (PNAB)",
+      "href": null,
+      "children": [
+        {
+          "label": "DOCUMENTOS ORIENTADORES - CICLO 1",
+          "href": null,
+          "children": [
+            {
+              "label": "PLANO ANUAL DE APLICAÇÃO DOS RECURSOS – PNAB 2024",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/06/PLANO-ANUAL-DE-APLICACAO-DOS-RECURSOS-–-PNAB2024.pdf",
+              "children": []
+            },
+            {
+              "label": "MEMÓRIA PNAB CRUZEIRO DO SUL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/05/FORUM-PNAB-2024-CZS.pdf",
+              "children": []
+            },
+            {
+              "label": "MEMÓRIA PNAB RIO BRANCO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/05/21.05-Relatorio-do-Forum-da-PNAB-Rio-Branco.pdf",
+              "children": []
+            },
+            {
+              "label": "Relatório de devolutiva Fórum da Política Nacional Aldir Blanc",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/05/Relatorio-de-devolutiva-Forum-da-Politica-Nacional-Aldir-Blanc.pdf",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "DOCUMENTOS ORIENTADORES  - CICLO 2",
+          "href": null,
+          "children": [
+            {
+              "label": "Relatório da Escuta Cultural do 2º Ciclo da PNAB 2025 em Brasiléia",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2025/07/Relatorio-da-Escuta-Cultural-do-2o-Ciclo-da-PNAB-2025-em-Brasileia-1.pdf",
+              "children": []
+            },
+            {
+              "label": "Relatório da Escuta Cultural do 2o Ciclo da PNAB 2025 em Rio Branco",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2025/07/Relatorio-da-Escuta-Cultural-do-2o-Ciclo-da-PNAB-2025-em-Rio-Branco-1.pdf",
+              "children": []
+            },
+            {
+              "label": "Relatório da Escuta Cultural do 2o Ciclo da PNAB 2025 em Cruzeiro do Sul",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2025/07/Relatorio-da-Escuta-Cultural-do-2o-Ciclo-da-PNAB-2025-em-Cruzeiro-do-Sul-1.pdf",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "LEI PAULO GUSTAVO - 2023/2024",
+      "href": null,
+      "children": [
+        {
+          "label": "DOCUMENTOS ORIENTADORES",
+          "href": null,
+          "children": [
+            {
+              "label": "TERMO DE COMPROMISSO 2023",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2023/11/Termo-de-Compromisso-2023.pdf",
+              "children": []
+            },
+            {
+              "label": "LOGOS PARA OS PROJETOS",
+              "href": "https://www.femcultura.ac.gov.br/logos-para-os-projetos/",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL DE CHAMAMENTO PÚBLICO 001/2024",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL DE CHAMAMENTO PÚBLICO 001/2024",
+              "href": "https://drive.google.com/drive/folders/1ecNGfZJwPe_9sMnkk8y0w7mIqd6ZjCpW?usp=share_link",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL Nº 006/2023 - AUDIOVISUAL",
+          "href": null,
+          "children": [
+            {
+              "label": "HABILITAÇÃO DOS CONVOCADOS COM O USO DE RENDIMENTOS NO EDITAL DE AUDIOVISUAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/06/HABILITACAO-DOS-CONVOCADOS-COM-O-USO-DE-RENDIMENTOS-NO-EDITAL-DE-AUDIOVISUAL.pdf",
+              "children": []
+            },
+            {
+              "label": "RENDIMENTOS NO EDITAL DE AUDIOVISUAL LEI PAULO GUSTAVO N°006_2023",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/06/RENDIMENTOS-NO-EDITAL-DE-AUDIOVISUAL-LEI-PAULO-GUSTAVO-N°006_2023-1.pdf",
+              "children": []
+            },
+            {
+              "label": "Segundo Resultado Final dos Habilitados e Sobras Audiovisual",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/03/Segundo-Resultado-Final-dos-Habilitados-e-Sobras-Audiovisual.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Final dos Habilitados Edital 0062023 Audiovisual LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/03/Resultado-Habilitacao-Audiovisual.pdf",
+              "children": []
+            },
+            {
+              "label": "Portaria Retificação Resultado Final Audiovisual LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/02/Portaria-Retificação-Resultado-Final-Audiovisual-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Final Audiovisual LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/02/Resultado-Final-Audiovisual-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Preliminar Audiovisual LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/01/Resultado-Preliminar-Audiovisual-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 006/2023  – Resultado Preliminar",
+              "href": "https://drive.google.com/file/d/1CXv2DA4QTRXlFk_MaZxcXR5MIyt8D9W_/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 006/2023 e ANEXOS – RETIFICAÇÃO",
+              "href": "https://drive.google.com/drive/folders/1pDmeMiQ1e-WEuNle6t4uD4Vu-Q7wkUis?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 006/2023 e ANEXOS – INICIAL",
+              "href": "https://drive.google.com/drive/folders/1qEseK9uVtkPi3-4vJscdjZh6gQqAKzAf?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL Nº 007/2023 - ARTE E PATRIMÔNIO",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO DE HABILITAÇÃO NO USO DE RENDIMENTOS NO EDITAL DE ARTE E PATRIMÔNIO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/06/RESULTADO-DE-HABILITACAO-NO-USO-DE-RENDIMENTOS-NO-EDITAL-DE-ARTE-E-PATRIMONIO.pdf",
+              "children": []
+            },
+            {
+              "label": "RENDIMENTOS NO EDITAL DE ARTE E PATRIMÔNIO LEI PAULO GUSTAVO N°007_2023",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/06/E-RENDIMENTOS-NO-EDITAL-DE-ARTE-E-PATRIMONIO-LEI-PAULO-GUSTAVO-N°007_2023.pdf",
+              "children": []
+            },
+            {
+              "label": "Segundo Resultado Final dos Habilitados Arte e Patrimonio",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/03/Segundo-Resultado-Final-dos-Habilitados-Arte-e-Patrimonio.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Final dos Habilitados Edital 0072023 Arte e Patrimonio",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/03/Resultado-Habilitacao-Arte-e-Patrimonio.pdf",
+              "children": []
+            },
+            {
+              "label": "Portaria Retificação Resultado Final Arte e Patrimonio LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/02/Portaria-Retificação-Resultado-Final-Arte-e-Patrimonio-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Final Arte e Patrimonio LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/02/Resultado-Final-Arte-e-Patrimonio-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Preliminar Arte e Patrimonio LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/01/Resultado-Preliminar-Arte-e-Patrimonio-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 007/2023 – Resultado Preliminar",
+              "href": "https://drive.google.com/file/d/16JuTGgndXb6pnE3vWFztEiGn7edACGyo/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 007/2023 e ANEXOS – RETIFICAÇÃO",
+              "href": "https://drive.google.com/drive/folders/1PH6W28TeJ6bBOJ5ejNHFdlNSMFBhyqeY?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 007/2023 e ANEXOS – INICIAL",
+              "href": "https://drive.google.com/drive/folders/1u5wWgmco3UUqK4q0l-2icO0el0qq5S04?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL Nº 008/2023 - MESTRES DA CULTURA",
+          "href": null,
+          "children": [
+            {
+              "label": "Publicação de propostas habilitadas",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/01/Resultado-final-premio-mestres-da-cultura-No-08-2023.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado final premio mestres LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/01/Resultado-final-premio-mestres-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Preliminar 27 Dez 23",
+              "href": "https://drive.google.com/file/d/1us-mnbRhRagkTwD9A9CFWUzBy7Vy-pTT/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 008/2023 e ANEXOS – RETIFICAÇÃO",
+              "href": "https://drive.google.com/drive/folders/172Eh6nodoUzKPUTTViJGaxeZTTZKQ1Uw?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 008/2023 e ANEXOS – INICIAL",
+              "href": "https://drive.google.com/drive/folders/1QGEBNjHhZKgdMA9wwYhslQHbPw6PHbzU?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL Nº 009/2023 - PREMIAÇÃO POVOS ORIGINÁRIOS",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO DE HABILITAÇÃO DO USO DE RENDIMENTOS NO EDITAL PREMIO DE FORTALECIMENTO DA CULTURA DOS POVOS ORIGINARIOS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/06/RESULTADO-DE-HABILITACAO-DO-USO-DE-RENDIMENTOS-NO-EDITAL-PREMIO-DE-FORTALECIMENTO-DA-CULTURA-DOS-POVOS-ORIGINARIOS.pdf",
+              "children": []
+            },
+            {
+              "label": "RENDIMENTOS NO EDITAL PREMIO DE FORTALECIMENTO DA CULTURA DOS POVOS ORIGINARIOS LEI PAULO GUSTAVO N°09_2023",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/06/RENDIMENTOS-NO-EDITAL-PREMIO-DE-FORTALECIMENTO-DA-CULTURA-DOS-POVOS-ORIGINARIOS-LEI-PAULO-GUSTAVO-N°09_2023.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO DE HABILITAÇÃO POVOS ORIGINARIOS LEI PAULO GUSTAVO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/04/RESULTADO-DE-HABILITACAO-POVOS-ORIGINARIOS-LEI-PAULO-GUSTAVO.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL DA AVALIAÇÃO POVOS ORIGINARIOS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/04/RESULTADO-FINAL-DA-AVALIACAO-POVOS-ORIGINARIOS.pdf",
+              "children": []
+            },
+            {
+              "label": "Retf. 4 Cronograma Edital Povos Originarios LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/03/Retf.-4-Cronograma-Edital-Povos-Originarios-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Portaria Resultado Preliminar premio Indigenas LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/02/Portaria-Resultado-Preliminar-premio-Indigenas-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Portaria Prazo Premio Indigena LPG",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/01/Portaria-Prazo-Premio-Indigena-LPG.pdf",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 009/2023 – Retificação – Cronograma Atualizado",
+              "href": "https://drive.google.com/file/d/1adpqa64Hzgde3kXuI24SMfGT-5FOq-Sb/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 009/2023 e ANEXOS – RETIFICAÇÃO",
+              "href": "https://drive.google.com/drive/folders/1Ru8sABQjKPSijEBMFAhRAFbMdlBjxKa4?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital Nº 009/2023 e ANEXOS – INICIAL",
+              "href": "https://drive.google.com/drive/folders/1Rk9GGecvXXARsv8d623I2opZ0AO78oAx?usp=sharing",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "CHAMAMENTO PÚBLICO GERAIS",
+      "href": null,
+      "children": [
+        {
+          "label": "CHAMAMENTOS PÚBLICOS  - 2026",
+          "href": null,
+          "children": [
+            {
+              "label": "Edital Marcha para Jesus DOE 2026",
+              "href": "https://www.femcultura.ac.gov.br/edital-marcha-para-jesus-doe-2026/",
+              "children": []
+            },
+            {
+              "label": "–> Formulários do Edital",
+              "href": "https://forms.gle/hZHrfgBjMDtR3tTT6",
+              "children": []
+            },
+            {
+              "label": "EDITAL PROGRAMA “ARTE E CULTURA “- 2026",
+              "href": "https://www.femcultura.ac.gov.br/edital-arte-e-cultura-2026/",
+              "children": []
+            },
+            {
+              "label": "–> Link de Inscrição e Anexos",
+              "href": "https://drive.google.com/drive/folders/1j02tlj0o_dZQwNPgX1m3zMWgVAh1GWOS?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "CHAMAMENTOS PÚBLICOS  - 2025",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL DE CHAMAMENTO PÚBLICO 002/2025",
+              "href": "https://drive.google.com/drive/folders/1b8iK1bNQLyZzGZtOawAECuuRIfkDziTT?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "EDITAL DE CHAMAMENTO PÚBLICO 003/2025",
+              "href": "https://drive.google.com/drive/folders/13CKFk_EHGm69rXwqyPbvGNcbAQ0Yu79T?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "EDITAL DE CHAMAMENTO PÚBLICO  004/2025",
+              "href": "https://drive.google.com/drive/folders/1NGfISkpDxWhM4ifEEGhhNj4MftYZwqKw?usp=sharing",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2025",
+      "href": null,
+      "children": [
+        {
+          "label": "DOCUMENTOS ORIENTADORES",
+          "href": null,
+          "children": [
+            {
+              "label": "MEMÓRIA DO FÓRUM PAI_2025",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2025/06/MEMORIA-DO-FORUM-PAI_2025.pdf",
+              "children": []
+            },
+            {
+              "label": "PAI_2025",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2025/06/PAI_2025.pdf",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL   Nº005/2025 -ARTE E PATRIMÔNIO",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL, ANEXOS, INFORMATIVOS E RESULTADOS",
+              "href": "https://drive.google.com/drive/folders/1tCsHb6tfNL8SjWY8G0_kDkBWtdr0-Ic-?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL Nº006/2025 - INICIANTE",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL, ANEXOS, INFORMATIVOS E RESULTADOS",
+              "href": "https://drive.google.com/drive/folders/1qg3tpSg2tNtMwuHoKjGrjgBBYl8HG7hA?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL   Nº007/2025 - FOMENTO A ENTIDADES ARTÍSTICO-CULTURAIS",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL, ANEXOS, INFORMATIVOS E RESULTADOS",
+              "href": "https://drive.google.com/drive/folders/1pNOflTfuMtOTD8drjlqFBnEROVCsWTNw?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL   Nº008/2025 - MESTRES DA CULTURA",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL, ANEXOS, INFORMATIVOS E RESULTADOS",
+              "href": "https://drive.google.com/drive/folders/1ApHwxBlZx39MhpFo-2A36qD_gykeRhbY?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL   Nº009/2025 - POVOS ORIGINÁRIOS",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL, ANEXOS, INFORMATIVOS E RESULTADOS",
+              "href": "https://drive.google.com/drive/folders/1GzGsNvksV_aTctXRn4GHEAJloKjinrIs?usp=sharing",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2024",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL   Nº01/2024 -ARTE E PATRIMÔNIO",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL Nº.01/2024",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/07/EDITAL-01l2024-ARTE-E-PATRIMONIO-.pdf",
+              "children": []
+            },
+            {
+              "label": "FICHA DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSdNK9hjdIgtnJvlnD9L0RxUj2ofwHOOVUoAHEOdHeYXcfsrIQ/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO I. CURRÍCULO DE PESSOA FÍSICA",
+              "href": "https://www.femcultura.ac.gov.br/anexo-l-ediatal-01-2/",
+              "children": []
+            },
+            {
+              "label": "ANEXO II. CURRÍCULO DE PESSOA JURÍDICA",
+              "href": "https://www.femcultura.ac.gov.br/edital-01-anexo-ll-1-2/",
+              "children": []
+            },
+            {
+              "label": "ANEXO III. FORMULÁRIO DE PRESTAÇÃO DE CONTAS",
+              "href": "https://docs.google.com/document/d/1YwYnPw02NVoCWpgTixpZka3AlDHpZM37/edit?usp=sharing&ouid=106486186074353017932&rtpof=true&sd=true",
+              "children": []
+            },
+            {
+              "label": "APÊNDICE I. CRONOGRAMA DE ATIVIDADES",
+              "href": "https://www.femcultura.ac.gov.br/mode-de-cronograma-de-atividades-apendice-i/",
+              "children": []
+            },
+            {
+              "label": "APÊNDICE II. TABELA DE ORÇAMENTO",
+              "href": "https://www.femcultura.ac.gov.br/mode-de-orcamento-apendice-ii/",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSdZ-a1YcHyNkU6oAIPf-BGTV1CQ9s5nOFEZTArJZ98YpT-2Qw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE SOLICITAÇÃO DE ESPELHO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfV711wy4JT6H2teK5VDdrPhqIyfKAkPo1llmPoP06eMxMIbg/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE AVALIAÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfHDOw3fNOPmUpvXE7H9QQ0JJH1aLxwlTzYJlBS4WJJPTWDAw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1nEt54VpEZfccNu33dWJ-kIQFtS42ksnX/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL DAS INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1r_M4VSFNgU5V1-3TeSkBFC3rsrkMJmv6/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR DAS AVALIAÇÕES",
+              "href": "https://drive.google.com/file/d/10uclb72jfMl8rtO6TOI1EaxIVcSS7l__/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL",
+              "href": "https://drive.google.com/file/d/1ComigI4lA33BnKkkDg8tBRLkq4coYYfv/view?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL Nº02/2024 - INICIANTE",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL Nº.02/2024",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/07/EDITAL-02l2024-INICIANTES-.pdf",
+              "children": []
+            },
+            {
+              "label": "FICHA DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLScLDPd_cZGGBHJShBL2pdN1CaTt3NHIN7olNq1WNSpssexOyg/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO I: CURRÍCULO PESSOA FÍSICA",
+              "href": "https://www.femcultura.ac.gov.br/edital-02-anexo-l-1-2/",
+              "children": []
+            },
+            {
+              "label": "ANEXO II: MODELO DO RELATÓRIO DE PRESTAÇÃO DE CONTAS",
+              "href": "https://docs.google.com/document/d/1YwYnPw02NVoCWpgTixpZka3AlDHpZM37/edit?usp=sharing&ouid=106486186074353017932&rtpof=true&sd=true",
+              "children": []
+            },
+            {
+              "label": "APÊNDICE I. CRONOGRAMA DE ATIVIDADE",
+              "href": "https://www.femcultura.ac.gov.br/mode-de-cronograma-de-atividades-apendice-i/",
+              "children": []
+            },
+            {
+              "label": "APÊNDICE II. TABELA DE ORÇAMENTO",
+              "href": "https://www.femcultura.ac.gov.br/mode-de-orcamento-apendice-ii/",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSdZ-a1YcHyNkU6oAIPf-BGTV1CQ9s5nOFEZTArJZ98YpT-2Qw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE SOLICITAÇÃO DE ESPELHO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfV711wy4JT6H2teK5VDdrPhqIyfKAkPo1llmPoP06eMxMIbg/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE AVALIAÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfHDOw3fNOPmUpvXE7H9QQ0JJH1aLxwlTzYJlBS4WJJPTWDAw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1Vsi8-uVLL2IFz0etw_8tCRArvIno4EdQ/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL DAS INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1pqhdaO6jNJxujjVXHMvdljN1uvHma42b/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR DAS AVALIAÇÕES",
+              "href": "https://drive.google.com/file/d/10uclb72jfMl8rtO6TOI1EaxIVcSS7l__/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL",
+              "href": "https://drive.google.com/file/d/1YEG3Ntb2gyaEVvtBb2KkkXowRPXSQmGA/view?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL   Nº03/2024 - FOMENTO A ENTIDADES ARTÍSTICO - CULTURAL",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL Nº.03/2024",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/07/EDITAL-03l2024-ENTIDADES-.pdf",
+              "children": []
+            },
+            {
+              "label": "FICHA DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfNnAr43N88WNN93M0iOLu0vs7t0ig111xEWqPaGvi1Zb2pmA/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO I: CURRÍCULO PESSOA JURÍDICA",
+              "href": "https://www.femcultura.ac.gov.br/edital-03-anexo-l-1-2/",
+              "children": []
+            },
+            {
+              "label": "ANEXO II: MODELO DO RELATÓRIO DE PRESTAÇÃO DE CONTA",
+              "href": "https://docs.google.com/document/d/1YwYnPw02NVoCWpgTixpZka3AlDHpZM37/edit?usp=sharing&ouid=106486186074353017932&rtpof=true&sd=true",
+              "children": []
+            },
+            {
+              "label": "APÊNDICE I. CRONOGRAMA DE ATIVIDADE",
+              "href": "https://www.femcultura.ac.gov.br/mode-de-cronograma-de-atividades-apendice-i/",
+              "children": []
+            },
+            {
+              "label": "APÊNDICE II. TABELA DE ORÇAMENTO",
+              "href": "https://www.femcultura.ac.gov.br/mode-de-orcamento-apendice-ii/",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSdZ-a1YcHyNkU6oAIPf-BGTV1CQ9s5nOFEZTArJZ98YpT-2Qw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE SOLICITAÇÃO DE ESPELHO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfV711wy4JT6H2teK5VDdrPhqIyfKAkPo1llmPoP06eMxMIbg/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE AVALIAÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfHDOw3fNOPmUpvXE7H9QQ0JJH1aLxwlTzYJlBS4WJJPTWDAw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1nR1AFVFLApnZgtVU5NZT_8JYvbKSYWza/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL DAS INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1hcuUImFg2tiw_VOoPqZdyWHgr8h8F84W/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR DAS AVALIAÇÕES",
+              "href": "https://drive.google.com/file/d/10uclb72jfMl8rtO6TOI1EaxIVcSS7l__/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL",
+              "href": "https://drive.google.com/file/d/1YyeP_UoSZUZhXiK3_y0GVaHIxC_xqVoS/view?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL   Nº04/2024 - MESTRES DA CULTURA",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL Nº.04/2024",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/07/EDITAL-04l2024-DE-MESTRES.pdf",
+              "children": []
+            },
+            {
+              "label": "FICHA DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLScYSyQ2b9yttMEedTkZJm9_2icHzFvRFNZR68uH7MCL-SwF4g/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO I: MEMORIAL DO (a) CANDIDATO",
+              "href": "https://www.femcultura.ac.gov.br/edital-04-anexo-i-1-2/",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSdZ-a1YcHyNkU6oAIPf-BGTV1CQ9s5nOFEZTArJZ98YpT-2Qw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE SOLICITAÇÃO DE ESPELHO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfV711wy4JT6H2teK5VDdrPhqIyfKAkPo1llmPoP06eMxMIbg/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE  RECURSO DE AVALIAÇÃO",
+              "href": "https://forms.gle/e1sFrhY3yWVEACVJ6",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1EI9VABxrRof8TMEFmUFGjhTkjt0cH1HV/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL DAS INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1M9kPpxxA442FHN0tFIDvp8tOX7SIiuq0/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR DAS AVALIAÇÕES",
+              "href": "https://drive.google.com/file/d/10uclb72jfMl8rtO6TOI1EaxIVcSS7l__/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL",
+              "href": "https://drive.google.com/file/d/1YUbv7UhMP_UWX7IhLJgbP5nwZmnCryiQ/view?usp=sharing",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL   Nº05/2024 - POVOS ORIGINÁRIOS",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL Nº.05/2024",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2024/07/EDITAL-05-l2024-POVOS-ORIGINARIOS.pdf",
+              "children": []
+            },
+            {
+              "label": "FICHA DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSe5l06ZLDvkaZXWC3LbttD2c4B2kze00BGGqmNj7oRrHM1ukg/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO I: MEMORIAL DO (a) CANDIDATO",
+              "href": "https://www.femcultura.ac.gov.br/edital-05-anexo-i-1/",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE INSCRIÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSdZ-a1YcHyNkU6oAIPf-BGTV1CQ9s5nOFEZTArJZ98YpT-2Qw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE SOLICITAÇÃO DE ESPELHO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfV711wy4JT6H2teK5VDdrPhqIyfKAkPo1llmPoP06eMxMIbg/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "FORMULÁRIO DE RECURSO DE AVALIAÇÃO",
+              "href": "https://docs.google.com/forms/d/e/1FAIpQLSfHDOw3fNOPmUpvXE7H9QQ0JJH1aLxwlTzYJlBS4WJJPTWDAw/viewform?usp=sf_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1r8NiJlKIdoqm4IcY7D-ZVatxQqAC7smF/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL DAS INSCRIÇÕES",
+              "href": "https://drive.google.com/file/d/1I-CQ3FBhOZFP_8e6_jMpaINJLQVmuIDY/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PRELIMINAR DAS AVALIAÇÕES",
+              "href": "https://drive.google.com/file/d/10uclb72jfMl8rtO6TOI1EaxIVcSS7l__/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL",
+              "href": "https://drive.google.com/file/d/1mFQ4-qyGRdmOkCOH-52WrnwSWovzASoD/view?usp=sharing",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "EDITAL SELEÇÃO DE PARECERISTA- 2023",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL No 001/2023 - Seleção de Pareceristas",
+          "href": null,
+          "children": [
+            {
+              "label": "Edital Nº 001/2023",
+              "href": "https://drive.google.com/file/d/1mFQ4YrpQC1waLbN40cFU6fRtS4oZszQh/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Anexo I -Formulário de Inscrição",
+              "href": "https://docs.google.com/document/d/1eOm_6d-qefDbCfm7Sdgcxpn8-7RvaWsW/edit?usp=sharing&ouid=111927350124860681752&rtpof=true&sd=true",
+              "children": []
+            },
+            {
+              "label": "Anexo II- Minuta do Contrato",
+              "href": "https://drive.google.com/file/d/1LTZug69qu4kdL0PmdlpoFOg33q5HZGsc/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Portaria Nº 263",
+              "href": "https://drive.google.com/file/d/1VjUkEIAOzLzslmeCIHLcwr2tOs165reF/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL DO EDITAL DE CHAMENTO PUBLICO N°001/2023",
+              "href": "https://drive.google.com/file/d/1re7gjZKLmTs0KXs38ZL3WO2FGqSeczQ6/view?usp=sharing",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2023",
+      "href": null,
+      "children": [
+        {
+          "label": "Edital de Arte e Patrimônio",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO PROVISÓRIO DA ANALISE TECNICA",
+              "href": "https://drive.google.com/file/d/19SbElvtchFawWXqCK5OGIZI8tTIxdHrW/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital",
+              "href": "https://drive.google.com/file/d/1VnHwhP3R0ImbFVAXrbSL2bUOLW8oXzo6/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital  – Retificado",
+              "href": "https://drive.google.com/file/d/1Gy73wUsgEqn6LNC-6rTImv-8_5ggxSI1/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Anexo I – Ficha de Inscrição",
+              "href": "https://drive.google.com/file/d/1ixBJ2ss8RX33WVsE84Ie_WKPfkpJQpvv/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo II -Currículo Pessoa Fisica",
+              "href": "https://drive.google.com/file/d/1oEDwiWO_7b-yk_TjNQXPonuuDksYLJdL/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo III – Carta de Anuencia – Grupo Informal",
+              "href": "https://drive.google.com/file/d/1QOflMM-sNqEjPU8G3s5wVGSJw58WHafY/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo IV – Currículo Pessoa Jurídica",
+              "href": "https://drive.google.com/file/d/1PoAXaflMh57_UArftUTDAb3tQWIdgCYv/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo V  – Relatório Prestação de Contas",
+              "href": "https://drive.google.com/file/d/12nKDNIPoEjGKkYCaI-VfU-qbeWLxza4q/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXOS em WORD",
+              "href": "https://drive.google.com/drive/folders/1Bu7D3DJ3vd6t-4N84LsOMzK_uLiEXURg?usp=share_link",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2023",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL - PRÊMIO DE FORTALECIMENTO DA CULTURA DOS POVOS ORIGINARIOS",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO PROVISÓRIO DA AVALIAÇÃO TÉCNICA",
+              "href": "https://drive.google.com/file/d/1E7ADimLiwdWqoX6Gt4ZB_FGgo8dFzt_q/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital",
+              "href": "https://drive.google.com/file/d/1NXlO7SiiuewNGowikc5WuCb1BvzoOjNY/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital  – Retificado",
+              "href": "https://drive.google.com/file/d/1JSExlUarWp6qPGnAJKcH0khyZLHGT1XZ/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "ANEXO I – FICHA DE INSCRICÃO",
+              "href": "https://drive.google.com/file/d/1A4Y8vNe92wHaSgS4TaZHJGpohiwFekuU/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXOS EM WORD",
+              "href": "https://drive.google.com/drive/folders/1ac7f_-gTR_-4oUX4i82VKoO3kfgu_WWh?usp=share_link",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2023",
+      "href": null,
+      "children": [
+        {
+          "label": "Edital de Arte e Patrimônio",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO PROVISÓRIO DA ANALISE TECNICA",
+              "href": "https://drive.google.com/file/d/19SbElvtchFawWXqCK5OGIZI8tTIxdHrW/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital",
+              "href": "https://drive.google.com/file/d/1VnHwhP3R0ImbFVAXrbSL2bUOLW8oXzo6/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital  – Retificado",
+              "href": "https://drive.google.com/file/d/1Gy73wUsgEqn6LNC-6rTImv-8_5ggxSI1/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Anexo I – Ficha de Inscrição",
+              "href": "https://drive.google.com/file/d/1ixBJ2ss8RX33WVsE84Ie_WKPfkpJQpvv/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo II -Currículo Pessoa Fisica",
+              "href": "https://drive.google.com/file/d/1oEDwiWO_7b-yk_TjNQXPonuuDksYLJdL/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo III – Carta de Anuencia – Grupo Informal",
+              "href": "https://drive.google.com/file/d/1QOflMM-sNqEjPU8G3s5wVGSJw58WHafY/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo IV – Currículo Pessoa Jurídica",
+              "href": "https://drive.google.com/file/d/1PoAXaflMh57_UArftUTDAb3tQWIdgCYv/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "Anexo V  – Relatório Prestação de Contas",
+              "href": "https://drive.google.com/file/d/12nKDNIPoEjGKkYCaI-VfU-qbeWLxza4q/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXOS em WORD",
+              "href": "https://drive.google.com/drive/folders/1Bu7D3DJ3vd6t-4N84LsOMzK_uLiEXURg?usp=share_link",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2023",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL - PRÊMIO DE FORTALECIMENTO DA CULTURA DOS POVOS ORIGINARIOS",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO PROVISÓRIO DA AVALIAÇÃO TÉCNICA",
+              "href": "https://drive.google.com/file/d/1E7ADimLiwdWqoX6Gt4ZB_FGgo8dFzt_q/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital",
+              "href": "https://drive.google.com/file/d/1NXlO7SiiuewNGowikc5WuCb1BvzoOjNY/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital  – Retificado",
+              "href": "https://drive.google.com/file/d/1JSExlUarWp6qPGnAJKcH0khyZLHGT1XZ/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "ANEXO I – FICHA DE INSCRICÃO",
+              "href": "https://drive.google.com/file/d/1A4Y8vNe92wHaSgS4TaZHJGpohiwFekuU/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXOS EM WORD",
+              "href": "https://drive.google.com/drive/folders/1ac7f_-gTR_-4oUX4i82VKoO3kfgu_WWh?usp=share_link",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2023",
+      "href": null,
+      "children": [
+        {
+          "label": "Edital DE FOMENTO A ENTIDADES ARTISTICO-CULTURAL",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO PROVISÓRIO DA AVALIAÇÃO TÉCNICA",
+              "href": "https://drive.google.com/file/d/1sFGrAse2pY4IustyAioQuEkWdHCVgqgK/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital",
+              "href": "https://drive.google.com/file/d/1TH5ET4ajKvCl0QYwAnICWFp4RZCS7BAF/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "ANEXO I – FORMULÁRIO DE INSCRIÇÃO ENTIDADES",
+              "href": "https://drive.google.com/file/d/1JAQJpxBmFCm6qHFpWwqWbw0UpozBgkSk/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO II – Currículo Cultural ENTIDADES",
+              "href": "https://drive.google.com/file/d/1RpXcBYTpdII92aDpoBnx6bXOOnsUa9kB/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO III – Modelo Termo de Doação",
+              "href": "https://drive.google.com/file/d/1FHeWvymYpwaDoIl-zo64GNggPZ9QOzgG/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO IV – Relatorio Prestação de Contas",
+              "href": "https://drive.google.com/file/d/1jHDxeTW1TPzkBgRH4GYIb-3zJb3jOO8K/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXOS EM WORD",
+              "href": "https://drive.google.com/drive/folders/1H6KUc2sIuMaecpagfnkP8KcYK7OUUadQ?usp=share_link",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE CULTURA - 2023",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL - PRÊMIO DE MESTRES DA CULTURA POPULAR DO ACRE",
+          "href": null,
+          "children": [
+            {
+              "label": "RESULTADO PROVISÓRIO DA AVALIAÇÃO TÉCNICA",
+              "href": "https://drive.google.com/file/d/10MFTCVJhr5P4uJnc57p_b5qg0bZAeB9e/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital",
+              "href": "https://drive.google.com/file/d/1l8XlxqC36oncbUVrwLBMeqX9Rn9x9k7Z/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "Edital – Retificado",
+              "href": "https://drive.google.com/file/d/16nO75Lb-HoC8zcDhgWMI-o6Jmzc3tXn5/view?usp=sharing",
+              "children": []
+            },
+            {
+              "label": "ANEXO I – FICHA DE INSCRICÃO",
+              "href": "https://drive.google.com/file/d/1viBE_3VXOLo_yYC854HWN3w5SrVnUlUD/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO II – Carta de Anuência",
+              "href": "https://drive.google.com/file/d/1Thme5D-pJS9Bxi3sZlf-C2YC58yd0V1J/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXO III – Modelo Procuração",
+              "href": "https://drive.google.com/file/d/1_9oHNmYYrc-JzacwevagMTCc_UXJ44FH/view?usp=share_link",
+              "children": []
+            },
+            {
+              "label": "ANEXOS EM WORD",
+              "href": "https://drive.google.com/drive/folders/1Cq5-eM7X4q_MsThuVLuYNWyCeiZBXT0y?usp=share_link",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Edital do Concurso de Redação e Poesia 2022",
+      "href": null,
+      "children": [
+        {
+          "label": "Edital do Concurso de Redação e Poesia",
+          "href": null,
+          "children": [
+            {
+              "label": "Edital;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/11/Edital-do-Concurso-de-Redacao-e-Poesia.pdf",
+              "children": []
+            },
+            {
+              "label": "Formulário de Inscrição;",
+              "href": "https://forms.gle/QCv8UcgPoTai9j6j7",
+              "children": []
+            },
+            {
+              "label": "Ficha de Incrição;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/11/Ficha-de-Incricao.pdf",
+              "children": []
+            },
+            {
+              "label": "Folha de Redação",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/11/Folhae-Redacao.pdf",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "Edital Chamamento Barracas",
+      "href": null,
+      "children": [
+        {
+          "label": "Edital Chamamento Barracas",
+          "href": null,
+          "children": [
+            {
+              "label": "Edital",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/Edital-Chamamento-Barracas.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO I FICHA DE INSCRICÃO PESSOA FíSICA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-I-FICHA-DE-INSCRICAO-PESSOA-FISICA.docx",
+              "children": []
+            },
+            {
+              "label": "Contrato de Autorização Barracas;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/Contrato-de-Autorizacao-Barracas.pdf",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "EDITAL DE FOMENTO E INCENTIVO À CULTURA 02/2022",
+      "href": null,
+      "children": [
+        {
+          "label": "Edital FunCultura",
+          "href": null,
+          "children": [
+            {
+              "label": "Edital FunCultura RETIFICAÇÃO;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/Edital-FunCultura-2022-Retificado.pdf",
+              "children": []
+            },
+            {
+              "label": "Edital FunCultura;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/Edital-FunCultura-2022.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO I – INSCRIÇÃO PRODUÇÃO CULTURAL;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-I-INSCRICAO-PRODUCAO-CULTURAL.doc",
+              "children": []
+            },
+            {
+              "label": "ANEXO II – Curriculo Pessoa Juridica;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-II-Curriculo-Pessoa-Juridica.doc",
+              "children": []
+            },
+            {
+              "label": "ANEXO III – Currículo Pessoa Física;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-III-Curriculo-Pessoa-Fisica.doc",
+              "children": []
+            },
+            {
+              "label": "ANEXO IV – MODELO DE TERMO DE DOAÇÃO DE BENS DURÁVEIS E EQUIPAMENTOS;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-IV-MODELO-DE-TERMO-DE-DOACAO-DE-BENS-DURAVEIS-E-EQUIPAMENTOS.doc",
+              "children": []
+            },
+            {
+              "label": "ANEXO V – Modelo do Relatório de Prestação de Contas;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-V-Modelo-do-Relatorio-de-Prestacao-de-Contas.doc",
+              "children": []
+            },
+            {
+              "label": "Retificação n° 01-02;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/Retificacao-n°-01-02.pdf",
+              "children": []
+            },
+            {
+              "label": "Retificação n°03.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/Retificacao-n°03.pdf",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "EDITAL DE CREDENCIAMENTO OFICINEIRO 2022 UAJD",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL DE CHAMAMENTO PÚBLICO",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL DE CREDENCIAMENTO  OFICINEIRO UAJD",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/EDITAL-DE-CREDENCIAMENTO-OFICINEIRO-2022-UAJD.docx",
+              "children": []
+            },
+            {
+              "label": "LEI 1.288-1999.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/04/LEI-1.288-1999-lei-de-incentivo-a-Cultura.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO I FICHA DE REQUERIMENTO.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-I-FICHA-DE-REQUERIMENTO-PARA-CREDENCIAMENTO-edital-2022.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO II MINUTA CONTRATO.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-II-MINUTA-CONTRATO-EDITAL-DE-CREDENCIAMENTO-No-001-2022-UAJD.doc",
+              "children": []
+            },
+            {
+              "label": "ANEXO III PROPOSTA PEDAGÓGICA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-III-PROPOSTA-PEDAGOGICA-DA-OFICINA.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO IV RELATÓRIO FINAL.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-IV-RELATORIO-FINAL-DE-EXECUCAO-DE-OFICINA.docx",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "EDITAL DE CHAMAMENTO PÚBLICO N° 001/2021",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL DE CHAMAMENTO PÚBLICO",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL DE CREDENCIAMENTO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/08/Editalcredenciamento.pdf",
+              "children": []
+            },
+            {
+              "label": "FICHA DE INSCRIÇÃO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/08/FICHA-DE-INSCRICAO.docx",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/Alteracao-Cronograma-Credenciamento.pdf",
+              "children": []
+            },
+            {
+              "label": "MINUTA DE CONTRATO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/08/MINUTA-DE-CONTRATO-EDITAL-DE-CHAMAMENTO-PUBLICO-No-001-2021-UAJD.docx",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FUNDO ESTADUAL DE INCENTIVO À CULTURA",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL DE INCENTIVO À PUBLICAÇÃO DE LIVROS",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/EDITAL-DE-INCENTIVO-A-PUBLICACAO-DE-LIVROS-1.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO I – FICHA DE INSCRIÇÃO E DESCRIÇÃO DO PROJETO;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/ANEXO-I-FICHA-DE-INSCRICAO-E-DESCRICAO-DO-PROJETO-1.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO II – DECLARAÇÃO DE INEXISTÊNCIA DE DIREITOS AUTORAIS DE TERCEIROS;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/ANEXO-II-DECLARACAO-DE-INEXISTENCIA-DE-DIREITOS-AUTORAIS-DE-TERCEIROS-1.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO III – RELATÓRIO DE PRESTAÇÃO DE CONTAS;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/ANEXO-III-RELATORIO-DE-PRESTACAO-DE-CONTAS.docx",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PROVISÓRIO AVALIAÇÃO;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/DOE-AC-23-11-2021.pdf",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "EDITAL DE CREDENCIAMENTO OFICINEIRO 2022 UAJD",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL DE CHAMAMENTO PÚBLICO",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL DE CREDENCIAMENTO  OFICINEIRO UAJD",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/EDITAL-DE-CREDENCIAMENTO-OFICINEIRO-2022-UAJD.docx",
+              "children": []
+            },
+            {
+              "label": "LEI 1.288-1999.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/04/LEI-1.288-1999-lei-de-incentivo-a-Cultura.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO I FICHA DE REQUERIMENTO.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-I-FICHA-DE-REQUERIMENTO-PARA-CREDENCIAMENTO-edital-2022.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO II MINUTA CONTRATO.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-II-MINUTA-CONTRATO-EDITAL-DE-CREDENCIAMENTO-No-001-2022-UAJD.doc",
+              "children": []
+            },
+            {
+              "label": "ANEXO III PROPOSTA PEDAGÓGICA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-III-PROPOSTA-PEDAGOGICA-DA-OFICINA.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO IV RELATÓRIO FINAL.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2022/06/ANEXO-IV-RELATORIO-FINAL-DE-EXECUCAO-DE-OFICINA.docx",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "EDITAIS LEI ALDIR-BLANC FASE 2 - 2021",
+      "href": null,
+      "children": [
+        {
+          "label": "EDITAL DE APOIO À MÚSICA",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/EDITAL-DE-APOIO-A-MUSICA.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO-I INSCRICAO E DESCRICAO DA PROPOSTA;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/1-ANEXO-I-INSCRICAO-E-DESCRICAO-DA-PROPOSTA.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-II CURRICULO CULTURAL;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/2-ANEXO-II-CURRICULO-CULTURAL-ok.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-III-CARTA DE AUTORIZACAO DE GRUPO INFORMAL;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/3-ANEXO-III-CARTA-DE-AUTORIZACAO-DE-GRUPO-INFORMAL.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-IV RELATORIO DE PRESTACAO DE CONTAS;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2020/11/ANEXO-IV-RELATORIO-DE-PRESTACAO-DE-CONTAS-ok-2.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO – TERMO DE COMPROMISSO;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/ANEXO.docx",
+              "children": []
+            },
+            {
+              "label": "LISTA PRELIMINAR DE INSCRIÇÕES; DEFERIDAS E INDEFERIDAS;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/LISTA-PRELIMINAR-DE-INSCRICOES.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Inscrições Deferidas Pos Recursos;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Resultado-Inscricoes-Deferidas-Pos-Recursos.pdf",
+              "children": []
+            },
+            {
+              "label": "Retificação Cronograma;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Retificacao-Cronograma.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado provisório Música;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/RESULTADO-PROVISORIO-EDITAL-DE-MUSICA.pdf",
+              "children": []
+            },
+            {
+              "label": "Retificação Cronograma e Habilitação;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/5-Retificacao-Cronograma-e-Habilitacao.pdf",
+              "children": []
+            },
+            {
+              "label": "Retificação Edital de Apoio a Musica Habilitação;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Retificacao-Edital-de-Apoio-a-Musica-Habilitacao.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Final Edital de Apoio a Musica;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Final-Edital-de-Apoio-a-Musica.pdf",
+              "children": []
+            },
+            {
+              "label": "Resultado Propostas Habilitadas.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Propostas-Habilitadas.pdf",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL - POVOS ORIGINÁRIOS",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/EDITAL-POVOS-ORIGINARIOS-2021.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO I;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-I-–-EDITAL-PREMIO-No-001-2021-2.docx",
+              "children": []
+            },
+            {
+              "label": "AVISO DE PRORROGAÇÃO DOS PRAZOS;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Aviso-de-Prorrogacao-dos-Prazos.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PROVISÓRIO AVALIAÇÃO;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/DOE-AC-23-11-2021.pdf",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO CRONOGRAMA E HABILITAÇÃO;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/5-Retificacao-Cronograma-e-Habilitacao.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL PREMIO POVOS ORIGINARIOS;",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Final-Premio-Povos-Originarios.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PROPOSTAS HABILITADAS.",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Propostas-Habilitadas.pdf",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL DE AUDIOVISUAL",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL DE AUDIOVISUAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/EDITAL-DE-AUDIOVISUAL-RETIFICADO.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO-I-FORMULARIO-DE-INSCRICAO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-I-FORMULARIO-DE-INSCRICAO.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-II-DESCRICAO-TECNICA-DA-PROPOSTA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-II-DESCRICAO-TECNICA-DA-PROPOSTA.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-III-CURRICULO-CULTURAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-III-CURRICULO-CULTURAL.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-IV-RELATORIO-DE-PRESTACAO-DE-CONTAS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-IV-RELATORIO-DE-PRESTACAO-DE-CONTAS-ok-2.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-V-CARTA-DE-AUTORIZACAO-DE-GRUPO-INFORMAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-V-CARTA-DE-AUTORIZACAO-DE-GRUPO-INFORMAL.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO-V-CARTA-DE-AUTORIZACAO-DE-GRUPO-INFORMAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-V-CARTA-DE-AUTORIZACAO-DE-GRUPO-INFORMAL.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO – TERMO DE COMPROMISSO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/ANEXO.docx",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO Nº 1",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/RETIFICACAO-No-1.pdf",
+              "children": []
+            },
+            {
+              "label": "LISTA PRELIMINAR DE INSCRIÇÕES DEFERIDAS E INDEFERIDAS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/LISTA-PRELIMINAR-DE-INSCRICOES.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO INSCRIÇÕES DEFERIDAS POS RECURSOS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Resultado-Inscricoes-Deferidas-Pos-Recursos.pdf",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO CRONOGRAMA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Retificacao-Cronograma.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PROVISÓRIO AVALIAÇÃO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/DOE-AC-23-11-2021.pdf",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO CRONOGRAMA E HABILITAÇÃO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/5-Retificacao-Cronograma-e-Habilitacao.pdf",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO AUDIOVISUAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Retificacao-Audiovisual.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL EDITAL AUDIO VISUAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Final-Edital-Audio-Visual.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PROPOSTAS HABILITADAS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Propostas-Habilitadas.pdf",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "Emissão de certidões",
+          "href": null,
+          "children": [
+            {
+              "label": "Clique aqui!",
+              "href": "http://www.femcultura.ac.gov.br/emissao-de-certidao/",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "EDITAL DE ARTE E PATRIMÔNIO",
+          "href": null,
+          "children": [
+            {
+              "label": "EDITAL DE ARTE E PATRIMÔNIO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/EDITAL-DE-ARTE-E-PATRIMONIO-FASE-2.pdf",
+              "children": []
+            },
+            {
+              "label": "ANEXO I INSCRICAO E DESCRICAO DA PROPOSTA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-I-INSCRICAO-E-DESCRICAO-DA-PROPOSTA.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO II CURRICULO CULTURAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-II-CURRICULO-CULTURAL.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO III RELATORIO DE PRESTACAO DE CONTAS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-III-RELATORIO-DE-PRESTACAO-DE-CONTAS.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO IV CARTA DE AUTORIZACAO DE GRUPO INFORMAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-IV-CARTA-DE-AUTORIZACAO-DE-GRUPO-INFORMAL.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO IV CARTA DE AUTORIZACAO DE GRUPO INFORMAL",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/09/ANEXO-IV-CARTA-DE-AUTORIZACAO-DE-GRUPO-INFORMAL.docx",
+              "children": []
+            },
+            {
+              "label": "ANEXO – TERMO DE COMPROMISSO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/ANEXO.docx",
+              "children": []
+            },
+            {
+              "label": "LISTA PRELIMINAR DE INSCRIÇÕES DEFERIDAS E INDEFERIDAS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/10/LISTA-PRELIMINAR-DE-INSCRICOES.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO INSCRIÇÕES DEFERIDAS POS RECURSOS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Resultado-Inscricoes-Deferidas-Pos-Recursos.pdf",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO CRONOGRAMA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Retificacao-Cronograma.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PROVISÓRIO AVALIAÇÃO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/DOE-AC-23-11-2021.pdf",
+              "children": []
+            },
+            {
+              "label": "ERRATA",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/Errata-Arte-e-Patrimonio.pdf",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO CRONOGRAMA E HABILITAÇÃO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/11/5-Retificacao-Cronograma-e-Habilitacao.pdf",
+              "children": []
+            },
+            {
+              "label": "RETIFICAÇÃO N°02 ARTE E PATRIMONIO HABILITAÇÃO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Retificacao-N°02-Arte-e-Patrimonio-Habilitacao.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO FINAL ARTE E PATRIMONIO",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Final-Arte-e-Patrimonio.pdf",
+              "children": []
+            },
+            {
+              "label": "RESULTADO PROPOSTAS HABILITADAS",
+              "href": "http://www.femcultura.ac.gov.br/wp-content/uploads/2021/12/Resultado-Propostas-Habilitadas.pdf",
+              "children": []
+            }
+          ]
+        },
+        {
+          "label": "LOGOS PARA OS PROJETOS",
+          "href": null,
+          "children": [
+            {
+              "label": "CLIQUE AQUI PARA BAIXAR!",
+              "href": "https://www.femcultura.ac.gov.br/logos-para-os-projetos/",
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "FORMULÁRIO DE SOLICITAÇÃO DE AUXÍLIO EMERGENCIAL",
+      "href": null,
+      "children": []
+    },
+    {
+      "label": "Escuta cultural",
+      "href": null,
+      "children": []
+    },
+    {
+      "label": "GOVERNO DO ESTADO ACRE",
+      "href": null,
+      "children": []
+    }
+  ]
+}
